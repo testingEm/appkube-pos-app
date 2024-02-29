@@ -65,6 +65,8 @@ const ProductsScreen = () => (
     <Stack.Screen name="ProductPage" component={ProductPage} />
     <Stack.Screen name="Catalog" component={Catalog} />
     <Stack.Screen name="getAllProducts" component={getAllProducts} />
+    <Stack.Screen name="Checkout" component={Checkout} />
+
   </Stack.Navigator>
 );
 

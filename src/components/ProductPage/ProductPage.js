@@ -9,23 +9,150 @@ import {
   Pressable,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+import { Amplify } from "aws-amplify";
+import { generateClient } from "aws-amplify/api";
+import amplifyConfiguration from "../../amplifyconfiguration.json";
+import {useNavigation} from "@react-navigation/native"
 
-const ProductPage = () => {
+Amplify.configure(amplifyConfiguration);
+
+const client = generateClient();
+
+const ProductPage = (props) => {
+  const navigation = useNavigation()
+  const [product, setProduct] = useState([]);
   const [cart, setCart] = useState([]);
   const [piece, setPiece] = useState(1);
   const [quantity, setQuantity] = useState("1");
   const [selectedType, setSelectedType] = useState("pieces");
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        // Ensure proper configuration and initialization of Amplify
+        await Amplify.configure({
+          API: {
+            GraphQL: {
+              endpoint:
+                "https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql",
+              region: "us-east-1",
+              defaultAuthMode: "apiKey",
+              apiKey: "da2-mjccl5jhqvbdvg67pe4sklvwty",
+            },
+          },
+        });
+
+        const result = await client.graphql({
+          query: `
+  query GetProduct {
+  
+    getProduct(id: "712603962628") {
+      id
+      image
+      name
+      description
+      price
+      unit
+      category
+      createdAt
+      updatedAt
+     
+    }
+  }
+`,
+        });
+
+        console.log(result.data.getProduct);
+        setProduct(result.data.getProduct);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        // Handle error here
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  // console.log(products);
+
+  //   useEffect(() => {
+  //     const fetchCategories = async () => {
+  //       try {
+  //         // Ensure proper configuration and initialization of Amplify
+  //         await Amplify.configure({
+  //           API: {
+  //             GraphQL: {
+  //               endpoint:
+  //                 "https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql",
+  //               region: "us-east-1",
+  //               defaultAuthMode: "apiKey",
+  //               apiKey: "da2-mjccl5jhqvbdvg67pe4sklvwty",
+  //             },
+  //           },
+  //         });
+
+  //         const result = await client.graphql({
+  //           query: `
+  //   query GetProduct {
+  //     getProduct(id:"1266597030755" ) {
+  //       id
+  //       image
+  //       name
+  //       description
+  //       price
+  //       unit
+  //       category
+  //       createdAt
+  //       updatedAt
+
+  //     }
+  //   }
+  // `,
+  //         });
+
+  //         console.log(result.data.getProduct);
+  //         setProducts(result.data.getProduct);
+  //         console.log(products);
+  //         // console.log(result.data.listProducts.items);
+  //         // const categories = result.data.listProducts.items.map(
+  //         //   (item) => item.category
+  //         // );
+  //         // console.log(categories);
+  //         // const uniqueCategories = Array.from(new Set(categories));
+  //         // console.log(uniqueCategories);
+
+  //         // const products =
+  //         //   result.data && result.data.listProducts
+  //         //     ? result.data.listProducts.items
+  //         //     : [];
+  //         // dispatch(setAllProducts(products));
+
+  //         // const uniqueCategories = [
+  //         //   ...new Set(products.map((product) => product.category)),
+  //         // ];
+  //         // setCategories(uniqueCategories);
+  //       } catch (error) {
+  //         console.error("Error fetching categories:", error);
+  //         setError("Error fetching categories");
+  //       } finally {
+  //         // setLoading(false);
+  //         console.log("finally");
+  //       }
+  //     };
+
+  //     fetchCategories();
+  //   }, []);
 
   const typePrice = {
-    kgs: { price: 50 },
-    gms: { price: 0.3 },
-    pieces: { price: 16 },
+    // kgs: { price: 50 },
+    // gms: { price: 0.3 },
+    pieces: { price: product.price },
   };
 
   const quantityTypes = [
-    { label: "Pieces", value: "pieces" },
-    { label: "Grams", value: "gms" },
-    { label: "Kgs", value: "kgs" },
+    // { label: "Pieces", value: "pieces" },
+    // { label: "Grams", value: "gms" },
+    // { label: "Kgs", value: "kgs" },
+    { label: product.unit, value: product.unit },
     // ... Add more types as needed
   ];
 
@@ -51,14 +178,14 @@ const ProductPage = () => {
       >
         <Image
           source={{
-            uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
+            uri: product.image,
           }}
           style={{ width: 70, height: 70, borderRadius: 10 }}
         />
         {/* <View style={{ marginLeft: 20 }}> */}
         <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-          Apple 1pcs <br />
-          Price : ₹ 16.00
+          {product.name} 1 {product.unit} <br />
+          Price : ₹ {product.price}
         </Text>
         {/* </View> */}
       </View>
@@ -247,7 +374,7 @@ const ProductPage = () => {
             alignItems: "center",
           }}
         >
-          <Text style={{ color: "#31572c", fontWeight: 700 }}>Go to cart</Text>
+          <Text style={{ color: "#31572c", fontWeight: 700 }} onPress={()=>{navigation.navigate("Checkout")}} >Go to cart</Text>
           <Text style={{ color: "grey" }}>{piece} items</Text>
         </Pressable>
       </View>
