@@ -1,0 +1,11 @@
+:root{
+    --primary-col : #d8f3dc;
+    --seco-col: #31572c;
+    --tertiary-col : #f9a620;
+    --white: #ffffffe6;
+    --black : #000;
+} 
+    
+body{
+    font-family: cursive;
+}
