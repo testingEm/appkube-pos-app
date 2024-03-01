@@ -11,13 +11,17 @@ const CustomerSlice = createSlice(
         reducers:{
             createOrder: (state, action) => {
                 state.orders.push(action.payload);
+                
+
             },
             
             addToCart: (state, action) => {
                state.cart.push(action.payload)
+               localStorage.setItem('orders', JSON.stringify(state.cart));    
             },
             removeFromCart: (state, action) => {
                 state.cart.splice(action.payload,1)
+                localStorage.setItem('orders', JSON.stringify(state.cart));
             },
         }
     }
