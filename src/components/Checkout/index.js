@@ -3,6 +3,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { View, Text, Pressable, Image} from "react-native";
 import { useSelector, useDispatch } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
+
 // import { startNewOrder } from '../../redux/actions';
 // import { DataStore } from "@aws-amplify/datastore";
 // import styles from './styles';
@@ -11,7 +13,12 @@ import { useSelector, useDispatch } from 'react-native';
 // import { FontAwesome } from '@expo/vector-icons';
 // import { View, Text, Pressable } from 'react-native';
 const Checkout = () => {
-    
+
+  const navigation = useNavigation()
+
+  const handleGoToCheckout = () =>{
+    navigation.goBack()
+  }
     
   return (
     <div
@@ -25,7 +32,7 @@ const Checkout = () => {
         position: "relative",
       }}
     >
-      <AntDesign name="close" size={30} color="blue" />
+      <AntDesign name="close" size={30} color="blue" onPress={handleGoToCheckout}/>
       <View
         style={{
           borderBottomColor: "lightgray",

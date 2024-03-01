@@ -9,68 +9,65 @@ import {
   Pressable,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { Amplify } from "aws-amplify";
-import { generateClient } from "aws-amplify/api";
-import amplifyConfiguration from "../../amplifyconfiguration.json";
-import {useNavigation} from "@react-navigation/native"
-
-Amplify.configure(amplifyConfiguration);
-
-const client = generateClient();
-
-const ProductPage = (props) => {
-  const navigation = useNavigation()
-  const [product, setProduct] = useState([]);
+import { useRoute } from "@react-navigation/native";
+const ProductPage = () => {
   const [cart, setCart] = useState([]);
   const [piece, setPiece] = useState(1);
   const [quantity, setQuantity] = useState("1");
   const [selectedType, setSelectedType] = useState("pieces");
+  const [product, setProduct] = useState([]);
+  const route = useRoute();
+  console.log(route.params.value);
+
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        // Ensure proper configuration and initialization of Amplify
-        await Amplify.configure({
-          API: {
-            GraphQL: {
-              endpoint:
-                "https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql",
-              region: "us-east-1",
-              defaultAuthMode: "apiKey",
-              apiKey: "da2-mjccl5jhqvbdvg67pe4sklvwty",
-            },
-          },
-        });
-
-        const result = await client.graphql({
-          query: `
-  query GetProduct {
-  
-    getProduct(id: "712603962628") {
-      id
-      image
-      name
-      description
-      price
-      unit
-      category
-      createdAt
-      updatedAt
-     
-    }
-  }
-`,
-        });
-
-        console.log(result.data.getProduct);
-        setProduct(result.data.getProduct);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-        // Handle error here
-      }
-    };
-
-    fetchProduct();
+    setProduct(route.params.value);
   }, []);
+  //   useEffect(() => {
+  //     const fetchProduct = async () => {
+  //       try {
+  //         // Ensure proper configuration and initialization of Amplify
+  //         await Amplify.configure({
+  //           API: {
+  //             GraphQL: {
+  //               endpoint:
+  //                 "https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql",
+  //               region: "us-east-1",
+  //               defaultAuthMode: "apiKey",
+  //               apiKey: "da2-mjccl5jhqvbdvg67pe4sklvwty",
+  //             },
+  //           },
+  //         });
+
+  //         const result = await client.graphql({
+  //           query: `
+  //   query GetProduct {
+
+  //     getProduct(id: "${}") {
+  //       id
+  //       image
+  //       name
+  //       description
+  //       price
+  //       unit
+  //       category
+  //       createdAt
+  //       updatedAt
+
+  //     }
+  //   }
+  // `,
+  //         });
+
+  //         console.log(result.data.getProduct);
+  //         setProduct(result.data.getProduct);
+  //       } catch (error) {
+  //         console.error("Error fetching product:", error);
+  //         // Handle error here
+  //       }
+  //     };
+
+  //     fetchProduct();
+  //   }, []);
 
   // console.log(products);
 
@@ -144,17 +141,19 @@ const ProductPage = (props) => {
 
   const typePrice = {
     // kgs: { price: 50 },
+    kgs: { price: product.price },
+    gms: { price: product.price / 1000 },
     // gms: { price: 0.3 },
     pieces: { price: product.price },
   };
 
-  const quantityTypes = [
-    // { label: "Pieces", value: "pieces" },
-    // { label: "Grams", value: "gms" },
-    // { label: "Kgs", value: "kgs" },
-    { label: product.unit, value: product.unit },
-    // ... Add more types as needed
-  ];
+  const quantityTypes =
+    product.unit === "KG"
+      ? [
+          { label: "KG", value: "kgs" },
+          { label: "Grams", value: "gms" },
+        ]
+      : [{ label: product.unit, value: product.unit }];
 
   const handleChangeQuantity = (text) => setQuantity(text);
   const handleSelectType = (type) => setSelectedType(type);
@@ -350,7 +349,7 @@ const ProductPage = (props) => {
             setPiece(piece + 1);
             console.log(cart);
             cart.push({
-              name: "Apple",
+              name: product.name,
               quantityType: selectedType,
               quantity: quantity,
               price:
@@ -373,8 +372,16 @@ const ProductPage = (props) => {
             flexDirection: "column",
             alignItems: "center",
           }}
+          // onPress={handleGoToCheckout}
         >
-          <Text style={{ color: "#31572c", fontWeight: 700 }} onPress={()=>{navigation.navigate("Checkout")}} >Go to cart</Text>
+          <Text
+            style={{ color: "#31572c", fontWeight: 700 }}
+            onPress={() => {
+              navigation.navigate("Checkout");
+            }}
+          >
+            Go to cart
+          </Text>
           <Text style={{ color: "grey" }}>{piece} items</Text>
         </Pressable>
       </View>

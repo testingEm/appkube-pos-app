@@ -1,8 +1,7 @@
 import React from "react";
 
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import Catalog from "./Catalog";
+import { useNavigation , useRoute} from "@react-navigation/native";
 // import { fetchProducts } from "../fetchProducts";
 
 import {  useState,useEffect, } from "react";
@@ -15,56 +14,60 @@ import { Amplify } from "aws-amplify";
 const GetAllProducts = () => {
 
   const client = generateClient();
+  const route = useRoute()
+  console.log(route.params.category);
+  console.log(route.params.catProducts);
+  const Pdata = route.params.catProducts
   // const data =  fetchProducts().then((e)=>{console.log(e)})
 
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        // Ensure proper configuration and initialization of Amplify
-        await Amplify.configure({
-          API: {
-            GraphQL: {
-              endpoint: 'https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql',
-              region: 'us-east-1',
-              defaultAuthMode: 'apiKey',
-              apiKey: 'da2-mjccl5jhqvbdvg67pe4sklvwty'
-            }
-          }
-        });
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       // Ensure proper configuration and initialization of Amplify
+  //       await Amplify.configure({
+  //         API: {
+  //           GraphQL: {
+  //             endpoint: 'https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql',
+  //             region: 'us-east-1',
+  //             defaultAuthMode: 'apiKey',
+  //             apiKey: 'da2-mjccl5jhqvbdvg67pe4sklvwty'
+  //           }
+  //         }
+  //       });
 
-        const result = await client.graphql({
-          query: `
-            query ListProducts {
-              listProducts {
-                items {
-                  id
-                  image
-                  name
-                  price
-                  unit
-                  category
-                }
-              }
-            }
-          `,
-        });
+  //       const result = await client.graphql({
+  //         query: `
+  //           query ListProducts {
+  //             listProducts {
+  //               items {
+  //                 id
+  //                 image
+  //                 name
+  //                 price
+  //                 unit
+  //                 category
+  //               }
+  //             }
+  //           }
+  //         `,
+  //       });
 
-        console.log(result)
-        setData(result.data.listProducts.items)
+  //       console.log(result)
+  //       setData(result.data.listProducts.items)
 
-      }
-      catch(error){
-          console.log(error)
-      }
-    }
-  fetchCategories()
+  //     }
+  //     catch(error){
+  //         console.log(error)
+  //     }
+  //   }
+  // fetchCategories()
 
-  },[Data])
-  const [Data, setData] = useState([])
+  // },[Data])
+  // const [Data, setData] = useState([])
 
 
-  console.log(Data)
+  // console.log(Data)
 
   const [quantity, setQuantity] = useState(0);
   const PriceperItem = 5;
@@ -86,11 +89,12 @@ const GetAllProducts = () => {
     return (quantity * PriceperItem).toFixed(2);
   };
 
-  const handleProduct = (id) => {
+  const handleProduct = (prod) => {
     console.log("navigate to product");
-    navigation.navigate("ProductPage",{id});
+    navigation.navigate("ProductPage",{value:prod});
     console.log("navigate to product 2");
   };
+
   
 
 
@@ -100,11 +104,11 @@ const GetAllProducts = () => {
     // <div>
       // <div className="flex flex-col">
       <ScrollView>
-     { Data.map((veg)=>{
+     { Pdata.map((veg)=>{
 
         return(
           
-        <TouchableOpacity onPress={()=>{handleProduct(veg.id)}}>
+        <TouchableOpacity onPress={()=>{handleProduct(veg)}}>
           <View
             style={{
               flexDirection: "row",

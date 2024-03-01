@@ -1,7 +1,8 @@
 import React from 'react'
 import { Text, View, Button,TouchableOpacity } from 'react-native';
 import styles from './styles';
-import {Ionicons,AntDesign } from "@expo/vector-icons";
+import {Ionicons,AntDesign,FontAwesome5 } from "@expo/vector-icons";
+// import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 const setting = () => {
@@ -10,6 +11,10 @@ const setting = () => {
 
   const navigateToCustomer = () => {
     navigation.navigate('Customers');
+  };
+
+  const navigateToPrint = () => {
+    navigation.navigate('PrintToA4');
   };
 
     const Customer = () => (
@@ -21,6 +26,22 @@ const setting = () => {
             </View>
             <AntDesign name="rightcircleo" size={24} color="black" />
 
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.flexRow, styles.box,styles.bgLight,styles.gap]} onPress={navigateToPrint} >
+            <View style={[styles.flexRow]}  >
+            <FontAwesome5 name="print" size={22} color="black" />
+                <Text>Print</Text>
+            </View>
+            <AntDesign name="rightcircleo" size={24} color="black" />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.flexRow, styles.box,styles.bgLight,styles.gap]} onPress={() => navigation.navigate('ImportProducts')} >
+            <View style={[styles.flexRow]}  >
+            <FontAwesome5 name="print" size={22} color="black" />
+                <Text>Import Products</Text>
+            </View>
+            <AntDesign name="rightcircleo" size={24} color="black" />
           </TouchableOpacity>
         </View>
       );

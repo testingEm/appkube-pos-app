@@ -16,6 +16,8 @@ import Products from "./src/components/Products";
 import Adduser from "./src/components/Adduser";
 import ProductPage from "./src/components/ProductPage/ProductPage";
 import getAllProducts from "./src/components/getAllProducts";
+import PrintToA4 from "./src/components/Print";
+import ImportProducts from "./src/components/ImportProducts";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -40,6 +42,8 @@ const SettingScreen = () => (
   }}>
     <Stack.Screen name="setting" component={Setting} />
     <Stack.Screen name="Customers" component={Customers} />
+    <Stack.Screen name="PrintToA4" component={PrintToA4} />
+    <Stack.Screen name="ImportProducts" component={ImportProducts} />
    </Stack.Navigator>
 );
 
@@ -64,9 +68,8 @@ const ProductsScreen = () => (
     <Stack.Screen name="Products" component={Products} />
     <Stack.Screen name="ProductPage" component={ProductPage} />
     <Stack.Screen name="Catalog" component={Catalog} />
+    <Stack.Screen name="Checkout" component={Checkout} options={{headerShown:false}}/>
     <Stack.Screen name="getAllProducts" component={getAllProducts} />
-    <Stack.Screen name="Checkout" component={Checkout} />
-
   </Stack.Navigator>
 );
 
