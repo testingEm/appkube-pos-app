@@ -9,7 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
   const [piece, setPiece] = useState(1);
@@ -17,6 +17,7 @@ const ProductPage = () => {
   const [selectedType, setSelectedType] = useState("pieces");
   const [product, setProduct] = useState([]);
   const route = useRoute();
+  const navigation = useNavigation();
   console.log(route.params.value);
 
   useEffect(() => {
