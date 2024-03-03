@@ -10,6 +10,8 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
+
+
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
   const [piece, setPiece] = useState(1);
