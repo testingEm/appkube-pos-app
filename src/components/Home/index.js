@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 // import { creatingOrder } from "../../api/createOrder";
 import { createOrder } from "../../redux/slice/customerSlice";
-import {useDispatch} from 'react-redux'
+// import {useDispatch} from 'react-redux'
 import { fetchCategories } from "../../api/fetchProducts";
 import { useState,useEffect } from "react";
 import { useDispatch} from "react-redux"
@@ -48,7 +48,7 @@ const Home = () => {
 
   const handleAdd = ()=>{
     console.log('dispatching')
-    dispatch(createOrder({price:25}))
+    dispatch(createOrder({price:70}))
   }
   const navigation = useNavigation();
 

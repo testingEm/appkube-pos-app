@@ -15,22 +15,26 @@ const client = generateClient();
             }
           }
         });
-        const mutation = `
-        mutation MyMutation($totalPrice: ) {
-        createOrder(input: {totalPrice: $totalPrice}) {
-          id
-          totalPrice
-        }
-      }
-    `;
-      console.log('order creating',order)
-    var result = await client.graphql(mutation,{ totalPrice : order.price });
-    console.log('success',result)
+        const result = await client.graphql({
+          query: `
+              mutation CreateOrder($totalPrice: Float!) {
+                createOrder(input: { totalPrice: $totalPrice }) {
+                  id
+                  totalPrice
+                }
+              }
+            `,
+          variables: {
+            totalPrice: order.price, // Replace this with the actual total price value
+          },
+        });
+    
+        console.log('success',result)
+        return result.data.createOrder;
       }
       catch (error) {
         console.error('Error :', error);
         
       } 
-      return result
     
     }
