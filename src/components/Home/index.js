@@ -47,10 +47,10 @@ const Home = () => {
 
 
 
-  const handleAdd = ()=>{
-    console.log('dispatching')
-    dispatch(createOrder({price:70}))
-  }
+  // const handleAdd = ()=>{
+  //   console.log('dispatching')
+  //   dispatch(createOrder({price:70}))
+  // }
   const navigation = useNavigation();
 
   const handleGoToCheckout = () => {
@@ -105,7 +105,7 @@ const Home = () => {
 
       <TouchableOpacity
         style={[styles.box, styles.active, { alignSelf: "flex-start" }]}
-        onPress={handleAdd}
+        // onPress={handleAdd}
       >
 
       <AntDesign name="plus" size={20} color="#31572c" />
