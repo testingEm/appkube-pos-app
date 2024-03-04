@@ -8,8 +8,39 @@ import {
 } from "@expo/vector-icons";
 // import { useNavigation } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import { fetchCategories } from "../../api/fetchProducts";
+import { useState,useEffect } from "react";
+import { useDispatch} from "react-redux"
+import { AddAllProducts } from "../../redux/slice/getAllProductSlice";
 
 const Home = () => {
+
+  const dispatch = useDispatch()
+
+
+  const [allProducts, setAllProducts] = useState([]);
+  const getProduct = async () => {
+    try {
+      const AllProducts = await fetchCategories()
+      // console.log("this is the allProducts",AllProducts.data.listProducts.items);
+      setAllProducts(AllProducts.data.listProducts.items)
+      
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+ 
+  useEffect(() => {
+  
+    getProduct()
+
+  },[])
+
+  console.log("this is the allProducts for the redux",allProducts);
+  dispatch(AddAllProducts(allProducts))
+  
+
 
   const navigation = useNavigation();
 
