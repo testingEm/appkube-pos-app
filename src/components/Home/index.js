@@ -8,13 +8,16 @@ import {
 } from "@expo/vector-icons";
 // import { useNavigation } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+// import { creatingOrder } from "../../api/createOrder";
+import { createOrder } from "../../redux/slice/customerSlice";
+import {useDispatch} from 'react-redux'
 import { fetchCategories } from "../../api/fetchProducts";
 import { useState,useEffect } from "react";
 import { useDispatch} from "react-redux"
 import { AddAllProducts } from "../../redux/slice/getAllProductSlice";
 
 const Home = () => {
-
+    
   const dispatch = useDispatch()
 
 
@@ -42,6 +45,11 @@ const Home = () => {
   
 
 
+
+  const handleAdd = ()=>{
+    console.log('dispatching')
+    dispatch(createOrder({price:25}))
+  }
   const navigation = useNavigation();
 
   const handleGoToCheckout = () => {
@@ -90,13 +98,13 @@ const Home = () => {
       <View style={[styles.box, styles.bgLight, ,]}>
       <Fontisto name="shopping-basket" size={18} color="#31572c" />
         <Text style={[ styles.dark]}>
-          Ship tooo customer
+          Ship to customer
         </Text>
       </View>
 
       <TouchableOpacity
         style={[styles.box, styles.active, { alignSelf: "flex-start" }]}
-        // onPress={handleAddTile}
+        onPress={handleAdd}
       >
 
       <AntDesign name="plus" size={20} color="#31572c" />
