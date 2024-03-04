@@ -38,11 +38,15 @@ const GetAllProducts = () => {
   console.log({...mappredux})
  
   
-  const HandleIncrement = (veg) => {
+  const HandleIncrement = (veg)=>{
     // const items = [];
     // items.push(veg);
     const data =  dispatch(AddProduct(veg));
 console.log(data.payload)
+
+// const reduxdata = useSelector((state)=>state.Product.Data)
+
+console.log(reduxData)
     // const updatedReduxData = useSelector((state) => state.Product);
     // console.log("Updated Redux Data:", updatedReduxData.Data);
 
@@ -197,8 +201,31 @@ console.log(data.payload)
               </View>
               <View style={{ alignItems: "center", gap: 10 }}>
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <Text>Qty: {veg.unit}</Text>
+                  
+                   <View>
 
+
+                   <Text>Qty: {veg.unit}</Text>
+
+<Text >
+   Qty: {/* {reduxData.Data[0] && reduxData.Data[0].quantity} */}
+    {reduxData.Data[
+      reduxData.Data.findIndex((item) => item.id == veg.id)
+    ] &&
+      reduxData.Data[
+        reduxData.Data.findIndex((item) => item.id == veg.id)
+      ].quantity}
+</Text>
+<Text>
+    Price:
+    {reduxData.Data[
+      reduxData.Data.findIndex((item) => item.id == veg.id)
+    ] &&
+      reduxData.Data[
+        reduxData.Data.findIndex((item) => item.id == veg.id)
+      ].totalPrice}
+  </Text>
+                  </View>
                   <View style={{ flexDirection: "row", marginLeft: 10 }}>
                     <TouchableOpacity
                       style={{
@@ -220,6 +247,9 @@ console.log(data.payload)
                         +
                       </Text>
                     </TouchableOpacity>
+
+                   
+
                     <TouchableOpacity
                       style={{
                         padding: 10,
@@ -241,8 +271,14 @@ console.log(data.payload)
                         -
                       </Text>
                     </TouchableOpacity>
-                  </View>
+
+          
+                  
+                 
+                    </View>
+
                 </View>
+
 
                 <Text style={{ fontWeight: "700" }}>
                   {/* Total: ${calculateItemPrice(veg)} */}
