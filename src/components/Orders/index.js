@@ -121,7 +121,7 @@ const Orders = () => {
                   <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
                 </View>
               </View>
-            </View>)
+            </View>)  
           })
         )}
         {console.log('scrool ended')}
