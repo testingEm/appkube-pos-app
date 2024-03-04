@@ -11,6 +11,9 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
+import { useSelector, useDispatch } from "react-redux";
+import { AddProduct, removeItem } from "../../redux/slice/Product";
+
 
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
@@ -22,9 +25,25 @@ const ProductPage = () => {
   const navigation = useNavigation();
   console.log(route.params.value);
 
+
+
+
   useEffect(() => {
     setProduct(route.params.value);
   }, []);
+
+
+
+  const dispatch = useDispatch();
+  const reduxData = useSelector((state) => state.Product);
+
+
+
+
+
+
+
+
   //   useEffect(() => {
   //     const fetchProduct = async () => {
   //       try {
@@ -349,17 +368,23 @@ const ProductPage = () => {
             borderRadius: 7,
           }}
           onPress={() => {
-            setPiece(piece + 1);
-            console.log(cart);
-            cart.push({
-              name: product.name,
-              quantityType: selectedType,
-              quantity: quantity,
-              price:
-                Math.ceil(quantity * typePrice[selectedType].price * 1000) /
-                1000,
-            });
-            console.log(cart);
+            // setPiece(piece + 1);
+            // console.log(cart);
+            // cart.push({
+            //   name: product.name,
+            //   quantityType: selectedType,
+            //   quantity: quantity,
+            //   price:
+            //     Math.ceil(quantity * typePrice[selectedType].price * 1000) /
+            //     1000,
+            // });
+            // console.log(cart);
+            const data =  dispatch(AddProduct(product));
+            // console.log(data.payload)
+            // console.log(data.payload)
+
+
+
           }}
         >
           <Entypo name="plus" size={24} color="white" />

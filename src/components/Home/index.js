@@ -10,10 +10,12 @@ import {
 import { useNavigation } from "@react-navigation/native";
 // import { creatingOrder } from "../../api/createOrder";
 import { createOrder } from "../../redux/slice/customerSlice";
-import {useDispatch} from 'react-redux'
+// import {useDispatch} from 'react-redux'
 import { fetchCategories } from "../../api/fetchProducts";
 import { useState,useEffect } from "react";
 import { AddAllProducts } from "../../redux/slice/getAllProductSlice";
+import { useDispatch } from "react-redux";
+
 
 const Home = () => {
     
@@ -45,10 +47,10 @@ const Home = () => {
 
 
 
-  const handleAdd = ()=>{
-    console.log('dispatching')
-    dispatch(createOrder({price:25}))
-  }
+  // const handleAdd = ()=>{
+  //   console.log('dispatching')
+  //   dispatch(createOrder({price:70}))
+  // }
   const navigation = useNavigation();
 
   const handleGoToCheckout = () => {
@@ -103,7 +105,7 @@ const Home = () => {
 
       <TouchableOpacity
         style={[styles.box, styles.active, { alignSelf: "flex-start" }]}
-        onPress={handleAdd}
+        // onPress={handleAdd}
       >
 
       <AntDesign name="plus" size={20} color="#31572c" />

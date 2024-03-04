@@ -5,19 +5,23 @@
   import { useSelector, useDispatch } from "react-redux";
   import { useNavigation } from "@react-navigation/native";
   import { clearCart } from "../../redux/slice/Product";
-
+  import { createOrder } from "../../redux/slice/customerSlice";
   const Checkout = () => {
     const navigation = useNavigation();
 
     const handleGoToCheckout = () => {
       navigation.goBack();
     };
-
+    const dispatch = useDispatch();
     const checkout = useSelector((state) => state.Product.Data);
     const subtotal = checkout
       .filter((item) => item && typeof item.price === "number")
       .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
     const ItemAdd = checkout.length;
+
+    const handleOrder = ()=>{
+      dispatch(createOrder({total:subtotal}));
+    }
 
     return (
       <View
@@ -169,6 +173,7 @@
               backgroundColor: "blue",
               borderRadius: 5,
             }}
+            onPress={handleOrder}
           >
             <Text
               style={{
