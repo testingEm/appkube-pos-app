@@ -94,12 +94,12 @@ import { createSlice } from "@reduxjs/toolkit";
         },
 
         removeCart(state, action){
-             state.Data = action.payload
+             state.Data = []
         }
 
 
     }
 })
 
-export const {AddProduct, removeItem} = Products.actions
+export const {AddProduct, removeItem, removeCart} = Products.actions
 export default Products.reducer

@@ -410,7 +410,7 @@ const ProductPage = () => {
           >
             Go to cart
           </Text>
-          <Text style={{ color: "grey" }}>{piece} items</Text>
+          <Text style={{ color: "grey" }}>{reduxData.Data.length} items</Text>
         </Pressable>
       </View>
     </View>

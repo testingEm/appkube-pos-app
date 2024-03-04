@@ -6,6 +6,7 @@
   import { useNavigation } from "@react-navigation/native";
   import { clearCart } from "../../redux/slice/Product";
   import { createOrder } from "../../redux/slice/customerSlice";
+  import {removeCart} from '../../redux/slice/Product'
   const Checkout = () => {
     const navigation = useNavigation();
 
@@ -67,11 +68,16 @@
               backgroundColor: "pink",
             }}
           >
-            <AntDesign name="delete" size={18} color="red" />
+            <AntDesign onPress={()=>{dispatch(removeCart())}} name="delete" size={18} color="red" />
           </View>
         </View>
         <View style={{ marginTop: 10 ,marginBottom:10,height:320,overflow:"scroll" ,paddingTop:10}}>
-          {checkout.map((e, index) => (
+        {checkout.length === 0 ?( 
+             <View style={{ paddingHorizontal: 20 }}>
+             <Text style={{fontSize:20}}>No items available in the cart.</Text>
+           </View>
+          ):( 
+          checkout.map((e, index) => (
             <View
               key={index}
               style={{
@@ -79,6 +85,7 @@
                 justifyContent: "space-between",
                 paddingHorizontal: 20,
                 alignItems: "center",
+                paddingVertical:15
               }}
             >
               <View style={{ flexDirection: "row", alignItems: "center", gap: 20, position: "relative" }}>
@@ -101,7 +108,9 @@
                 <Text>₹ {e.price * e.quantity}</Text>
               </View>
             </View>
-          ))}
+            
+          ))
+        )}
           <View
             style={{
               borderBottomColor: "gray",
