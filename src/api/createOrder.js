@@ -1,35 +1,42 @@
 import { Amplify } from "aws-amplify";
-import { generateClient ,graphqlOperation} from 'aws-amplify/api';
+import { generateClient, graphqlOperation } from 'aws-amplify/api';
 
 const client = generateClient();
 
- export  const handleApi = async (order)=>{
-      try{
-        await Amplify.configure({
-          API: {
-            GraphQL: {
-              endpoint: 'https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql',
-              region: 'us-east-1',
-              defaultAuthMode: 'apiKey',
-              apiKey: 'da2-mjccl5jhqvbdvg67pe4sklvwty'
-            }
-          }
-        });
-        const mutation = `
-        mutation MyMutation($totalPrice: ) {
-        createOrder(input: {totalPrice: $totalPrice}) {
-          id
-          totalPrice
+export const HandleApi = async (order) => {
+  try {
+    await Amplify.configure({
+      API: {
+        GraphQL: {
+          endpoint: 'https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql',
+          region: 'us-east-1',
+          defaultAuthMode: 'apiKey',
+          apiKey: 'da2-mjccl5jhqvbdvg67pe4sklvwty'
         }
       }
-    `;
+    });
 
-    var result = await client.graphql(graphqlOperation(mutation,{ totalPrice : Order.totalPrice }));
-      }
-      catch (error) {
-        console.error('Error :', error);
-        
-      } 
-      return result
-    
-    }
+
+
+    const result = await client.graphql({
+      query: `
+          mutation CreateOrder($totalPrice: Float!) {
+            createOrder(input: { totalPrice: $totalPrice }) {
+              id
+              totalPrice
+            }
+          }
+        `,
+      variables: {
+        totalPrice: 12.0, // Replace this with the actual total price value
+      },
+    });
+
+    console.log(result);
+
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+}

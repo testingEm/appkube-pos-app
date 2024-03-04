@@ -1,207 +1,72 @@
-import React from 'react';
-import style from './styles';
+import React, { useState } from 'react';
+import { Text, View, Button, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector} from "react-redux"
+import { generateClient } from 'aws-amplify/api';
 import {
-    View,
-    StyleSheet,
-    Dimensions,
-    Text,
-    Image,
-    ScrollView,
-    // TextInput,
-    // Picker,
-    // Pressable,
- } from 'react-native';
+  Ionicons,
+  FontAwesome5,
+  AntDesign,
+  Fontisto,
+} from "@expo/vector-icons";
+import styles from './styles';
 
 
 const PrintToA4 = () => {
-  // Assuming a portrait orientation
-//   const width = Dimensions.get('window').width;
-//   const height = width * 1.4142; // A4 aspect ratio
-const { width, height } = Dimensions.get('window');
-const viewWidth = width;
-const viewHeight = viewWidth * 1.414; // A4 aspect ratio
-const adjustedHeight = viewHeight > height ? height : viewHeight;
-  const adjustedWidth = adjustedHeight / 1.414;
+  // const [data, setData] = useState([])
+  const navigation = useNavigation();
+  const ProductsData = useSelector((start) => start.getAllProducts)
 
-  return (
-    <ScrollView  contentContainerStyle={[styles.maincontainer, { width: adjustedWidth, height: adjustedHeight }]}>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10 }}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
-        <View style={[style.container,style.main]}>
-            <Image
-                source={{
-                  uri: "https://upload.wikimedia.org/wikipedia/commons/2/25/Apple_fruit_icon.svg",
-                }}
-                style={{ width: 62, height: 62, borderRadius: 10}}
-              />
-              <View style={style.flexStyle}>
-                <Text style={style.textStyle}>Apple</Text>
-                <Text style={style.textStyle}>Price: $5/ kg</Text>
-              </View>
-              
-        </View>
+
+  console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
+
+  const [GetProduct,setGetProducts] = useState([...ProductsData])
 
 
 
+const Header = () => (
+  <View >
+    <Text>Category</Text>
+  </View>
+);
 
+const uniqueCategoriesSet = new Set();
 
-        
-    </ScrollView>
-  );
-};
-
-const styles = StyleSheet.create({
-  maincontainer: {
-    borderWidth: 1,
-    borderColor: 'black',
-    display:"flex",
-    flexDirection:"row",
-    paddingTop:10,
-    flexWrap:"wrap",
-    // backgroundColor: "red",
-    
-  },
+GetProduct.forEach((item) => {
+  if (item && item.category) {
+    uniqueCategoriesSet.add(item.category);
+  }
 });
+
+const uniqueCategoriesArray = Array.from(uniqueCategoriesSet);
+
+const BodyButton = () => (
+  <View style={{ padding: 10 }}>
+{uniqueCategoriesArray.map((category) => (
+  <TouchableOpacity
+    key={category}
+    onPress={() => {
+      const CatProducts = GetProduct.filter((e) => e.category === category);
+      console.log(CatProducts);
+      navigation.navigate('ProductsPrint', { category, catProducts: CatProducts });
+    }}
+    style={[styles.flexRow, styles.box, styles.bgLight]}
+  >
+    <Text>
+      {category}
+    </Text>
+    <Ionicons name="ios-cart" size={20} color="black" />
+  </TouchableOpacity>
+))}
+    
+  </View>
+);
+
+return (
+  <View>
+    <BodyButton/>
+  </View>
+);
+};
 
 export default PrintToA4;

@@ -16,6 +16,7 @@ import Products from "./src/components/Products";
 import Adduser from "./src/components/Adduser";
 import ProductPage from "./src/components/ProductPage/ProductPage";
 import getAllProducts from "./src/components/getAllProducts";
+import ProductsPrint from "./src/components/productsPrinter"
 import PrintToA4 from "./src/components/Print";
 import ImportProducts from "./src/components/ImportProducts";
 
@@ -43,6 +44,7 @@ const SettingScreen = () => (
     <Stack.Screen name="setting" component={Setting} />
     <Stack.Screen name="Customers" component={Customers} />
     <Stack.Screen name="PrintToA4" component={PrintToA4} />
+    <Stack.Screen name="ProductsPrint" component={ProductsPrint} />
     <Stack.Screen name="ImportProducts" component={ImportProducts} />
    </Stack.Navigator>
 );
