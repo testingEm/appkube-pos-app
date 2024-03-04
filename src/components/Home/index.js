@@ -11,10 +11,41 @@ import { useNavigation } from "@react-navigation/native";
 // import { creatingOrder } from "../../api/createOrder";
 import { createOrder } from "../../redux/slice/customerSlice";
 import {useDispatch} from 'react-redux'
+import { fetchCategories } from "../../api/fetchProducts";
+import { useState,useEffect } from "react";
+import { useDispatch} from "react-redux"
+import { AddAllProducts } from "../../redux/slice/getAllProductSlice";
 
 const Home = () => {
     
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
+
+  const [allProducts, setAllProducts] = useState([]);
+  const getProduct = async () => {
+    try {
+      const AllProducts = await fetchCategories()
+      // console.log("this is the allProducts",AllProducts.data.listProducts.items);
+      setAllProducts(AllProducts.data.listProducts.items)
+      
+    } catch (error) {
+      console.error(error);
+      
+    }
+  }
+ 
+  useEffect(() => {
+  
+    getProduct()
+
+  },[])
+
+  console.log("this is the allProducts for the redux",allProducts);
+  dispatch(AddAllProducts(allProducts))
+  
+
+
+
   const handleAdd = ()=>{
     console.log('dispatching')
     dispatch(createOrder({price:25}))
@@ -67,7 +98,7 @@ const Home = () => {
       <View style={[styles.box, styles.bgLight, ,]}>
       <Fontisto name="shopping-basket" size={18} color="#31572c" />
         <Text style={[ styles.dark]}>
-          Ship tooo customer
+          Ship to customer
         </Text>
       </View>
 
