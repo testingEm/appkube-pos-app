@@ -1,9 +1,9 @@
-import { Amplify } from "aws-amplify";
-import { generateClient ,graphqlOperation} from 'aws-amplify/api';
+import { Amplify,graphqlOperation } from "aws-amplify";
+import { generateClient } from 'aws-amplify/api';
 
 const client = generateClient();
 
- export  const handleApi = async (order)=>{
+ export  const creatingOrder = async (order)=>{
       try{
         await Amplify.configure({
           API: {
@@ -23,8 +23,9 @@ const client = generateClient();
         }
       }
     `;
-
-    var result = await client.graphql(graphqlOperation(mutation,{ totalPrice : Order.totalPrice }));
+      console.log('order creating',order)
+    var result = await client.graphql(mutation,{ totalPrice : order.price });
+    console.log('success',result)
       }
       catch (error) {
         console.error('Error :', error);
