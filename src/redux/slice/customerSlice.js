@@ -1,6 +1,6 @@
 
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
-import { creatingOrder } from '../../api/createOrder';
+import {HandleApi}  from '../../api/createOrder';
 
 export const createOrder = createAsyncThunk(
     'createOrder',
@@ -8,7 +8,7 @@ export const createOrder = createAsyncThunk(
       try {
         console.log('in asyncthunk',orderData)
         
-        const response = await creatingOrder(orderData);
+        const response = await HandleApi(orderData);
         return response
       } catch (error) {
     

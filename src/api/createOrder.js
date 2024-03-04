@@ -3,7 +3,7 @@ import { generateClient, graphqlOperation } from 'aws-amplify/api';
 
 const client = generateClient();
 
-export const handleApi = async (order) => {
+export const HandleApi = async (order) => {
   try {
     await Amplify.configure({
       API: {
@@ -20,23 +20,23 @@ export const handleApi = async (order) => {
 
     const result = await client.graphql({
       query: `
-      mutation MyMutation($totalPrice: ) {
-        createOrder(input: {totalPrice: 12}) {
-          id
-          totalPrice
-        }
-      }
-      `,
+          mutation CreateOrder($totalPrice: Float!) {
+            createOrder(input: { totalPrice: $totalPrice }) {
+              id
+              totalPrice
+            }
+          }
+        `,
+      variables: {
+        totalPrice: 12.0, // Replace this with the actual total price value
+      },
     });
 
-    console.log(result)
+    console.log(result);
 
-    return result
-
-  }
-  catch (error) {
-    console.error('Error :', error);
-
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
   }
 
 }
