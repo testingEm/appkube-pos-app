@@ -1,97 +1,75 @@
-import React from "react";
-import { AntDesign } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { View, Text, Pressable, Image } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { clearCart } from "../../redux/slice/Product";
+  import React from "react";
+  import { AntDesign } from "@expo/vector-icons";
+  import { FontAwesome } from "@expo/vector-icons";
+  import { View, Text, Pressable, Image, ScrollView } from "react-native";
+  import { useSelector, useDispatch } from "react-redux";
+  import { useNavigation } from "@react-navigation/native";
+  import { clearCart } from "../../redux/slice/Product";
 
-// import  { Product } from  "../../redux/store";
+  const Checkout = () => {
+    const navigation = useNavigation();
 
-// import { startNewOrder } from '../../redux/actions';
-// import { DataStore } from "@aws-amplify/datastore";
-// import styles from './styles';
+    const handleGoToCheckout = () => {
+      navigation.goBack();
+    };
 
-// import { AntDesign } from '@expo/vector-icons';
-// import { FontAwesome } from '@expo/vector-icons';
-// import { View, Text, Pressable } from 'react-native';
-const Checkout = () => {
+    const checkout = useSelector((state) => state.Product.Data);
+    const subtotal = checkout
+      .filter((item) => item && typeof item.price === "number")
+      .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+    const ItemAdd = checkout.length;
 
-  const navigation = useNavigation()
-
-  const handleGoToCheckout = () => {
-    navigation.goBack()
-  }
-  // const dispatch=useDispatch() 
-
-  const checkout = useSelector((state) => state.Product.Data)
-  console.log(checkout)
-  // console.log(checkout.Data)
-  // console.log(checkout.Data[0].name)
-  const subtotal = checkout
-    .filter(item => item && typeof item.price === 'number')
-    .reduce((acc, curr) => acc + curr.price, 0);
-  console.log(subtotal)
-  const ItemAdd = checkout.length
-  console.log(ItemAdd)
-  // const dispatch=useDispatch()
-
-  // const handleDelete = () => {
-  //   clearCart(); 
-  // };
-  // console.log(handleDelete())
-
-  return (
-    <div
-      style={{
-
-
-        padding: 10,
-        height: "100%",
-        flex: 1,
-        justifyContent: "center",
-        position: "relative",
-      }}
-    >
-      <AntDesign name="close" size={30} color="blue" onPress={handleGoToCheckout} />
+    return (
       <View
         style={{
-          borderBottomColor: "lightgray",
-          borderBottomWidth: 1,
-          marginVertical: 10, // Adjust as needed
-          color: "white",
-        }}
-      />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingHorizontal: 20,
-          marginTop: 40,
+          padding: 10,
+          height: "100%",
+          flex: 1,
+          justifyContent: "",
+          position: "relative",
         }}
       >
-        <Text style={{ fontSize: "20px", fontWeight: "700" }}>
-          Cart
-        </Text>
+        <AntDesign
+          name="close"
+          size={30}
+          color="blue"
+          onPress={handleGoToCheckout}
+        />
+        <View
+          style={{
+            borderBottomColor: "lightgray",
+            borderBottomWidth: 1,
+            marginVertical: 8,
+            color: "white",
+          }}
+        />
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            borderRadius: "50%",
-            padding: 6,
-            backgroundColor: "pink",
+            paddingHorizontal: 10,
+            marginTop: 10,
           }}
         >
-          <AntDesign name="delete" size={18} color="red" />
+          <Text style={{ fontSize: 20, fontWeight: "700" }}>Cart</Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              borderRadius: 50,
+              padding: 6,
+              backgroundColor: "pink",
+            }}
+          >
+            <AntDesign name="delete" size={18} color="red" />
+          </View>
         </View>
-      </View>
-      <div style={{ justifyContent: 'space-between', width: '100%' }}>
-        <View style={{ marginTop: 60 }}>
-          {checkout.map((e) => (
-
+        <View style={{ marginTop: 10 ,marginBottom:10,height:320,overflow:"scroll" ,paddingTop:10}}>
+          {checkout.map((e, index) => (
             <View
+              key={index}
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
@@ -99,26 +77,24 @@ const Checkout = () => {
                 alignItems: "center",
               }}
             >
-              <View style={{}}>
-                <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }} >
-                  <View>
-                    <Image
-                      source={{
-                        uri: e.image,
-                      }}
-                      style={{ width: 70, height: 70, borderRadius: 10 }}
-                    />
-                  </View>
-                  <View>
-                    <Text style={{ fontSize: 16 }}>{e.name}</Text>
-                    <Text style={{ fontSize: 16 }}>Tax-exempt</Text>
-                  </View>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 20, position: "relative" }}>
+                <Image
+                  source={{
+                    uri: e.image,
+                  }}
+                  style={{ width: 70, height: 70, borderRadius: 10 }}
+                />
+                <View>
+                  <Text style={{ width: 25, height: 25, position: "absolute", right: 12, bottom: 17, backgroundColor: "black", color: "white", padding: 3, borderRadius: 40, textAlign: "center" }}>{e.quantity}</Text>
+                </View>
+                <View>
+                  <Text style={{ fontSize: 16 }}>{e.name}</Text>
+                  <Text style={{ fontSize: 16 }}>Tax-exempt</Text>
                 </View>
               </View>
               <View style={{ fontSize: 16 }}>
-                {/* <FontAwesome name="rupee" size={24} color="black" /> */}
-
-                <Text>  ₹ {e.price} </Text>
+                <Text style={{ fontSize: 10 }}>₹ {e.price} x {e.quantity}</Text>
+                <Text>₹ {e.price * e.quantity}</Text>
               </View>
             </View>
           ))}
@@ -126,83 +102,87 @@ const Checkout = () => {
             style={{
               borderBottomColor: "gray",
               borderBottomWidth: 1,
-              marginVertical: 10, // Adjust as needed
-
+              marginVertical: 10,
             }}
           />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 20,
-              alignItems: "center",
-            }}
-          >
-            <View>
-              <Text style={{ fontSize: 16 }}>Subtotal</Text>
-            </View>
-            <View style={{ fontSize: 16 }}>
-              {/* <FontAwesome name="rupee" size={24} color="black" /> */}
-              <Text> {subtotal}</Text>
-            </View>
-          </View>
-          <View
-            style={{
-              borderBottomColor: "gray",
-              borderBottomWidth: 1,
-              marginVertical: 10, // Adjust as needed
-
-              alignItems: "center",
-            }}
-          />
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingHorizontal: 20,
-            }}
-          >
-            <View>
-              <Text style={{ fontSize: 16, marginTop: 10 }}>Taxes</Text>
-            </View>
-            <View style={{ fontSize: 16 }}>
-              <Text>  ₹ 0.00</Text>
-            </View>
-          </View>
         </View>
-
-        <View style={{ marginTop: 130, position: 'absolute', bottom: 10, width: '95%', gap: 10 }}>
+        <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>Subtotal</Text>
+            <Text style={{ fontSize: 16 }}>₹ {subtotal}</Text>
+          </View>
+          <View
+            style={{
+              borderBottomColor: "gred",
+              borderBottomWidth: 1,
+              marginVertical: 10,
+              alignItems: "center",
+            }}
+          />
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              paddingHorizontal: 20,
+              paddingHorizontal: 10,
+              // backgroundColor:"red",
+              marginBottom: 100,
+
             }}
           >
-
+            <Text style={{ fontSize: 16, marginTop: 5 }}>Taxes</Text>
+            <Text style={{ fontSize: 16 }}>₹ 0.00</Text>
+          </View>
+          
+        <View
+          style={{
+            marginTop: 100,
+            position: "absolute",
+            bottom: 10,
+            width: "95%",
+            gap: 10,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 10,
+            }}
+          >
             <View>
               <Text style={{ fontSize: 16 }}>Total</Text>
               <Text style={{ fontSize: 16 }}>{ItemAdd} Item</Text>
             </View>
             <View>
-              {/* <FontAwesome name="rupee" size={24}  /> */}
-              <Text style={{ marginLeft: 5, fontSize: 16 }}>
-                ₹ {subtotal}
-              </Text>
+              <Text style={{ marginLeft: 5, fontSize: 16 }}>₹ {subtotal}</Text>
             </View>
           </View>
           <Pressable
-            style={{ padding: 10, backgroundColor: "blue", borderRadius: 5 }}
+            style={{
+              padding: 10,
+              backgroundColor: "blue",
+              borderRadius: 5,
+            }}
           >
-            <Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
+            <Text
+              style={{
+                color: "white",
+                textAlign: "center",
+                fontSize: 16,
+              }}
+            >
               Checkout
-             
             </Text>
           </Pressable>
         </View>
-      </div>
-    </div>
-  );
-};
+      </View>
+    );
+  };
 
-export default Checkout;
+  export default Checkout;
