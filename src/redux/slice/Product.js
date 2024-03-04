@@ -59,12 +59,15 @@ const Products = createSlice({
           
             // Immer handles returning the modified state
             return; // No need to return anything explicitly
-          }
+          },
+          clearCart(state) {
+            state.products ={Data:[]}; // Clear the cart array
+        }
           
 
 
     }
 })
 
-export const {AddProduct, removeItem} = Products.actions
+export const {AddProduct, removeItem,clearCart} = Products.actions
 export default Products.reducer

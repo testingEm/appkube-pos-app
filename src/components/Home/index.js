@@ -13,8 +13,9 @@ import { createOrder } from "../../redux/slice/customerSlice";
 // import {useDispatch} from 'react-redux'
 import { fetchCategories } from "../../api/fetchProducts";
 import { useState,useEffect } from "react";
-import { useDispatch} from "react-redux"
 import { AddAllProducts } from "../../redux/slice/getAllProductSlice";
+import { useDispatch } from "react-redux";
+
 
 const Home = () => {
     

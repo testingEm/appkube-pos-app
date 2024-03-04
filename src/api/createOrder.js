@@ -1,5 +1,5 @@
-import { Amplify,graphqlOperation } from "aws-amplify";
-import { generateClient } from 'aws-amplify/api';
+import { Amplify } from "aws-amplify";
+import { generateClient, graphqlOperation } from 'aws-amplify/api';
 
 const client = generateClient();
 
@@ -25,7 +25,7 @@ const client = generateClient();
               }
             `,
           variables: {
-            totalPrice: order.price, // Replace this with the actual total price value
+            totalPrice: order.total, // Replace this with the actual total price value
           },
         });
     
