@@ -19,6 +19,7 @@ import getAllProducts from "./src/components/getAllProducts";
 import ProductsPrint from "./src/components/productsPrinter"
 import PrintToA4 from "./src/components/Print";
 import ImportProducts from "./src/components/ImportProducts";
+import ThermalPrinterComponent from "./src/components/thermalPrinter";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -46,6 +47,7 @@ const SettingScreen = () => (
     <Stack.Screen name="PrintToA4" component={PrintToA4} />
     <Stack.Screen name="ProductsPrint" component={ProductsPrint} />
     <Stack.Screen name="ImportProducts" component={ImportProducts} />
+    <Stack.Screen name="ThermalPrinterComponent" component={ThermalPrinterComponent} />
    </Stack.Navigator>
 );
 
