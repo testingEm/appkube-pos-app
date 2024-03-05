@@ -5,7 +5,7 @@
   import { useSelector, useDispatch } from "react-redux";
   import { useNavigation } from "@react-navigation/native";
   import { clearCart } from "../../redux/slice/Product";
-  import { createOrder } from "../../redux/slice/customerSlice";
+  import { addOrders, createOrder } from "../../redux/slice/customerSlice";
   const Checkout = () => {
     const navigation = useNavigation();
 
@@ -21,6 +21,8 @@
 
     const handleOrder = ()=>{
       dispatch(createOrder({total:subtotal}));
+      // console.log('new order', newOrder);
+      // dispatch(addOrders(newOrder))
     }
 
     return (

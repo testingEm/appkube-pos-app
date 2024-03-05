@@ -1,7 +1,9 @@
 
 import { createSlice , createAsyncThunk } from '@reduxjs/toolkit';
 import {creatingOrder}  from '../../api/createOrder';
+//  import {useDispatch} from 'react-redux'
 
+// const dispatch = useDispatch();
 export const createOrder = createAsyncThunk(
     'createOrder',
     async (orderData) => {
@@ -9,6 +11,8 @@ export const createOrder = createAsyncThunk(
         console.log('in asyncthunk',orderData)
         
         const response = await creatingOrder(orderData);
+        console.log('response of asyncthunk',response)
+        
         return response
       } catch (error) {
     
@@ -27,13 +31,17 @@ const CustomerSlice = createSlice(
 
         },
         reducers:{
+            addOrders: (state, action) => {
+                state.orders.push(action.payload);
+                // console.log('inn redux dispathing orders',action.payload)
+            },
             addToCart: (state, action) => {
                state.cart.push(action.payload)
-               localStorage.setItem('orders', JSON.stringify(state.cart));    
+               localStorage.setItem('cart', JSON.stringify(state.cart));    
             },
             removeFromCart: (state, action) => {
                 state.cart.splice(action.payload,1)
-                localStorage.setItem('orders', JSON.stringify(state.cart));
+                localStorage.setItem('cart', JSON.stringify(state.cart));
             },
         },
         extraReducers: (builder)=>{
@@ -59,4 +67,4 @@ const CustomerSlice = createSlice(
 )
 
 export default CustomerSlice.reducer;
-export const { addToCart , removeFromCart} = CustomerSlice.actions;
+export const { addToCart , removeFromCart,addOrders} = CustomerSlice.actions;
