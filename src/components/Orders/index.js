@@ -82,11 +82,6 @@ const Orders = () => {
         {loading ? (
           <ActivityIndicator size="large" color="green"></ActivityIndicator>
         ) : (
-          // <Text>Loading...
-          //   {console.log('loading')}
-          // </Text>
-
-          // console.log('in order')
           fetchedOrders.map((order) => {
             return (
               <View style={[styles.box, styles.shadow]} key={order.id}>
@@ -98,9 +93,9 @@ const Orders = () => {
                   </Text>
                   <View style={[styles.border]}></View>
                   <View style={[styles.gap]}>
-                    <Text style={{ fontSize: 16 }}>#3728</Text>
-                    <Text style={{ fontSize: 14 }}>
-                      <FontAwesome name="rupee" size={14} color="black" />
+                    <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
+                    <Text style={{ fontSize: 18,color:'#31572c' ,flex:1,fontWeight:"700"}}>
+                      <FontAwesome name="rupee" size={18} color="#31572c" style={{marginRight:5}} />
                       {order.totalPrice}
                     </Text>
                   </View>
@@ -114,10 +109,10 @@ const Orders = () => {
                     <FontAwesome
                       name="circle"
                       size={18}
-                      color="black"
-                      style={{ margin: 0 }}
+                      color="#31572c"
+                      // style={{ margin: 0 }}
                     />
-                    <Text style={{ marginLeft: 5 }}>{order.updatedAt}</Text>
+                    <Text style={{ marginLeft: 5 }}>paid</Text>
                   </View>
                   <View style={[styles.statusbox]}>
                     <FontAwesome name="circle" size={18} color="#31572c" />
