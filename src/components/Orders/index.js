@@ -125,7 +125,7 @@ const Orders = () => {
                   </View>
                 </View>
               </View>
-            );
+            </View>)
           })
         )}
         {console.log("scrool ended")}

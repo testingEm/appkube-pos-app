@@ -43,6 +43,14 @@ const setting = () => {
             </View>
             <AntDesign name="rightcircleo" size={24} color="black" />
           </TouchableOpacity>
+
+          <TouchableOpacity style={[styles.flexRow, styles.box,styles.bgLight,styles.gap]} onPress={() => navigation.navigate('ThermalPrinterComponent')} >
+            <View style={[styles.flexRow]}  >
+            <FontAwesome5 name="print" size={22} color="black" />
+                <Text>Import Products</Text>
+            </View>
+            <AntDesign name="rightcircleo" size={24} color="black" />
+          </TouchableOpacity>
         </View>
       );
     
