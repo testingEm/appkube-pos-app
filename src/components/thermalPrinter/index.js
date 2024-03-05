@@ -3,9 +3,9 @@ import { Button, View, Text, Platform } from 'react-native';
 
 let EscPosPrinter;
 
-if (Platform.OS !== 'web') {
-  EscPosPrinter = require('react-native-esc-pos-printer');
-}
+// if (Platform.OS !== 'web') {
+//   EscPosPrinter = require('react-native-esc-pos-printer');
+// }
 
 const ThermalPrinterComponent = () => {
   useEffect(() => {
