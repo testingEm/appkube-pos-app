@@ -20,6 +20,7 @@ import ProductsPrint from "./src/components/productsPrinter"
 import PrintToA4 from "./src/components/Print";
 import ImportProducts from "./src/components/ImportProducts";
 import ThermalPrinterComponent from "./src/components/thermalPrinter";
+import Cash from "./src/components/Cash"
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +35,7 @@ const HomeScreen = () => (
     <Stack.Screen name="Home" component={Home} />
     <Stack.Screen name="Adduser" component={Adduser} />
     <Stack.Screen name="Checkout" component={Checkout} />
+    <Stack.Screen name="Cash" component={Cash} />
   </Stack.Navigator>
 );
 
@@ -73,6 +75,7 @@ const ProductsScreen = () => (
     <Stack.Screen name="ProductPage" component={ProductPage} />
     <Stack.Screen name="Catalog" component={Catalog} />
     <Stack.Screen name="Checkout" component={Checkout} options={{headerShown:false}}/>
+    <Stack.Screen name="Cash" component={Cash} options={{headerShown:false}} />
     <Stack.Screen name="getAllProducts" component={getAllProducts} />
   </Stack.Navigator>
 );
