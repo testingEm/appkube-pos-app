@@ -26,7 +26,7 @@ import { clearCart } from "../../redux/slice/Product";
   const Checkout = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const checkout = useSelector((state) => state.Product.Data);
+    const checkout = useSelector((state) => state.CustomerSlice.cart);
     const subtotal = checkout
       .filter((item) => item && typeof item.price === "number")
       .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);

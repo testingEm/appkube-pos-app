@@ -13,6 +13,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { useSelector, useDispatch } from "react-redux";
 import { AddProduct, removeItem } from "../../redux/slice/Product";
+import { addToCart } from "../../redux/slice/customerSlice";
 
 
 const ProductPage = () => {
@@ -35,7 +36,7 @@ const ProductPage = () => {
 
 
   const dispatch = useDispatch();
-  const reduxData = useSelector((state) => state.Product);
+  const reduxData = useSelector((state) => state.CustomerSlice.cart);
 
 
 
@@ -379,7 +380,7 @@ const ProductPage = () => {
             //     1000,
             // });
             // console.log(cart);
-            const data =  dispatch(AddProduct(product));
+            const data =  dispatch(addToCart(product));
             // console.log(data.payload)
             // console.log(data.payload)
 
@@ -410,7 +411,7 @@ const ProductPage = () => {
           >
             Go to cart
           </Text>
-          <Text style={{ color: "grey" }}>{reduxData.Data.length} items</Text>
+          <Text style={{ color: "grey" }}>{reduxData.length} items</Text>
         </Pressable>
       </View>
     </View>
