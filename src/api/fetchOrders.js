@@ -3,7 +3,7 @@ import { generateClient } from 'aws-amplify/api';
 
 const client = generateClient();
 
- export  const handleApi = async ()=>{
+ export  const fetchingOrders = async ()=>{
       try{
         await Amplify.configure({
           API: {

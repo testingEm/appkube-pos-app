@@ -4,46 +4,46 @@ import { Text, View, ScrollView, ActivityIndicator } from "react-native";
 // // import { DataStore } from '@aws-amplify/datastore';
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 // import { Header } from "react-native/Libraries/NewAppScreen";
-import { handleApi } from "../../api/fetchOrders";
+import { fetchingOrders } from "../../api/fetchOrders";
 import styles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { addOrders } from "../../redux/slice/customerSlice";
+
 const Orders = () => {
-  const [loading, setLoading] = useState(false);
-  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // const [orders, setOrders] = useState([]);
+  const dispatch = useDispatch();
+  const fetchedOrders = useSelector((state) => state.CustomerSlice.orders);
 
   const fetchOrders = async () => {
-    try{
-      const data = await handleApi();
-      console.log('data',data.data)
-      setOrders(data.data.listOrders.items);
+    try {
+      const response = await fetchingOrders();
+      const data = response.data.listOrders.items;
+      console.log("orders data", data);
+      data.map((value) => {
+        dispatch(addOrders(value));
+        // console.log("dispatching value", value);
+      });
+      setLoading(false);
+    } catch (error) {
+      console.log("orders error", error);
+      setLoading(false)
     }
-    catch(error){
-      console.log('error',error)
-    }
-  
   };
+  console.log("fetched orders", fetchedOrders);
   useEffect(() => {
-    console.log('useeffect')
+    console.log("useEffect");
     fetchOrders();
   }, []);
 
-  //   // async function refetch() {
-  //   //     const data = await DataStore.query(Orders);
-  //   //     const sortedOrders = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  //   //     setOrders(sortedOrders);
-  //   // }
-
-  //   // async function openReceipt(orderId) {
-  //   //     const order = await DataStore.query(Orders, orderId);
-  //   //     const allItems = await DataStore.query(lineItems);
-  //   //     const lineItems = allItems.filter(li => li.order && li.order.id === order.id);
-  //   //     return props.navigation.push('Receipt', {
-  //   //         order: {
-  //   //             ...order,
-  //   //             lineItems,
-  //   //         }
-  //   //     });
-  //   // }
-
+  // createdAt: "2024-03-04T10:03:04.791Z";
+  // id: "f1b6db8a-112d-449c-a3d5-a7a4608313ce";
+  // totalPrice: 45;
+  // updatedAt: "2024-03-04T10:03:04.791Z";
+  // __typename: "Order";
+  // _deleted: null;
+  // _lastChangedAt: 1709546584820;
+  // _version: 1;
   return (
     <View style={[styles.container]}>
       {/* <Content refreshControl={
@@ -78,53 +78,52 @@ const Orders = () => {
         </View>
       </View>
       <ScrollView style={[styles.scrollbar]}>
-        {console.log('in scrool')}
-        {(orders.length <= 0) ? (
-          <ActivityIndicator size="large"  color='green' ></ActivityIndicator>
-          // <Text>Loading...
-          //   {console.log('loading')}
-          // </Text>
-          
+        {console.log("in scrool")}
+        {loading ? (
+          <ActivityIndicator size="large" color="green"></ActivityIndicator>
         ) : (
-          // console.log('in order')
-          orders.map((order) => {
-            return (<View style={[styles.box, styles.shadow]} key={order.id}>
-              <View style={[{ flex: 1 }, styles.gap]}>
-                <Text style={{ fontWeight: 500, fontSize: 16, color: "gray" }}>
-                  {order.createdAt}
-                </Text>
-                <View style={[styles.border]}></View>
-                <View style={[styles.gap]}>
-                  <Text style={{ fontSize: 16 }}>#3728</Text>
-                  <Text style={{ fontSize: 14 }}>
-                    <FontAwesome name="rupee" size={14} color="black" />
-                    {order.totalPrice}
+          fetchedOrders.map((order) => {
+            return (
+              <View style={[styles.box, styles.shadow]} key={order.id}>
+                <View style={[{ flex: 1 }, styles.gap]}>
+                  <Text
+                    style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
+                  >
+                    {order.createdAt}
                   </Text>
+                  <View style={[styles.border]}></View>
+                  <View style={[styles.gap]}>
+                    <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
+                    <Text style={{ fontSize: 18,color:'#31572c' ,flex:1,fontWeight:"700"}}>
+                      <FontAwesome name="rupee" size={18} color="#31572c" style={{marginRight:5}} />
+                      {order.totalPrice}
+                    </Text>
+                  </View>
+                  <View style={[styles.arrowbox, { margin: 5 }]}>
+                    No Customer{" "}
+                    <FontAwesome5 name="angle-right" size={26} color="black" />
+                  </View>
                 </View>
-                <View style={[styles.arrowbox, { margin: 5 }]}>
-                  No Customer{" "}
-                  <FontAwesome5 name="angle-right" size={26} color="black" />
+                <View style={[styles.status]}>
+                  <View style={[styles.statusbox]}>
+                    <FontAwesome
+                      name="circle"
+                      size={18}
+                      color="#31572c"
+                      // style={{ margin: 0 }}
+                    />
+                    <Text style={{ marginLeft: 5 }}>paid</Text>
+                  </View>
+                  <View style={[styles.statusbox]}>
+                    <FontAwesome name="circle" size={18} color="#31572c" />
+                    <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
+                  </View>
                 </View>
               </View>
-              <View style={[styles.status]}>
-                <View style={[styles.statusbox]}>
-                  <FontAwesome
-                    name="circle"
-                    size={18}
-                    color="black"
-                    style={{ margin: 0 }}
-                  />
-                  <Text style={{ marginLeft: 5 }}>{order.updatedAt}</Text>
-                </View>
-                <View style={[styles.statusbox]}>
-                  <FontAwesome name="circle" size={18} color="#31572c" />
-                  <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
-                </View>
-              </View>
-            </View>)  
+            )
           })
         )}
-        {console.log('scrool ended')}
+        {console.log("scrool ended")}
       </ScrollView>
     </View>
   );
