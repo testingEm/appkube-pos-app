@@ -10,13 +10,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOrders } from "../../redux/slice/customerSlice";
 
 const Orders = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   // const [orders, setOrders] = useState([]);
   const dispatch = useDispatch();
   const fetchedOrders = useSelector((state) => state.CustomerSlice.orders);
 
   const fetchOrders = async () => {
     try {
+      // setLoading(true);
       const response = await fetchingOrders();
       const data = response.data.listOrders.items;
       console.log("orders data", data);
@@ -24,13 +25,14 @@ const Orders = () => {
         dispatch(addOrders(value));
         // console.log("dispatching value", value);
       });
-      setLoading(false);
+      // setLoading(false);
     } catch (error) {
       console.log("orders error", error);
-      setLoading(false)
+      // setLoading(false)
     }
   };
   console.log("fetched orders", fetchedOrders);
+
   useEffect(() => {
     console.log("useEffect");
     fetchOrders();
@@ -85,10 +87,8 @@ const Orders = () => {
       </View>
       <ScrollView style={[styles.scrollbar]}>
         {console.log("in scrool")}
-        {loading ? (
-          <ActivityIndicator size="large" color="green"></ActivityIndicator>
-        ) : (
-          fetchedOrders.map((order,index) => {
+        
+          {fetchedOrders.map((order,index) => {
             return (
               <View style={[styles.box, styles.shadow]} key={index}>
                 <View style={[{ flex: 1 }, styles.gap]}>
@@ -131,7 +131,7 @@ const Orders = () => {
               </View>
             )
           })
-        )}
+        } 
         {console.log("scrool ended")}
       </ScrollView>
     </View>
