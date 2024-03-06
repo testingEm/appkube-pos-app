@@ -64,11 +64,17 @@ const Orders = () => {
             styles.shadow,
           ]}
         >
-          Orders
+          <Text>
+
+            Orders
+          </Text>
         </View>
         <View style={[styles.scrollLeft, styles.shadow]}>
           <View style={[styles.statusbox]}>
-            Sale type : POS{" "}
+            <Text>
+
+              Sale type : POS{" "}
+            </Text>
             <FontAwesome name="caret-down" size={18} color="#31572c" />
           </View>
           <View style={[styles.statusbox]}>
@@ -82,9 +88,9 @@ const Orders = () => {
         {loading ? (
           <ActivityIndicator size="large" color="green"></ActivityIndicator>
         ) : (
-          fetchedOrders.map((order) => {
+          fetchedOrders.map((order,index) => {
             return (
-              <View style={[styles.box, styles.shadow]} key={order.id}>
+              <View style={[styles.box, styles.shadow]} key={index}>
                 <View style={[{ flex: 1 }, styles.gap]}>
                   <Text
                     style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
@@ -94,13 +100,16 @@ const Orders = () => {
                   <View style={[styles.border]}></View>
                   <View style={[styles.gap]}>
                     <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
-                    <Text style={{ fontSize: 18,color:'#31572c' ,flex:1,fontWeight:"700"}}>
-                      <FontAwesome name="rupee" size={18} color="#31572c" style={{marginRight:5}} />
+                    <Text style={{ fontSize: 18, color: '#31572c', flex: 1, fontWeight: "700" }}>
+                      <FontAwesome name="rupee" size={18} color="#31572c" style={{ marginRight: 5 }} />
                       {order.totalPrice}
                     </Text>
                   </View>
                   <View style={[styles.arrowbox, { margin: 5 }]}>
-                    No Customer{" "}
+                    <Text>
+
+                      No Customer{" "}
+                    </Text>
                     <FontAwesome5 name="angle-right" size={26} color="black" />
                   </View>
                 </View>
@@ -110,7 +119,7 @@ const Orders = () => {
                       name="circle"
                       size={18}
                       color="#31572c"
-                      // style={{ margin: 0 }}
+                    // style={{ margin: 0 }}
                     />
                     <Text style={{ marginLeft: 5 }}>paid</Text>
                   </View>

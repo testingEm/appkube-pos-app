@@ -85,14 +85,14 @@ const Home = () => {
 
       <View style={[styles.box, styles.bgDark]}>
         <AntDesign name="plus" size={18} color="#d8f3dc" />
-        <Text style={[{ textAling: "center" }, styles.light]}>
+        <Text style={[{ textAlign: "center" }, styles.light]}>
           Add custom sale
         </Text>
       </View>
 
       <View style={[styles.box, styles.bgLight]}>
         <FontAwesome5 name="percent" size={18} color="#31572c" />
-        <Text style={[{ textAling: "center" }, styles.dark]}>
+        <Text style={[{ textAlign: "center" }, styles.dark]}>
           Apply discount
         </Text>
       </View>
