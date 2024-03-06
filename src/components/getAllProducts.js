@@ -14,6 +14,7 @@ import { Amplify } from "aws-amplify";
 
 import { useSelector, useDispatch } from "react-redux";
 import { AddProduct, removeItem } from "../redux/slice/Product";
+import { addToCart,removeFromCart } from "../redux/slice/customerSlice";
 
 const GetAllProducts = () => {
   const dispatch = useDispatch();
@@ -30,19 +31,19 @@ const GetAllProducts = () => {
 
   const navigation = useNavigation();
 
-  const reduxData = useSelector((state) => state.Product);
+  const reduxData = useSelector((state) => state.CustomerSlice);
   // console.log(reduxData)
-  console.log(reduxData.Data);
+  console.log(reduxData.cart);
 
-  let mappredux = reduxData.Data.map((e)=>e.id)
+  let mappredux = reduxData.cart.map((e)=>e.id)
   console.log({...mappredux})
  
   
   const HandleIncrement = (veg)=>{
     // const items = [];
     // items.push(veg);
-    const data =  dispatch(AddProduct(veg));
-console.log(data.payload)
+    const data =  dispatch(addToCart(veg));
+    console.log(data.payload)
 
 // const reduxdata = useSelector((state)=>state.Product.Data)
 
@@ -85,7 +86,7 @@ console.log(reduxData)
   };
 
   const handleDecrement = (veg) => {
-    dispatch(removeItem(veg.id));
+    dispatch(removeFromCart(veg.id));
     console.log(veg.id);
 
     const updatedCartItems = [...cartItems];
@@ -209,20 +210,20 @@ console.log(reduxData)
 
 <Text >
    Qty: {/* {reduxData.Data[0] && reduxData.Data[0].quantity} */}
-    {reduxData.Data[
-      reduxData.Data.findIndex((item) => item.id == veg.id)
+    {reduxData.cart[
+      reduxData.cart.findIndex((item) => item.id == veg.id)
     ] &&
-      reduxData.Data[
-        reduxData.Data.findIndex((item) => item.id == veg.id)
+      reduxData.cart[
+        reduxData.cart.findIndex((item) => item.id == veg.id)
       ].quantity}
 </Text>
 <Text>
     Price:
-    {reduxData.Data[
-      reduxData.Data.findIndex((item) => item.id == veg.id)
+    {reduxData.cart[
+      reduxData.cart.findIndex((item) => item.id == veg.id)
     ] &&
-      reduxData.Data[
-        reduxData.Data.findIndex((item) => item.id == veg.id)
+      reduxData.cart[
+        reduxData.cart.findIndex((item) => item.id == veg.id)
       ].totalPrice}
   </Text>
                   </View>
