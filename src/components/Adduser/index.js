@@ -1,24 +1,37 @@
-import React from 'react'
-import { TextInput, View,Text } from 'react-native'
+import React, { useState } from 'react';
+import { TextInput, View, Text, Button } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 
-
 const Adduser = () => {
+    const [inputUser, setInputUser] = useState({
+        FirstName: "",
+        LastName: "",
+        PhoneNumber: "",
+    });
+
+    const handleChange = (name, value) => {
+        setInputUser({ ...inputUser, [name]: value });
+    };
+
+    const handleSubmit = () => {
+        console.log(inputUser);
+    };
+
     return (
-        <div>
-              <View style={{ padding: 20 }}>
-            <View style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                padding:20
-            }} >
-                <AntDesign name="close" size={30} color="blue" />
-                <Text style={{fontSize:20}}>Save</Text>
-            </View>
-            <Text style={{fontSize:25, marginBottom:20 }}>Add new Customer</Text>
-          
-                <Text style={{fontSize:15, color:"gray", marginBottom:10}}>Contact Information </Text>
+        <View>
+            <View style={{ padding: 20 }}>
+                <View style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: 20
+                }} >
+                    <AntDesign name="close" size={30} color="blue" />
+                    <Text style={{ fontSize: 20 }} onPress={handleSubmit} >Save</Text>
+                </View>
+                <Text style={{ fontSize: 25, marginBottom: 20 }}>Add new Customer</Text>
+
+                <Text style={{ fontSize: 15, color: "gray", marginBottom: 10 }}>Contact Information </Text>
                 <TextInput
                     placeholder="First Name * (Required)"
                     placeholderTextColor="gray"
@@ -27,8 +40,10 @@ const Adduser = () => {
                         borderColor: 'black',
                         marginBottom: 20,
                         fontSize: 16,
-                        padding:15
+                        padding: 15
                     }}
+                    value={inputUser.FirstName}
+                    onChangeText={(e) => handleChange("FirstName", e)}
                 />
                 <TextInput
                     placeholder="Last Name"
@@ -38,10 +53,11 @@ const Adduser = () => {
                         borderColor: 'black',
                         marginBottom: 20,
                         fontSize: 16,
-                      
-                        padding:15
-                        
+                        padding: 15
+
                     }}
+                    value={inputUser.LastName}
+                    onChangeText={(text) => handleChange("LastName", text)}
                 />
                 <TextInput
                     placeholder="Phone Number"
@@ -51,18 +67,14 @@ const Adduser = () => {
                         borderColor: 'black',
                         marginBottom: 20,
                         fontSize: 16,
-                        padding:15
+                        padding: 15
                     }}
+                    value={inputUser.PhoneNumber}
+                    onChangeText={(text) => handleChange("PhoneNumber", text)}
                 />
             </View>
-
-
-
-
-
-
-        </div>
-    )
+        </View>
+    );
 }
 
-export default Adduser
+export default Adduser;
