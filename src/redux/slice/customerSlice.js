@@ -37,6 +37,7 @@ const CustomerSlice = createSlice({
       // Find existing item with the same ID
       const existingItem = state.cart.find(
         (item) => item.id === action.payload.id
+
       );
 
       // If item exists, update its quantity
@@ -45,6 +46,7 @@ const CustomerSlice = createSlice({
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.price * existingItem.quantity;
         console.log("existing", existingItem);
+        
         // localStorage.setItem('cart', JSON.stringify(state.cart));
         // Modify the draft directly (Immer handles immutability)
       } else {
