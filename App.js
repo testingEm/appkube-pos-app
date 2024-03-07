@@ -20,6 +20,7 @@ import ProductsPrint from "./src/components/productsPrinter";
 import PrintToA4 from "./src/components/Print";
 import ImportProducts from "./src/components/ImportProducts";
 import Cash from "./src/components/Cash";
+import Share from "./src/components/Share";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +35,7 @@ const HomeScreen = () => (
     <Stack.Screen name="Adduser" component={Adduser} />
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} />
+    <Stack.Screen name="Share" component={Share}  />
   </Stack.Navigator>
 );
 
@@ -73,6 +75,7 @@ const ProductsScreen = () => (
     <Stack.Screen name="Catalog" component={Catalog} />
     <Stack.Screen name="Checkout" component={Checkout} options={{ headerShown: false }} />
     <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
+    <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} />
     <Stack.Screen name="getAllProducts" component={getAllProducts} />
   </Stack.Navigator>
 );

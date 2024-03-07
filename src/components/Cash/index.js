@@ -24,6 +24,7 @@ const Cash = () => {
 
     const handleOrder = () => {
         dispatch(createOrder({ total: routdata.params.value }));
+        navigation.navigate('Share');
     }
 
     const [Isloading, setIsloadig] = useState(true);
