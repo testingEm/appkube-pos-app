@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { store } from "./src/redux/store/store";
 import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,20 +11,19 @@ import Home from "./src/components/Home";
 import Orders from "./src/components/Orders";
 import Receipt from "./src/components/Receipt";
 import Customers from "./src/components/Customer";
-import Setting from "./src/components/setting";
+import Setting from "./src/components/setting"
 import Products from "./src/components/Products";
 import Adduser from "./src/components/Adduser";
 import ProductPage from "./src/components/ProductPage/ProductPage";
 import getAllProducts from "./src/components/getAllProducts";
-import ProductsPrint from "./src/components/productsPrinter"
+import ProductsPrint from "./src/components/productsPrinter";
 import PrintToA4 from "./src/components/Print";
 import ImportProducts from "./src/components/ImportProducts";
-import ThermalPrinterComponent from "./src/components/thermalPrinter";
-import Cash from "./src/components/Cash"
+import Cash from "./src/components/Cash";
+import Share from "./src/components/Share";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
-
 
 const HomeScreen = () => (
   <Stack.Navigator
@@ -36,111 +35,83 @@ const HomeScreen = () => (
     <Stack.Screen name="Adduser" component={Adduser} />
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} />
+    <Stack.Screen name="Share" component={Share}  />
   </Stack.Navigator>
 );
 
-
 const SettingScreen = () => (
-  <Stack.Navigator screenOptions={{
-    headerShown: true, // Hide default header
-  }}>
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: true,
+    }}
+  >
     <Stack.Screen name="setting" component={Setting} />
     <Stack.Screen name="Customers" component={Customers} />
     <Stack.Screen name="PrintToA4" component={PrintToA4} />
     <Stack.Screen name="ProductsPrint" component={ProductsPrint} />
     <Stack.Screen name="ImportProducts" component={ImportProducts} />
-    <Stack.Screen name="ThermalPrinterComponent" component={ThermalPrinterComponent} />
-   </Stack.Navigator>
+  </Stack.Navigator>
 );
 
 const OrdersScreen = () => (
   <Stack.Navigator
     screenOptions={{
-      headerShown: false, 
+      headerShown: false,
     }}
   >
     <Stack.Screen name="Orders" component={Orders} />
-    <Stack.Screen name="Receipt" component={Receipt} />
+    {/* <Stack.Screen name="Receipt" component={Receipt} /> */}
   </Stack.Navigator>
 );
-
 
 const ProductsScreen = () => (
   <Stack.Navigator
     screenOptions={{
-      headerShown: true, // Hide default header
+      headerShown: true,
     }}
   >
     <Stack.Screen name="Products" component={Products} />
     <Stack.Screen name="ProductPage" component={ProductPage} />
     <Stack.Screen name="Catalog" component={Catalog} />
-    <Stack.Screen name="Checkout" component={Checkout} options={{headerShown:false}}/>
-    <Stack.Screen name="Cash" component={Cash} options={{headerShown:false}} />
+    <Stack.Screen name="Checkout" component={Checkout} options={{ headerShown: false }} />
+    <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
+    <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} />
     <Stack.Screen name="getAllProducts" component={getAllProducts} />
   </Stack.Navigator>
 );
 
-// Define screen options for the bottom tab navigator
+const screenOptions = ({ route }) => ({
+  tabBarIcon: ({ color, size }) => {
+    let iconName;
+
+    if (route.name === "Home") {
+      iconName = "ios-home";
+    } else if (route.name === "Products") {
+      iconName = "ios-cart";
+    } else if (route.name === "Orders") {
+      iconName = "ios-archive";
+    } else if (route.name === "Setting") {
+      iconName = "ios-settings";
+    }
+
+    return <Ionicons name={iconName} size={size} color={color} />;
+  },
+});
 
 const App = () => {
-  const screens = {
-    Home: HomeScreen,
-    Products: ProductsScreen,
-    Orders: OrdersScreen,
-    Setting: SettingScreen,
-  };
-  const screenOptions = ({ route }) => ({
-    tabBarIcon: ({ color, size }) => {
-      let iconName;
-  
-      if (route.name === "Home") {
-        iconName = "ios-home";
-      } else if (route.name === "Products") {
-        iconName = "ios-cart";
-      } else if (route.name === "Orders") {
-        iconName = "ios-archive";
-      } else if (route.name === "Setting") {
-        iconName = "ios-settings";
-      }
-  
-      return <Ionicons name={iconName} size={size} color={color} />;
-    },
-  });
-
-
   return (
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator
           screenOptions={screenOptions}
-          tabBarOptions={{
-            activeTintColor: "#31572c",
-            inactiveTintColor: "gray",
-          }}
+          tabBarActiveTintColor="#31572c"
+          tabBarInactiveTintColor="gray"
+          tabBarStyle={{ display: "flex" }}
         >
-          {Object.entries(screens).map(([name, component]) => (
-            <Tab.Screen key={name} name={name} component={component} options={{headerShown:false}}/>
-          ))}
-          {/* <Tab.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }} // Hide default header
-          />
-          <Tab.Screen
-            name="Checkout"
-            component={CheckoutScreen}
-            options={{ headerShown: false }} 
-          />
-          <Tab.Screen
-            name="Orders"
-            component={Orders}
-            options={{ headerShown: false }} 
-          />
-          <Tab.Screen
-            name="Customers"
-            component={Customers}
-            options={{ headerShown: false }} 
-          /> */}
+          <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Products" component={ProductsScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Orders" component={OrdersScreen} options={{ headerShown: false }} />
+          <Tab.Screen name="Setting" component={SettingScreen} options={{ headerShown: false }} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>

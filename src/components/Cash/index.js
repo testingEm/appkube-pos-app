@@ -24,6 +24,7 @@ const Cash = () => {
 
     const handleOrder = () => {
         dispatch(createOrder({ total: routdata.params.value }));
+        navigation.navigate('Share');
     }
 
     const [Isloading, setIsloadig] = useState(true);
@@ -44,7 +45,7 @@ const Cash = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     paddingHorizontal: 20,
-                    marginTop: 10,
+                    marginTop: 40,
 
                 }}>
 

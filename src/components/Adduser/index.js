@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, View, Text, Button } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
 const Adduser = () => {
     const [inputUser, setInputUser] = useState({
@@ -16,6 +17,11 @@ const Adduser = () => {
     const handleSubmit = () => {
         console.log(inputUser);
     };
+  const navigation = useNavigation();
+
+    const handleGoToAdduser = () => {
+        navigation.goBack();
+      };
 
     return (
         <View>
@@ -25,8 +31,9 @@ const Adduser = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: 20
-                }} >
-                    <AntDesign name="close" size={30} color="blue" />
+                }}
+                 >
+                    <AntDesign name="close" size={30} color="blue"  onPress={handleGoToAdduser} />
                     <Text style={{ fontSize: 20 }} onPress={handleSubmit} >Save</Text>
                 </View>
                 <Text style={{ fontSize: 25, marginBottom: 20 }}>Add new Customer</Text>

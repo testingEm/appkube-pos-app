@@ -10,31 +10,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOrders } from "../../redux/slice/customerSlice";
 
 const Orders = () => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   // const [orders, setOrders] = useState([]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const fetchedOrders = useSelector((state) => state.CustomerSlice.orders);
 
-  const fetchOrders = async () => {
-    try {
-      const response = await fetchingOrders();
-      const data = response.data.listOrders.items;
-      console.log("orders data", data);
-      data.map((value) => {
-        dispatch(addOrders(value));
-        // console.log("dispatching value", value);
-      });
-      setLoading(false);
-    } catch (error) {
-      console.log("orders error", error);
-      setLoading(false)
-    }
-  };
+  // const fetchOrders = async () => {
+  //   try {
+  //     // setLoading(true);
+  //     const response = await fetchingOrders();
+  //     const data = response.data.listOrders.items;
+  //     console.log("orders data", data);
+  //     data.map((value) => {
+  //       dispatch(addOrders(value));
+  //       // console.log("dispatching value", value);
+  //     });
+  //     // setLoading(false);
+  //   } catch (error) {
+  //     console.log("orders error", error);
+  //     // setLoading(false)
+  //   }
+  // };
   console.log("fetched orders", fetchedOrders);
-  useEffect(() => {
-    console.log("useEffect");
-    fetchOrders();
-  }, []);
+
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   fetchOrders();
+  // }, []);
 
   // createdAt: "2024-03-04T10:03:04.791Z";
   // id: "f1b6db8a-112d-449c-a3d5-a7a4608313ce";
@@ -64,11 +66,17 @@ const Orders = () => {
             styles.shadow,
           ]}
         >
-          Orders
+          <Text>
+
+            Orders
+          </Text>
         </View>
         <View style={[styles.scrollLeft, styles.shadow]}>
           <View style={[styles.statusbox]}>
-            Sale type : POS{" "}
+            <Text>
+
+              Sale type : POS{" "}
+            </Text>
             <FontAwesome name="caret-down" size={18} color="#31572c" />
           </View>
           <View style={[styles.statusbox]}>
@@ -79,12 +87,10 @@ const Orders = () => {
       </View>
       <ScrollView style={[styles.scrollbar]}>
         {console.log("in scrool")}
-        {loading ? (
-          <ActivityIndicator size="large" color="green"></ActivityIndicator>
-        ) : (
-          fetchedOrders.map((order) => {
+        
+          {fetchedOrders.map((order,index) => {
             return (
-              <View style={[styles.box, styles.shadow]} key={order.id}>
+              <View style={[styles.box, styles.shadow]} key={index}>
                 <View style={[{ flex: 1 }, styles.gap]}>
                   <Text
                     style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
@@ -94,13 +100,16 @@ const Orders = () => {
                   <View style={[styles.border]}></View>
                   <View style={[styles.gap]}>
                     <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
-                    <Text style={{ fontSize: 18,color:'#31572c' ,flex:1,fontWeight:"700"}}>
-                      <FontAwesome name="rupee" size={18} color="#31572c" style={{marginRight:5}} />
+                    <Text style={{ fontSize: 18, color: '#31572c', flex: 1, fontWeight: "700" }}>
+                      <FontAwesome name="rupee" size={18} color="#31572c" style={{ marginRight: 5 }} />
                       {order.totalPrice}
                     </Text>
                   </View>
                   <View style={[styles.arrowbox, { margin: 5 }]}>
-                    No Customer{" "}
+                    <Text>
+
+                      No Customer{" "}
+                    </Text>
                     <FontAwesome5 name="angle-right" size={26} color="black" />
                   </View>
                 </View>
@@ -110,7 +119,7 @@ const Orders = () => {
                       name="circle"
                       size={18}
                       color="#31572c"
-                      // style={{ margin: 0 }}
+                    // style={{ margin: 0 }}
                     />
                     <Text style={{ marginLeft: 5 }}>paid</Text>
                   </View>
@@ -122,7 +131,7 @@ const Orders = () => {
               </View>
             )
           })
-        )}
+        } 
         {console.log("scrool ended")}
       </ScrollView>
     </View>

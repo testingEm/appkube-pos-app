@@ -12,8 +12,9 @@ import { Entypo } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { AddProduct, removeItem } from "../../redux/slice/Product";
-
+// import { AddProduct, removeItem } from "../../redux/slice/Product";
+import { addToCart } from "../../redux/slice/customerSlice";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
@@ -26,8 +27,6 @@ const ProductPage = () => {
   console.log(route.params.value);
 
 
-
-
   useEffect(() => {
     setProduct(route.params.value);
   }, []);
@@ -35,7 +34,7 @@ const ProductPage = () => {
 
 
   const dispatch = useDispatch();
-  const reduxData = useSelector((state) => state.Product);
+  const reduxData = useSelector((state) => state.CustomerSlice.cart);
 
 
 
@@ -184,7 +183,8 @@ const ProductPage = () => {
     <View
       style={{
         flexDirection: "column",
-        gap: "10px",
+        // gap: "10px",
+        marginVertical: 10,
         padding: "15px",
         position: "relative",
         height: "100%",
@@ -194,7 +194,8 @@ const ProductPage = () => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          gap: "20px",
+          // gap: "20px",
+          marginVertical: 20,
         }}
       >
         <Image
@@ -205,7 +206,7 @@ const ProductPage = () => {
         />
         {/* <View style={{ marginLeft: 20 }}> */}
         <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-          {product.name} 1 {product.unit} <br />
+          {product.name} 1 {product.unit} {"\n"}
           Price : ₹ {product.price}
         </Text>
         {/* </View> */}
@@ -321,19 +322,24 @@ const ProductPage = () => {
                 keyboardType="numeric"
                 style={styles.textInput}
               />
-              <Picker
-                selectedValue={selectedType}
-                onValueChange={handleSelectType}
-                style={styles.picker}
-              >
-                {quantityTypes.map((type) => (
-                  <Picker.Item
-                    label={type.label}
-                    value={type.value}
-                    key={type.value}
-                  />
-                ))}
-              </Picker>
+              <DropDownPicker
+          items={quantityTypes.map((type) => ({
+            label: type.label,
+            value: type.value,
+          }))}
+          defaultValue={selectedType}
+          containerStyle={{ height: 40, width: 100, marginTop: 10 }}
+          style={{
+            backgroundColor: "#fafafa",
+            borderBottomColor: "#fff",
+            borderTopColor: "#fff",
+          }}
+          itemStyle={{
+            justifyContent: "flex-start",
+          }}
+          dropDownStyle={{ backgroundColor: "#fafafa" }}
+          onChangeItem={(item) => handleSelectType(item.value)}
+        />
             </View>
             {/* {quantity != "" && (
               <Text>
@@ -379,7 +385,7 @@ const ProductPage = () => {
             //     1000,
             // });
             // console.log(cart);
-            const data =  dispatch(AddProduct(product));
+            const data =  dispatch(addToCart(product));
             // console.log(data.payload)
             // console.log(data.payload)
 
@@ -410,7 +416,7 @@ const ProductPage = () => {
           >
             Go to cart
           </Text>
-          <Text style={{ color: "grey" }}>{reduxData.Data.length} items</Text>
+          <Text style={{ color: "grey" }}>{reduxData.length} items</Text>
         </Pressable>
       </View>
     </View>

@@ -1,59 +1,41 @@
-
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { clearCart } from "../../redux/slice/Product";
-// import { createOrder } from "../../redux/slice/customerSlice";
-// import { removeCart } from '../../redux/slice/Product';
+import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
+import { removeCart } from '../../redux/slice/Product'
 
-  // import React from "react";
-  // import { AntDesign } from "@expo/vector-icons";
-  // import { FontAwesome } from "@expo/vector-icons";
-  // import { View, Text, Pressable, Image, ScrollView } from "react-native";
-  // import { useSelector, useDispatch } from "react-redux";
-  // import { useNavigation } from "@react-navigation/native";
-  // import { clearCart } from "../../redux/slice/Product";
+const Checkout = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const checkout = useSelector((state) => state.CustomerSlice.cart);
+  const subtotal = checkout
+    .filter((item) => item && typeof item.price === "number")
+    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+  const ItemAdd = checkout.length;
 
-  import { addOrders, createOrder } from "../../redux/slice/customerSlice";
-  import {removeCart} from '../../redux/slice/Product'
+  const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
 
- 
+  const handleGoToCheckout = () => {
+    navigation.goBack();
+  };
 
+  const handleOrder = () => {
+    dispatch(createOrder({ total: subtotal }));
+  };
 
+  const handleGoToCash = () => {
+    if (checkout.length > 0) {
+      navigation.navigate('Cash',{value:subtotal});
+    } else {
+      setShowAlert(true); // Show alert if the cart is empty
+    }
+  };
 
-  const Checkout = () => {
-    const navigation = useNavigation();
-    const dispatch = useDispatch();
-    const checkout = useSelector((state) => state.Product.Data);
-    const subtotal = checkout
-      .filter((item) => item && typeof item.price === "number")
-      .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
-    const ItemAdd = checkout.length;
-  
-    const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
-  
-    const handleGoToCheckout = () => {
-      navigation.goBack();
-    };
-  
-    const handleOrder = () => {
-      dispatch(createOrder({ total: subtotal }));
-    };
-  
-    const handleGoToCash = () => {
-      if (checkout.length > 0) {
-        navigation.navigate('Cash',{value:subtotal});
-      } else {
-        setShowAlert(true); // Show alert if the cart is empty
-      }
-    };
-  
-    const handleRemoveCart = () => {
-      dispatch(removeCart());
-    };
-  
+  const handleRemoveCart = () => {
+    dispatch(emptyCart());
+  };
 
   return (
     <View
@@ -65,12 +47,14 @@ import { clearCart } from "../../redux/slice/Product";
         position: "relative",
       }}
     >
-      <AntDesign
-        name="close"
-        size={30}
-        color="blue"
-        onPress={handleGoToCheckout}
-      />
+      <View style={{ marginTop: 30 ,marginLeft:15 }}>
+        <AntDesign
+          name="close"
+          size={30}
+          color="blue"
+          onPress={handleGoToCheckout}
+        />
+      </View>
       <View
         style={{
           borderBottomColor: "lightgray",
@@ -102,7 +86,7 @@ import { clearCart } from "../../redux/slice/Product";
           <AntDesign onPress={handleRemoveCart} name="delete" size={18} color="red" />
         </View>
       </View>
-      <View style={{ marginTop: 10, marginBottom: 10, height: 320, overflow: "scroll", paddingTop: 10 }}>
+      <ScrollView style={{ marginTop: 10, marginBottom: 10, overflow: "scroll", paddingTop: 10 }}>
         {checkout.length === 0 ? (
           <View style={{ paddingHorizontal: 20 }}>
             <Text style={{ fontSize: 20 }}>No items available in the cart.</Text>
@@ -148,7 +132,7 @@ import { clearCart } from "../../redux/slice/Product";
             marginVertical: 10,
           }}
         />
-      </View>
+      </ScrollView>
       <View
         style={{
           flexDirection: "row",
@@ -166,6 +150,8 @@ import { clearCart } from "../../redux/slice/Product";
           borderBottomWidth: 1,
           marginVertical: 10,
           alignItems: "center",
+          marginBottom:20
+
         }}
       />
       <View
@@ -174,7 +160,7 @@ import { clearCart } from "../../redux/slice/Product";
           justifyContent: "space-between",
           paddingHorizontal: 10,
           // backgroundColor:"red",
-          marginBottom: 100,
+          marginBottom: 20,
 
         }}
       >
@@ -184,26 +170,30 @@ import { clearCart } from "../../redux/slice/Product";
 
       <View
         style={{
-          marginTop: 100,
-          position: "absolute",
-          bottom: 10,
-          width: "95%",
-          gap: 10,
+         color:"white"
+          
         }}
       >
         <View
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
-            paddingHorizontal: 10,
+           
+            fontSize: 16,
+          paddingHorizontal: 15,
+          marginBottom:10
+
+
+
           }}
         >
           <View>
-            <Text style={{ fontSize: 16 }}>Total</Text>
-            <Text style={{ fontSize: 16 }}>{ItemAdd} Item</Text>
+            <Text style={{ fontSize: 16, }}>Total</Text>
+
+            <Text style={{ fontSize: 16, }}>{ItemAdd} Item</Text>
           </View>
           <View>
-            <Text style={{ marginLeft: 5, fontSize: 16 }}>₹ {subtotal}</Text>
+            <Text style={{ fontSize: 16, }}>₹ {subtotal}</Text>
           </View>
         </View>
         <Pressable
@@ -211,6 +201,7 @@ import { clearCart } from "../../redux/slice/Product";
             padding: 10,
             backgroundColor: "blue",
             borderRadius: 5,
+            // marginLeft: 10
           }}
           onPress={handleGoToCash}
         >
@@ -219,6 +210,8 @@ import { clearCart } from "../../redux/slice/Product";
               color: "white",
               textAlign: "center",
               fontSize: 16,
+
+
             }}
           >
             Checkout
@@ -229,11 +222,11 @@ import { clearCart } from "../../redux/slice/Product";
 
       {/* Alert to inform user to add items to cart */}
       {showAlert && (
-        <View style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 0, 0, 0.5)" ,padding:20}}>
+        <View style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 0, 0, 0.5)", padding: 20 }}>
           <View style={{ backgroundColor: "white", padding: 40, borderRadius: 10 }}>
             <Text style={{ fontSize: 16, marginBottom: 10 }}>Please add items to the cart before proceeding to checkout.</Text>
             <Pressable onPress={() => setShowAlert(false)} style={{ padding: 10, backgroundColor: "blue", borderRadius: 5 }}>
-              <Text style={{ color: "white", textAlign:"center" }}>OK</Text>
+              <Text style={{ color: "white", textAlign: "center" }}>OK</Text>
             </Pressable>
           </View>
         </View>
@@ -241,6 +234,5 @@ import { clearCart } from "../../redux/slice/Product";
     </View>
   );
 };
-
 
 export default Checkout;
