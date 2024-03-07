@@ -9,13 +9,14 @@ import {
 // import { useNavigation } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 // import { creatingOrder } from "../../api/createOrder";
-import { createOrder } from "../../redux/slice/customerSlice";
+import { addOrders} from "../../redux/slice/customerSlice";
 // import {useDispatch} from 'react-redux'
 import { fetchCategories } from "../../api/fetchProducts";
 import { useState,useEffect } from "react";
 
 import { AddAllProducts } from "../../redux/slice/getAllProductSlice";
 import { useDispatch } from "react-redux";
+import { fetchingOrders } from "../../api/fetchOrders";
 
 
 const Home = () => {
@@ -35,10 +36,27 @@ const Home = () => {
       
     }
   }
+  const fetchOrders = async () => {
+    try {
+      // setLoading(true);
+      const response = await fetchingOrders();
+      const data = response.data.listOrders.items;
+      console.log("orders data", data);
+      data.map((value) => {
+        dispatch(addOrders(value));
+        // console.log("dispatching value", value);
+      });
+      // setLoading(false);
+    } catch (error) {
+      console.log("orders error", error);
+      // setLoading(false)
+    }
+  };
  
   useEffect(() => {
   
-    getProduct()
+    getProduct();
+    fetchOrders();
 
   },[])
 
@@ -85,14 +103,14 @@ const Home = () => {
 
       <View style={[styles.box, styles.bgDark]}>
         <AntDesign name="plus" size={18} color="#d8f3dc" />
-        <Text style={[{ textAling: "center" }, styles.light]}>
+        <Text style={[{ textAlign: "center" }, styles.light]}>
           Add custom sale
         </Text>
       </View>
 
       <View style={[styles.box, styles.bgLight]}>
         <FontAwesome5 name="percent" size={18} color="#31572c" />
-        <Text style={[{ textAling: "center" }, styles.dark]}>
+        <Text style={[{ textAlign: "center" }, styles.dark]}>
           Apply discount
         </Text>
       </View>

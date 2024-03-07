@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { creatingOrder } from "../../api/createOrder";
 //  import {useDispatch} from 'react-redux'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 // const dispatch = useDispatch();
 export const createOrder = createAsyncThunk(
@@ -60,7 +62,7 @@ const CustomerSlice = createSlice({
           ],
         };
       }
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      AsyncStorage.setItem("cart", JSON.stringify(state.cart));
     },
 
     removeFromCart: (state, action) => {
@@ -84,7 +86,7 @@ const CustomerSlice = createSlice({
         }
       }
       // Immer handles returning the modified state
-      localStorage.setItem("cart", JSON.stringify(state.cart));
+      AsyncStorage.setItem("cart", JSON.stringify(state.cart));
       return; // No need to return anything explicitly
     },
     emptyCart:(state,action)=>{
@@ -101,9 +103,9 @@ const CustomerSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
         state.orders.push(action.payload);
-        localStorage.setItem("orders", JSON.stringify(state.orders));
+        AsyncStorage.setItem("orders", JSON.stringify(state.orders));
         state.cart = []
-        localStorage.setItem("cart", JSON.stringify(state.cart));
+        AsyncStorage.setItem("cart", JSON.stringify(state.cart));
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;

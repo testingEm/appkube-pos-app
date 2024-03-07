@@ -12,9 +12,9 @@ import { Entypo } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { AddProduct, removeItem } from "../../redux/slice/Product";
+// import { AddProduct, removeItem } from "../../redux/slice/Product";
 import { addToCart } from "../../redux/slice/customerSlice";
-
+import DropDownPicker from "react-native-dropdown-picker";
 
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
@@ -25,8 +25,6 @@ const ProductPage = () => {
   const route = useRoute();
   const navigation = useNavigation();
   console.log(route.params.value);
-
-
 
 
   useEffect(() => {
@@ -185,7 +183,8 @@ const ProductPage = () => {
     <View
       style={{
         flexDirection: "column",
-        gap: "10px",
+        // gap: "10px",
+        marginVertical: 10,
         padding: "15px",
         position: "relative",
         height: "100%",
@@ -195,7 +194,8 @@ const ProductPage = () => {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          gap: "20px",
+          // gap: "20px",
+          marginVertical: 20,
         }}
       >
         <Image
@@ -206,7 +206,7 @@ const ProductPage = () => {
         />
         {/* <View style={{ marginLeft: 20 }}> */}
         <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-          {product.name} 1 {product.unit} <br />
+          {product.name} 1 {product.unit} {"\n"}
           Price : ₹ {product.price}
         </Text>
         {/* </View> */}
@@ -322,19 +322,24 @@ const ProductPage = () => {
                 keyboardType="numeric"
                 style={styles.textInput}
               />
-              <Picker
-                selectedValue={selectedType}
-                onValueChange={handleSelectType}
-                style={styles.picker}
-              >
-                {quantityTypes.map((type) => (
-                  <Picker.Item
-                    label={type.label}
-                    value={type.value}
-                    key={type.value}
-                  />
-                ))}
-              </Picker>
+              <DropDownPicker
+          items={quantityTypes.map((type) => ({
+            label: type.label,
+            value: type.value,
+          }))}
+          defaultValue={selectedType}
+          containerStyle={{ height: 40, width: 100, marginTop: 10 }}
+          style={{
+            backgroundColor: "#fafafa",
+            borderBottomColor: "#fff",
+            borderTopColor: "#fff",
+          }}
+          itemStyle={{
+            justifyContent: "flex-start",
+          }}
+          dropDownStyle={{ backgroundColor: "#fafafa" }}
+          onChangeItem={(item) => handleSelectType(item.value)}
+        />
             </View>
             {/* {quantity != "" && (
               <Text>
