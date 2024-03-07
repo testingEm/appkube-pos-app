@@ -15,13 +15,16 @@ import styles from './styles';
 const Products = () => {
   // const [data, setData] = useState([])
   const navigation = useNavigation();
+
   const ProductsData = useSelector((start) => start.getAllProducts)
+
 
 
   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
 
   const [GetProduct,setGetProducts] = useState([...ProductsData])
 
+  
 
 
 const Header = () => (

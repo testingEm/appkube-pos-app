@@ -34,6 +34,7 @@ const Home = () => {
     } catch (error) {
       console.error(error);
       
+      
     }
   }
   const fetchOrders = async () => {
