@@ -4,12 +4,12 @@
   import { View, Text, Pressable, Image, ScrollView } from "react-native";
   import { useSelector, useDispatch } from "react-redux";
   import { useNavigation } from "@react-navigation/native";
-  import { clearCart } from "../../redux/slice/Product";
+  // import { clearCart } from "../../redux/slice/Product";
 
-  import { addOrders, createOrder } from "../../redux/slice/customerSlice";
+  import { createOrder,emptyCart } from "../../redux/slice/customerSlice";
 
  
-  import {removeCart} from '../../redux/slice/Product'
+  // import {removeCart} from '../../redux/slice/Product'
 
   const Checkout = () => {
     const navigation = useNavigation();
@@ -74,7 +74,7 @@
               backgroundColor: "pink",
             }}
           >
-            <AntDesign onPress={()=>{dispatch(removeCart())}} name="delete" size={18} color="red" />
+            <AntDesign onPress={()=>{dispatch(emptyCart())}} name="delete" size={18} color="red" />
           </View>
         </View>
         <View style={{ marginTop: 10 ,marginBottom:10,height:320,overflow:"scroll" ,paddingTop:10}}>
