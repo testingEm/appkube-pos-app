@@ -36,6 +36,8 @@ const HomeScreen = () => (
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} />
     <Stack.Screen name="Share" component={Share}  />
+    <Stack.Screen name="Customers" component={Customers} />
+
   </Stack.Navigator>
 );
 
@@ -50,6 +52,7 @@ const SettingScreen = () => (
     <Stack.Screen name="PrintToA4" component={PrintToA4} />
     <Stack.Screen name="ProductsPrint" component={ProductsPrint} />
     <Stack.Screen name="ImportProducts" component={ImportProducts} />
+    <Stack.Screen name="Adduser" component={Adduser} />
   </Stack.Navigator>
 );
 

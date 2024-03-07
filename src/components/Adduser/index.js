@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, View, Text, Button } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
 const Adduser = () => {
     const [inputUser, setInputUser] = useState({
@@ -15,7 +16,10 @@ const Adduser = () => {
 
     const handleSubmit = () => {
         console.log(inputUser);
+        Navigation.navigate('Customers')
     };
+    const Navigation = useNavigation();
+
 
     return (
         <View>
