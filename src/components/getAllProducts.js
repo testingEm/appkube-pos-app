@@ -314,10 +314,41 @@
 
 //   const HandleIncrement = (veg) => {
 //     const data = dispatch(addToCart(veg));
+// const updatedCartItems = [...cartItems];
+//     const existingItemIndex = updatedCartItems.findIndex(
+//       (item) => item.id === veg.id
+//     );
+
+//     if (existingItemIndex !== -1) {
+//       // Item already exists in the cart, update quantity
+//       updatedCartItems[existingItemIndex].quantity += 1;
+//     } else {
+//       // Item doesn't exist in the cart, add it with quantity 1
+//       const newItem = { ...veg, quantity: 1 };
+//       updatedCartItems.push(newItem);
+//     }
+
+//     setCartItems(updatedCartItems);
 //   };
 
 //   const handleDecrement = (veg) => {
 //     dispatch(removeFromCart(veg.id));
+
+// const updatedCartItems = [...cartItems];
+// const existingItemIndex = updatedCartItems.findIndex(
+//   (item) => item.id === veg.id
+// );
+
+// if (existingItemIndex !== -1) {
+//   // Item exists in the cart, update quantity
+//   if (updatedCartItems[existingItemIndex].quantity > 1) {
+//     updatedCartItems[existingItemIndex].quantity -= 1;
+//   } else {
+//     // Remove item from the cart if quantity is 1
+//     updatedCartItems.splice(existingItemIndex, 1);
+//   }
+
+//   setCartItems(updatedCartItems);}
 //   };
 
 //   const calculateItemPrice = (item) => {
