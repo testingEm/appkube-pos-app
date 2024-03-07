@@ -7,7 +7,9 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
+  Pressable
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Customers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,13 +18,27 @@ const Customers = () => {
     { id: 2, name: "Jane Smith", email: "smith@gmail.com" },
     { id: 3, name: "Alice Johnson", email: "Alice@gmail.com" },
     { id: 4, name: "Bob Brown", email: "Bob@gmail.com" },
+    { id: 5, name: "Alice Johnson", email: "alice@example.com" },
+  { id: 6, name: "Charlie Davis", email: "charlie@example.com" },
+  { id: 7, name: "Emma Smith", email: "emma@example.com" },
+  { id: 8, name: "David Wilson", email: "david@example.com" },
+  { id: 9, name: "Ella Martinez", email: "ella@example.com" },
+  { id: 10, name: "Frank Thompson", email: "frank@example.com" },
+  { id: 11, name: "Grace Lee", email: "grace@example.com" },
+  { id: 12, name: "Henry Clark", email: "henry@example.com" },
+  { id: 13, name: "Ian Martinez", email: "ian@example.com" },
+  { id: 14, name: "Jennifer Brown", email: "jennifer@example.com" },
+  { id: 15, name: "Kevin Taylor", email: "kevin@example.com" },
+  { id: 16, name: "Linda Harris", email: "linda@example.com" },
+  { id: 17, name: "Michael Adams", email: "michael@example.com" },
+  { id: 18, name: "Nancy Scott", email: "nancy@example.com" }
     //   { id: 1, name: 'alex Doe' ,email: "john@gmail.com" },
     //   { id: 2, name: 'flex Smith' ,email: "smith@gmail.com" },
     //   { id: 3, name: 'ben Johnson',email: "Alice@gmail.com" },
     //   { id: 4, name: 'juan Brown',email: "Bob@gmail.com" },
     // Add more customers as needed
   ]);
-
+ const navigation = useNavigation();
   const matchingResults = customers.filter(
     (customer) =>
       customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -43,6 +59,10 @@ const Customers = () => {
       </Text>
     </TouchableOpacity>
   );
+  const addCustomer = ()=>{
+    console.log('addCustomer')
+    navigation.navigate('Adduser');
+  }
 
   return (
     <View style={styles.container}>
@@ -57,6 +77,14 @@ const Customers = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
       />
+      <Pressable 
+        style={{ backgroundColor: 'blue', padding: 10, borderRadius: 5 }}
+        onPress={addCustomer}>
+            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16 }}>
+              add Customer 
+            </Text>
+        </Pressable>
+       
     </View>
   );
 };

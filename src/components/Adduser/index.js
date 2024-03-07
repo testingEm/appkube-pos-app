@@ -16,12 +16,15 @@ const Adduser = () => {
 
     const handleSubmit = () => {
         console.log(inputUser);
+        Navigation.navigate('Customers')
     };
   const navigation = useNavigation();
 
     const handleGoToAdduser = () => {
         navigation.goBack();
       };
+    const Navigation = useNavigation();
+
 
     return (
         <View>
