@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { clearCart } from "../../redux/slice/Product";
+// import { clearCart } from "../../redux/slice/Product";
 // import { createOrder } from "../../redux/slice/customerSlice";
 // import { removeCart } from '../../redux/slice/Product';
 
@@ -16,7 +16,7 @@ import { clearCart } from "../../redux/slice/Product";
   // import { useNavigation } from "@react-navigation/native";
   // import { clearCart } from "../../redux/slice/Product";
 
-  import { addOrders, createOrder } from "../../redux/slice/customerSlice";
+  import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
   import {removeCart} from '../../redux/slice/Product'
 
  
@@ -51,7 +51,7 @@ import { clearCart } from "../../redux/slice/Product";
     };
   
     const handleRemoveCart = () => {
-      dispatch(removeCart());
+      dispatch(emptyCart());
     };
   
 

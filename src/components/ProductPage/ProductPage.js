@@ -12,7 +12,7 @@ import { Entypo } from "@expo/vector-icons";
 import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { AddProduct, removeItem } from "../../redux/slice/Product";
+// import { AddProduct, removeItem } from "../../redux/slice/Product";
 import { addToCart } from "../../redux/slice/customerSlice";
 import DropDownPicker from "react-native-dropdown-picker";
 

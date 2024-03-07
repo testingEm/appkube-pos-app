@@ -12,31 +12,31 @@ import { addOrders } from "../../redux/slice/customerSlice";
 const Orders = () => {
   // const [loading, setLoading] = useState(true);
   // const [orders, setOrders] = useState([]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const fetchedOrders = useSelector((state) => state.CustomerSlice.orders);
 
-  const fetchOrders = async () => {
-    try {
-      // setLoading(true);
-      const response = await fetchingOrders();
-      const data = response.data.listOrders.items;
-      console.log("orders data", data);
-      data.map((value) => {
-        dispatch(addOrders(value));
-        // console.log("dispatching value", value);
-      });
-      // setLoading(false);
-    } catch (error) {
-      console.log("orders error", error);
-      // setLoading(false)
-    }
-  };
+  // const fetchOrders = async () => {
+  //   try {
+  //     // setLoading(true);
+  //     const response = await fetchingOrders();
+  //     const data = response.data.listOrders.items;
+  //     console.log("orders data", data);
+  //     data.map((value) => {
+  //       dispatch(addOrders(value));
+  //       // console.log("dispatching value", value);
+  //     });
+  //     // setLoading(false);
+  //   } catch (error) {
+  //     console.log("orders error", error);
+  //     // setLoading(false)
+  //   }
+  // };
   console.log("fetched orders", fetchedOrders);
 
-  useEffect(() => {
-    console.log("useEffect");
-    fetchOrders();
-  }, []);
+  // useEffect(() => {
+  //   console.log("useEffect");
+  //   fetchOrders();
+  // }, []);
 
   // createdAt: "2024-03-04T10:03:04.791Z";
   // id: "f1b6db8a-112d-449c-a3d5-a7a4608313ce";
