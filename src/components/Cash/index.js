@@ -45,7 +45,7 @@ const Cash = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     paddingHorizontal: 20,
-                    marginTop: 10,
+                    marginTop: 40,
 
                 }}>
 
