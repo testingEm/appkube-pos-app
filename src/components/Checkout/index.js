@@ -6,37 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
 import { removeCart } from '../../redux/slice/Product'
 
-const Checkout = () => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const checkout = useSelector((state) => state.CustomerSlice.cart);
-  const subtotal = checkout
-    .filter((item) => item && typeof item.price === "number")
-    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
-  const ItemAdd = checkout.length;
 
-  const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
-
-  const handleGoToCheckout = () => {
-    navigation.goBack();
-  };
-
-  const handleOrder = () => {
-    dispatch(createOrder({ total: subtotal }));
-  };
-
-  const handleGoToCash = () => {
-    if (checkout.length > 0) {
-      navigation.navigate('Cash',{value:subtotal});
-    } else {
-      setShowAlert(true); // Show alert if the cart is empty
-    }
-  };
-
-  const handleRemoveCart = () => {
-    dispatch(emptyCart());
-  };
-=======
 // import { clearCart } from "../../redux/slice/Product";
 // import { createOrder } from "../../redux/slice/customerSlice";
 // import { removeCart } from '../../redux/slice/Product';
@@ -49,8 +19,8 @@ const Checkout = () => {
   // import { useNavigation } from "@react-navigation/native";
   // import { clearCart } from "../../redux/slice/Product";
 
-  import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
-  import {removeCart} from '../../redux/slice/Product'
+  // import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
+  // import {removeCart} from '../../redux/slice/Product'
 
  
 

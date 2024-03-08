@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Entypo } from '@expo/vector-icons';
 
 
-const index = () => {
+const Share = () => {
   // const [showShare, setshowShare] = useState(false);
   const navigation = useNavigation();
 
@@ -75,4 +75,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Share;
