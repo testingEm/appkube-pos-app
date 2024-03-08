@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, ActivityIndicator } from "react-native";
+import { Text, View, ScrollView, ActivityIndicator, Pressable } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
 // import { Container, Content } from 'react-native';
 // // import { DataStore } from '@aws-amplify/datastore';
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
@@ -10,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOrders } from "../../redux/slice/customerSlice";
 
 const Orders = () => {
+  const navigation = useNavigation();
+
   // const [loading, setLoading] = useState(true);
   // const [orders, setOrders] = useState([]);
   // const dispatch = useDispatch();
@@ -46,6 +50,11 @@ const Orders = () => {
   // _deleted: null;
   // _lastChangedAt: 1709546584820;
   // _version: 1;
+  const handleOrder = (id) =>{
+    console.log("navigating to order");
+    navigation.navigate("Order", { value: id});
+
+  }
   return (
     <View style={[styles.container]}>
       {/* <Content refreshControl={
@@ -90,7 +99,7 @@ const Orders = () => {
         
           {fetchedOrders.map((order,index) => {
             return (
-              <View style={[styles.box, styles.shadow]} key={index}>
+              <Pressable style={[styles.box, styles.shadow]} key={index} onPress={()=>{handleOrder(order)}}>
                 <View style={[{ flex: 1 }, styles.gap]}>
                   <Text
                     style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
@@ -128,7 +137,7 @@ const Orders = () => {
                     <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
                   </View>
                 </View>
-              </View>
+              </Pressable>
             )
           })
         } 

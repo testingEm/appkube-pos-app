@@ -9,6 +9,7 @@ import Catalog from "./src/components/Catalog";
 import Checkout from "./src/components/Checkout";
 import Home from "./src/components/Home";
 import Orders from "./src/components/Orders";
+import Order from "./src/components/Order/Order"
 import Receipt from "./src/components/Receipt";
 import Customers from "./src/components/Customer";
 import Setting from "./src/components/setting"
@@ -65,6 +66,7 @@ const OrdersScreen = () => (
     }}
   >
     <Stack.Screen name="Orders" component={Orders} />
+    <Stack.Screen name="Order" component={Order} />
     {/* <Stack.Screen name="Receipt" component={Receipt} /> */}
   </Stack.Navigator>
 );

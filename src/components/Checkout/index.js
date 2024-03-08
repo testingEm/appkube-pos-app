@@ -1,56 +1,56 @@
-import React, { useState } from "react";
-import { AntDesign } from "@expo/vector-icons";
-import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
-import { removeCart } from '../../redux/slice/Product'
+// import React, { useState } from "react";
+// import { AntDesign } from "@expo/vector-icons";
+// import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
+// import { useSelector, useDispatch } from "react-redux";
+// import { useNavigation } from "@react-navigation/native";
+// import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
+// import { removeCart } from '../../redux/slice/Product'
 
-const Checkout = () => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const checkout = useSelector((state) => state.CustomerSlice.cart);
-  const subtotal = checkout
-    .filter((item) => item && typeof item.price === "number")
-    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
-  const ItemAdd = checkout.length;
+// const Checkout = () => {
+//   const navigation = useNavigation();
+//   const dispatch = useDispatch();
+//   const checkout = useSelector((state) => state.CustomerSlice.cart);
+//   const subtotal = checkout
+//     .filter((item) => item && typeof item.price === "number")
+//     .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+//   const ItemAdd = checkout.length;
 
-  const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
+//   const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
 
-  const handleGoToCheckout = () => {
-    navigation.goBack();
-  };
+//   const handleGoToCheckout = () => {
+//     navigation.goBack();
+//   };
 
-  const handleOrder = () => {
-    dispatch(createOrder({ total: subtotal }));
-  };
+//   const handleOrder = () => {
+//     dispatch(createOrder({ total: subtotal }));
+//   };
 
-  const handleGoToCash = () => {
-    if (checkout.length > 0) {
-      navigation.navigate('Cash',{value:subtotal});
-    } else {
-      setShowAlert(true); // Show alert if the cart is empty
-    }
-  };
+//   const handleGoToCash = () => {
+//     if (checkout.length > 0) {
+//       navigation.navigate('Cash',{value:subtotal});
+//     } else {
+//       setShowAlert(true); // Show alert if the cart is empty
+//     }
+//   };
 
-  const handleRemoveCart = () => {
-    dispatch(emptyCart());
-  };
-=======
+//   const handleRemoveCart = () => {
+//     dispatch(emptyCart());
+//   };
 // import { clearCart } from "../../redux/slice/Product";
 // import { createOrder } from "../../redux/slice/customerSlice";
 // import { removeCart } from '../../redux/slice/Product';
 
-  // import React from "react";
-  // import { AntDesign } from "@expo/vector-icons";
-  // import { FontAwesome } from "@expo/vector-icons";
-  // import { View, Text, Pressable, Image, ScrollView } from "react-native";
-  // import { useSelector, useDispatch } from "react-redux";
-  // import { useNavigation } from "@react-navigation/native";
-  // import { clearCart } from "../../redux/slice/Product";
+  import React , {useState} from "react";
+  import { AntDesign } from "@expo/vector-icons";
+  import { FontAwesome } from "@expo/vector-icons";
+  import { View, Text, Pressable, Image, ScrollView } from "react-native";
+  import { useSelector, useDispatch } from "react-redux";
+  import { useNavigation } from "@react-navigation/native";
+  import { clearCart } from "../../redux/slice/Product";
 
   import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
   import {removeCart} from '../../redux/slice/Product'
+// import { useState } from "react";
 
  
 
