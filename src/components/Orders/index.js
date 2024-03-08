@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, ActivityIndicator } from "react-native";
+import { Text, View, ScrollView, ActivityIndicator, RefreshControl } from "react-native";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 // import { Container, Content } from 'react-native';
 // // import { DataStore } from '@aws-amplify/datastore';
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 // import { Header } from "react-native/Libraries/NewAppScreen";
 import { fetchingOrders } from "../../api/fetchOrders";
 import styles from "./styles";
@@ -12,7 +12,7 @@ import { addOrders } from "../../redux/slice/customerSlice";
 const Orders = () => {
   // const [loading, setLoading] = useState(true);
   // const [orders, setOrders] = useState([]);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const fetchedOrders = useSelector((state) => state.CustomerSlice.orders);
 
   // const fetchOrders = async () => {
@@ -64,16 +64,17 @@ const Orders = () => {
             styles.light,
             styles.boldText,
             styles.shadow,
+
           ]}
         >
-          <Text>
+          <Text style={{ color: "white", fontSize: 16 }}>
 
             Orders
           </Text>
         </View>
         <View style={[styles.scrollLeft, styles.shadow]}>
           <View style={[styles.statusbox]}>
-            <Text>
+            <Text >
 
               Sale type : POS{" "}
             </Text>
@@ -87,51 +88,51 @@ const Orders = () => {
       </View>
       <ScrollView style={[styles.scrollbar]}>
         {console.log("in scrool")}
-        
-          {fetchedOrders.map((order,index) => {
-            return (
-              <View style={[styles.box, styles.shadow]} key={index}>
-                <View style={[{ flex: 1 }, styles.gap]}>
-                  <Text
-                    style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
-                  >
-                    {order.createdAt}
-                  </Text>
-                  <View style={[styles.border]}></View>
-                  <View style={[styles.gap]}>
-                    <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
-                    <Text style={{ fontSize: 18, color: '#31572c', flex: 1, fontWeight: "700" }}>
-                      <FontAwesome name="rupee" size={18} color="#31572c" style={{ marginRight: 5 }} />
-                      {order.totalPrice}
-                    </Text>
-                  </View>
-                  <View style={[styles.arrowbox, { margin: 5 }]}>
-                    <Text>
 
-                      No Customer{" "}
-                    </Text>
-                    <FontAwesome5 name="angle-right" size={26} color="black" />
-                  </View>
+        {fetchedOrders.map((order, index) => {
+          return (
+            <View style={[styles.box, styles.shadow]} key={index}>
+              <View style={[{ flex: 1 }, styles.gap]}>
+                <Text
+                  style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
+                >
+                  {order.createdAt}
+                </Text>
+                <View style={[styles.border]}></View>
+                <View style={[styles.gap]}>
+                  <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
+                  <Text style={{ fontSize: 18, color: '#31572c', flex: 1, fontWeight: "700" }}>
+                    <FontAwesome name="rupee" size={18} color="#31572c" style={{ marginRight: 5 }} />
+                    {order.totalPrice}
+                  </Text>
                 </View>
-                <View style={[styles.status]}>
-                  <View style={[styles.statusbox]}>
-                    <FontAwesome
-                      name="circle"
-                      size={18}
-                      color="#31572c"
-                    // style={{ margin: 0 }}
-                    />
-                    <Text style={{ marginLeft: 5 }}>paid</Text>
-                  </View>
-                  <View style={[styles.statusbox]}>
-                    <FontAwesome name="circle" size={18} color="#31572c" />
-                    <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
-                  </View>
+                <View style={[styles.arrowbox, { margin: 5 }]}>
+                  <Text>
+
+                    No Customer{" "}
+                  </Text>
+                  <FontAwesome5 name="angle-right" size={26} color="black" />
                 </View>
               </View>
-            )
-          })
-        } 
+              <View style={[styles.status]}>
+                <View style={[styles.statusbox]}>
+                  <FontAwesome
+                    name="circle"
+                    size={18}
+                    color="#31572c"
+                  // style={{ margin: 0 }}
+                  />
+                  <Text style={{ marginLeft: 5 }}>paid</Text>
+                </View>
+                <View style={[styles.statusbox]}>
+                  <FontAwesome name="circle" size={18} color="#31572c" />
+                  <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
+                </View>
+              </View>
+            </View>
+          )
+        })
+        }
         {console.log("scrool ended")}
       </ScrollView>
     </View>

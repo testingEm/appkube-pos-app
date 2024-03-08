@@ -11,6 +11,7 @@ export default StyleSheet.create({
     // justifyContent: "center",
     // alignItems: 'center',
     // overflow: "scroll",
+    marginTop:30
   },
   shadow: {
     shadowColor: "#ddd",
@@ -101,16 +102,17 @@ export default StyleSheet.create({
   },
   statusbox: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
     borderWidth: 1,
     borderColor: "#31572c",
     backgroundColor: "#d8f3dc",
     borderRadius: 20,
     width: "auto",
-    height: "40%",
+    height:50,
+    
     padding: 8,
-    paddingVertical: 15,
+    // paddingVertical: 15,
     gap: 10,
   },
 });

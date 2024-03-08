@@ -538,20 +538,27 @@ const GetAllProducts = () => {
               orders: {reduxData.cart?.length}
             </Text>
           </View>
+          <View>
           <Text
             style={{
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
+              // flexDirection: "row",
+              // justifyContent: "center",
+              // alignItems: "center",
               width: 100,
               height: 50,
               backgroundColor: "lightgray",
-              fontWeight:700
+              fontWeight:700,
+              paddingTop:15,
+              
+              paddingLeft:15,
+              
+              
             }}
           >
             Checkout
           </Text>
+        </View>
         </View>
       </TouchableOpacity>
 
@@ -633,11 +640,11 @@ const GetAllProducts = () => {
                       }}
                     >
                       <Text
-                        style={{
-                          textAlign: "center",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                        }}
+                        // style={{
+                        //   textAlign: "center",
+                        //   fontSize: "16px",
+                        //   fontWeight: "700",
+                        // }}
                       >
                         +
                       </Text>
@@ -655,11 +662,11 @@ const GetAllProducts = () => {
                       }}
                     >
                       <Text
-                        style={{
-                          textAlign: "center",
-                          fontSize: "16px",
-                          fontWeight: "700",
-                        }}
+                        // style={{
+                        //   textAlign: "center",
+                        //   fontSize: "16px",
+                        //   fontWeight: "700",
+                        // }}
                       >
                         -
                       </Text>

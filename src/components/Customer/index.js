@@ -98,6 +98,7 @@ const styles = {
   container: {
     flex: 1,
     padding: 16,
+    marginTop:25
   },
   input: {
     marginBottom: 16,

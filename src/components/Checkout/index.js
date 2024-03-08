@@ -7,12 +7,6 @@ import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
 // import { removeCart } from '../../redux/slice/Product'
 
 
-
-  
-
- 
-
-
 // import { clearCart } from "../../redux/slice/Product";
 // import { createOrder } from "../../redux/slice/customerSlice";
 // import { removeCart } from '../../redux/slice/Product';
@@ -25,6 +19,8 @@ import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
   // import { useNavigation } from "@react-navigation/native";
   // import { clearCart } from "../../redux/slice/Product";
 
+  // import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
+  // import {removeCart} from '../../redux/slice/Product'
 
  
 

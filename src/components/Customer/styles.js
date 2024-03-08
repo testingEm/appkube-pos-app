@@ -22,6 +22,7 @@ export default StyleSheet.create({
         flex: 1,
         padding: 16,
         backgroundColor: '#fff',
+        marginTop:20
       },
       searchInput: {
         height: 40,

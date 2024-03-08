@@ -30,7 +30,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     // marginLeft: 4,
     // marginBottom: 4,
-    marginTop: 40,
+    
     margin:8,
    
     padding: 10,
@@ -72,6 +72,7 @@ export default StyleSheet.create({
   boldText: {
     fontSize: 20,
     fontWeight: "bold",
+    padding:10
   },
   logo: {
     width: 50,
