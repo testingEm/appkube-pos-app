@@ -1,8 +1,10 @@
+
 import React, { useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons";
 import styles from "./styles";
+
 
 const index = () => {
   // const [showShare, setshowShare] = useState(false);
@@ -13,9 +15,11 @@ const index = () => {
   // const handleOkClick = () => {
   //   setshowShare(true);
   // };
+
   // const goToOrders = () => {
   //   navigation.navigate("Orders");
   // };
+
   const goToHome = () => {
     navigation.navigate("Home");
      setReloadScreen(true);
