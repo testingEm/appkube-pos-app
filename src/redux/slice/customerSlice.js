@@ -25,6 +25,7 @@ const CustomerSlice = createSlice({
   initialState: {
     orders: [],
     cart: [],
+    users:[],
     loading: false,
     error: null,
   },
@@ -32,6 +33,10 @@ const CustomerSlice = createSlice({
     addOrders: (state, action) => {
       state.orders.push(action.payload);
       // console.log('inn redux dispathing orders',action.payload)
+    },
+    createUser: (state, action) => {
+      state.users.push(action.payload);
+      console.log('added user in slice',action.payload)
     },
     addToCart: (state, action) => {
       // Find existing item with the same ID
@@ -117,4 +122,4 @@ const CustomerSlice = createSlice({
 });
 
 export default CustomerSlice.reducer;
-export const { addToCart, removeFromCart, addOrders , emptyCart} = CustomerSlice.actions;
+export const { addToCart, removeFromCart, addOrders ,createUser, emptyCart} = CustomerSlice.actions;

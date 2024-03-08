@@ -10,6 +10,7 @@ import {
   Pressable
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 const Customers = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,6 +40,7 @@ const Customers = () => {
     // Add more customers as needed
   ]);
  const navigation = useNavigation();
+ const users = useSelector((state)=> state.CustomerSlice.users)
   const matchingResults = customers.filter(
     (customer) =>
       customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -66,6 +68,7 @@ const Customers = () => {
 
   return (
     <View style={styles.container}>
+      {console.log('users',users)}
       <TextInput
         style={styles.input}
         placeholder="Search for customers..."
