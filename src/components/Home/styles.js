@@ -9,8 +9,11 @@ export default StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     justifyContent: "center",
-    // alignItems: 'center',
+    alignItems: 'center',
     overflow: "scroll",
+    paddingVertical: 50, 
+    paddingHorizontal: 10,
+    // alignItems:"center"
   },
   shadow: {
     shadowColor: "#ddd",
@@ -22,12 +25,13 @@ export default StyleSheet.create({
 
   box: {
     width: "45%",
-    height: "100px",
+    height:150,
     // textAlign: "center",
     borderRadius: 10,
-    marginLeft: 4,
-    marginBottom: 4,
-    margintop: 0,
+    // marginLeft: 4,
+    // marginBottom: 4,
+    marginTop: 40,
+    margin:8,
    
     padding: 10,
     
@@ -56,7 +60,7 @@ export default StyleSheet.create({
   },
   header: {
     width: "100%",
-    height: "10%",
+    
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -123,6 +127,9 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   goToCartButton: {
+    position:"absolute",
+    bottom:20,
+   
   
     // padding: 10,
     borderRadius: 5,

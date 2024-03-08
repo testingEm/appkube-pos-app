@@ -22,6 +22,11 @@ const Adduser = () => {
         console.log('sending user', inputUser);
         Navigation.navigate('Customers')
     };
+  const navigation = useNavigation();
+
+    const handleGoToAdduser = () => {
+        navigation.goBack();
+      };
     const Navigation = useNavigation();
 
 
@@ -33,8 +38,9 @@ const Adduser = () => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     padding: 20
-                }} >
-                    <AntDesign name="close" size={30} color="blue" />
+                }}
+                 >
+                    <AntDesign name="close" size={30} color="blue"  onPress={handleGoToAdduser} />
                     <Text style={{ fontSize: 20 }} onPress={handleSubmit} >Save</Text>
                 </View>
                 <Text style={{ fontSize: 25, marginBottom: 20 }}>Add new Customer</Text>
