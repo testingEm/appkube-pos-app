@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { TextInput, View, Text, Button } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-
+import {createUser} from "../../redux/slice/customerSlice";
+import {useDispatch} from 'react-redux'
 const Adduser = () => {
     const [inputUser, setInputUser] = useState({
         FirstName: "",
         LastName: "",
         PhoneNumber: "",
     });
+    const dispatch = useDispatch();
 
     const handleChange = (name, value) => {
         setInputUser({ ...inputUser, [name]: value });
@@ -16,6 +18,8 @@ const Adduser = () => {
 
     const handleSubmit = () => {
         console.log(inputUser);
+        dispatch(createUser(inputUser));
+        console.log('sending user', inputUser);
         Navigation.navigate('Customers')
     };
     const Navigation = useNavigation();
