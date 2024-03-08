@@ -76,4 +76,8 @@ export default StyleSheet.create({
     flexWrap: "wrap",
   },
   
+<<<<<<< HEAD
   });
+=======
+  });
+>>>>>>> acc2d30194c4e026e0df111b4e58d7e4c3b4672b
