@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { creatingOrder } from "../../api/createOrder";
 //  import {useDispatch} from 'react-redux'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { creatingCustomer } from "../../api/createCustomer";
 
 
 // const dispatch = useDispatch();
@@ -9,14 +10,30 @@ export const createOrder = createAsyncThunk(
   "createOrder",
   async (orderData) => {
     try {
-      console.log("in asyncthunk", orderData);
+      console.log("creating order", orderData);
 
       const response = await creatingOrder(orderData);
-      console.log("response of asyncthunk", response);
+      console.log("created order response ", response);
 
       return response;
     } catch (error) {
       console.log("error creating order", error);
+    }
+  }
+);
+export const createCustomer = createAsyncThunk(
+  "createCustomer",
+  async (details) => {
+    try {
+      console.log("creating customer", details);
+
+      const response = await creatingCustomer
+      (details);
+      console.log("response of customer creation", response);
+
+      return response;
+    } catch (error) {
+      console.log("error creating customer", error);
     }
   }
 );
@@ -34,7 +51,7 @@ const CustomerSlice = createSlice({
       state.orders.push(action.payload);
       // console.log('inn redux dispathing orders',action.payload)
     },
-    createUser: (state, action) => {
+    addCustomer: (state, action) => {
       state.users.push(action.payload);
       console.log('added user in slice',action.payload)
     },
@@ -117,9 +134,22 @@ const CustomerSlice = createSlice({
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(createCustomer.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createCustomer.fulfilled, (state, action) => {
+        state.loading = false;
+        state.users.push(action.payload);
+        AsyncStorage.setItem("users", JSON.stringify(state.orders));
+      })
+      .addCase(createCustomer.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
   },
 });
 
 export default CustomerSlice.reducer;
-export const { addToCart, removeFromCart, addOrders ,createUser, emptyCart} = CustomerSlice.actions;
+export const { addToCart, removeFromCart, addOrders ,addCustomer, emptyCart} = CustomerSlice.actions;
