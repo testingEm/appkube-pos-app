@@ -4,7 +4,7 @@ import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
-import { removeCart } from '../../redux/slice/Product'
+// import { removeCart } from '../../redux/slice/Product'
 
 
 // import { clearCart } from "../../redux/slice/Product";
@@ -41,9 +41,9 @@ import { removeCart } from '../../redux/slice/Product'
       navigation.goBack();
     };
   
-    const handleOrder = () => {
-      dispatch(createOrder({ total: subtotal }));
-    };
+    // const handleOrder = () => {
+    //   dispatch(createOrder({ total: subtotal }));
+    // };
   
     const handleGoToCash = () => {
       if (checkout.length > 0) {
