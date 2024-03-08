@@ -5,7 +5,7 @@ import {Ionicons,AntDesign,FontAwesome5 } from "@expo/vector-icons";
 // import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-const setting = () => {
+const Setting = () => {
 
     const navigation = useNavigation();
 
@@ -62,4 +62,4 @@ const setting = () => {
   )
 }
 
-export default setting
+export default Setting

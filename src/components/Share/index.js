@@ -6,8 +6,10 @@ import { Entypo } from "@expo/vector-icons";
 import styles from "./styles";
 
 
-const index = () => {
+const Share = () => {
   // const [showShare, setshowShare] = useState(false);
+ 
+
   const navigation = useNavigation();
   const [reloadScreen, setReloadScreen] = useState(false); // State to trigger screen reload
 
@@ -15,6 +17,8 @@ const index = () => {
   // const handleOkClick = () => {
   //   setshowShare(true);
   // };
+
+
 
   // const goToOrders = () => {
   //   navigation.navigate("Orders");
@@ -75,4 +79,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Share;

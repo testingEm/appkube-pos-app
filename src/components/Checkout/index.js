@@ -4,7 +4,7 @@
 // import { useSelector, useDispatch } from "react-redux";
 // import { useNavigation } from "@react-navigation/native";
 // import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
-// import { removeCart } from '../../redux/slice/Product'
+// // import { removeCart } from '../../redux/slice/Product'
 
 // const Checkout = () => {
 //   const navigation = useNavigation();
@@ -48,8 +48,8 @@
   import { useNavigation } from "@react-navigation/native";
   import { clearCart } from "../../redux/slice/Product";
 
-  import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
-  import {removeCart} from '../../redux/slice/Product'
+  // import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
+  // import {removeCart} from '../../redux/slice/Product'
 // import { useState } from "react";
 
  
@@ -71,9 +71,9 @@
       navigation.goBack();
     };
   
-    const handleOrder = () => {
-      dispatch(createOrder({ total: subtotal }));
-    };
+    // const handleOrder = () => {
+    //   dispatch(createOrder({ total: subtotal }));
+    // };
   
     const handleGoToCash = () => {
       if (checkout.length > 0) {

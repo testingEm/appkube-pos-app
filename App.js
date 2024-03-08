@@ -32,13 +32,16 @@ const HomeScreen = () => (
       headerShown: false,
     }}
   >
-    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Homee" component={Home} />
     <Stack.Screen name="Adduser" component={Adduser} />
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} />
     <Stack.Screen name="Share" component={Share}  />
 
     <Stack.Screen name="Customers" component={Customers} />
+    {/* <Stack.Screen name="Share" component={Share} />
+    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Product" component={Product} /> */}
 
   </Stack.Navigator>
 );
@@ -77,15 +80,16 @@ const ProductsScreen = () => (
       headerShown: true,
     }}
   >
-    <Stack.Screen name="Products" component={Products} />
+    <Stack.Screen name="Products Categories" component={Products} />
     <Stack.Screen name="ProductPage" component={ProductPage} />
     <Stack.Screen name="Catalog" component={Catalog} />
     <Stack.Screen name="Checkout" component={Checkout} options={{ headerShown: false }} />
     <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
     <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} />
-    <Stack.Screen name="getAllProducts" component={getAllProducts} />
+    <Stack.Screen name="Products List" component={getAllProducts} />
   </Stack.Navigator>
 );
+
 
 const screenOptions = ({ route }) => ({
   tabBarIcon: ({ color, size }) => {

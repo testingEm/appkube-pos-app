@@ -78,6 +78,7 @@ const ProductPage = () => {
           alignItems: "center",
           // gap: "20px",
           marginVertical: 20,
+        marginLeft:10
         }}
       >
         <Image
@@ -87,7 +88,7 @@ const ProductPage = () => {
           style={{ width: 70, height: 70, borderRadius: 10 }}
         />
         {/* <View style={{ marginLeft: 20 }}> */}
-        <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+        <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft:10 }}>
           {product.name} 1 {product.unit} {"\n"}
           Price : ₹ {product.price}
         </Text>
@@ -100,6 +101,7 @@ const ProductPage = () => {
             fontWeight: 500,
             color: "grey",
             marginBottom: 7,
+            marginLeft:12
           }}
         >
           More details
@@ -109,11 +111,12 @@ const ProductPage = () => {
             flexDirection: "column",
             justifyContent: "space-between",
             borderColor: "#dddddd",
-            width: "100%",
+            width: "auto",
             height: "20vh",
             borderWidth: 2,
             borderRadius: 10,
             padding: 15,
+            margin:5
           }}
         >
           <View
@@ -124,6 +127,7 @@ const ProductPage = () => {
               //   backgroundColor: "#dddddd",
               paddingTop: 15,
               paddingBottom: 6,
+             
             }}
           >
             <Text style={{ color: "black", fontWeight: "bold", fontSize: 16 }}>
@@ -170,27 +174,25 @@ const ProductPage = () => {
                 console.log(quantityTypes,selectedType)
               }
               <DropDownPicker
-                // items={quantityTypes.map((type) => ({
-                //   label: type.label,
-                //   value: type.value,
-                // }))}
-                items={quantityTypes}
-
-                placeholder={selectedType}
-                // defaultValue="kg"
-                defaultValue={selectedType}
-                containerStyle={{ height: 40, width: 100, marginTop: 10 }}
-                style={{
-                  backgroundColor: "#fafafa",
-                  borderBottomColor: "#fff",
-                  borderTopColor: "#fff",
-                }}
-                itemStyle={{
-                  justifyContent: "flex-start",
-                }}
-                dropDownStyle={{ backgroundColor: "#fafafa" }}
-                onChangeItem={(item) => handleSelectType(item.value)}
-              />
+          items={quantityTypes.map((type,index) => ({
+            label: type.label,
+            value: type.value,
+            key: index
+          }))}
+          defaultValue={selectedType}
+          containerStyle={{ height: 40, width: 100, marginTop: -8 }}
+          style={{
+            backgroundColor: "#fafafa",
+            borderBottomColor: "#fff",
+            borderTopColor: "#fff",
+            marginBottom:30
+          }}
+          itemStyle={{
+            justifyContent: "flex-start",
+          }}
+          dropDownStyle={{ backgroundColor: "#fafafa" }}
+          onChangeItem={(item) => handleSelectType(item.value)}
+        />
             </View>
             {/* <SelectList
               setSelected={(val) => setSelectedType(val)}
@@ -216,11 +218,12 @@ const ProductPage = () => {
           alignItems: "center",
           position: "absolute",
           bottom: 10,
-          paddingRight: 10,
+          // paddingRight: 10,
           width: "95%",
           // justifySelf: "end",
           justifySelf: "flex-end",
           marginTop: 15,
+          marginBottom:10
         }}
       >
         <Pressable
@@ -231,6 +234,7 @@ const ProductPage = () => {
             justifyContent: "center",
             alignItems: "center",
             borderRadius: 7,
+            marginLeft:10,
           }}
           onPress={() => {
             // setPiece(piece + 1);
@@ -261,6 +265,7 @@ const ProductPage = () => {
             borderRadius: 7,
             flexDirection: "column",
             alignItems: "center",
+            marginLeft:10
           }}
           // onPress={handleGoToCheckout}
         >

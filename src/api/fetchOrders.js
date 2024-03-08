@@ -45,6 +45,7 @@ const client = generateClient();
         console.error('Error fetching categories:', error);
         setError('Error fetching categories');
       } 
+      
       return result
     
     }

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, ScrollView, ActivityIndicator, Pressable } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+
 
 // import { Container, Content } from 'react-native';
 // // import { DataStore } from '@aws-amplify/datastore';
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 // import { Header } from "react-native/Libraries/NewAppScreen";
 import { fetchingOrders } from "../../api/fetchOrders";
 import styles from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { addOrders } from "../../redux/slice/customerSlice";
+import {  useSelector } from "react-redux";
+// import { addOrders } from "../../redux/slice/customerSlice";
 
 const Orders = () => {
   const navigation = useNavigation();
@@ -73,16 +74,17 @@ const Orders = () => {
             styles.light,
             styles.boldText,
             styles.shadow,
+
           ]}
         >
-          <Text>
+          <Text style={{ color: "white", fontSize: 16 }}>
 
             Orders
           </Text>
         </View>
         <View style={[styles.scrollLeft, styles.shadow]}>
           <View style={[styles.statusbox]}>
-            <Text>
+            <Text >
 
               Sale type : POS{" "}
             </Text>
@@ -96,51 +98,51 @@ const Orders = () => {
       </View>
       <ScrollView style={[styles.scrollbar]}>
         {console.log("in scrool")}
-        
-          {fetchedOrders.map((order,index) => {
-            return (
-              <Pressable style={[styles.box, styles.shadow]} key={index} onPress={()=>{handleOrder(order)}}>
-                <View style={[{ flex: 1 }, styles.gap]}>
-                  <Text
-                    style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
-                  >
-                    {order.createdAt}
-                  </Text>
-                  <View style={[styles.border]}></View>
-                  <View style={[styles.gap]}>
-                    <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
-                    <Text style={{ fontSize: 18, color: '#31572c', flex: 1, fontWeight: "700" }}>
-                      <FontAwesome name="rupee" size={18} color="#31572c" style={{ marginRight: 5 }} />
-                      {order.totalPrice}
-                    </Text>
-                  </View>
-                  <View style={[styles.arrowbox, { margin: 5 }]}>
-                    <Text>
 
-                      No Customer{" "}
-                    </Text>
-                    <FontAwesome5 name="angle-right" size={26} color="black" />
-                  </View>
+        {fetchedOrders.map((order, index) => {
+          return (
+            <Pressable style={[styles.box, styles.shadow]} key={index} onPress={()=>{handleOrder(order)}}>
+              <View style={[{ flex: 1 }, styles.gap]}>
+                <Text
+                  style={{ fontWeight: 500, fontSize: 16, color: "gray" }}
+                >
+                  {order.createdAt}
+                </Text>
+                <View style={[styles.border]}></View>
+                <View style={[styles.gap]}>
+                  <Text style={{ fontSize: 16 }}>#{order.__typename}</Text>
+                  <Text style={{ fontSize: 18, color: '#31572c', flex: 1, fontWeight: "700" }}>
+                    <FontAwesome name="rupee" size={18} color="#31572c" style={{ marginRight: 5 }} />
+                    {order.totalPrice}
+                  </Text>
                 </View>
-                <View style={[styles.status]}>
-                  <View style={[styles.statusbox]}>
-                    <FontAwesome
-                      name="circle"
-                      size={18}
-                      color="#31572c"
-                    // style={{ margin: 0 }}
-                    />
-                    <Text style={{ marginLeft: 5 }}>paid</Text>
-                  </View>
-                  <View style={[styles.statusbox]}>
-                    <FontAwesome name="circle" size={18} color="#31572c" />
-                    <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
-                  </View>
+                <View style={[styles.arrowbox, { margin: 5 }]}>
+                  <Text>
+
+                    No Customer{" "}
+                  </Text>
+                  <FontAwesome5 name="angle-right" size={26} color="black" />
                 </View>
-              </Pressable>
-            )
-          })
-        } 
+              </View>
+              <View style={[styles.status]}>
+                <View style={[styles.statusbox]}>
+                  <FontAwesome
+                    name="circle"
+                    size={18}
+                    color="#31572c"
+                  // style={{ margin: 0 }}
+                  />
+                  <Text style={{ marginLeft: 5 }}>paid</Text>
+                </View>
+                <View style={[styles.statusbox]}>
+                  <FontAwesome name="circle" size={18} color="#31572c" />
+                  <Text style={{ marginLeft: 5 }}>Fullfilled</Text>
+                </View>
+              </View>
+            </Pressable>
+          )
+        })
+        }
         {console.log("scrool ended")}
       </ScrollView>
     </View>
