@@ -48,7 +48,7 @@ const BodyButton = () => (
     onPress={() => {
       const CatProducts = GetProduct.filter((e) => e.category === category);
       console.log(CatProducts);
-      navigation.navigate('getAllProducts', { category, catProducts: CatProducts });
+      navigation.navigate('Products List', { category, catProducts: CatProducts });
     }}
     style={[styles.flexRow, styles.box, styles.bgLight]}
   >

@@ -327,9 +327,10 @@ const ProductPage = () => {
                 style={styles.textInput}
               />
               <DropDownPicker
-          items={quantityTypes.map((type) => ({
+          items={quantityTypes.map((type,index) => ({
             label: type.label,
             value: type.value,
+            key: index
           }))}
           defaultValue={selectedType}
           containerStyle={{ height: 40, width: 100, marginTop: -8 }}
