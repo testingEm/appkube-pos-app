@@ -38,7 +38,7 @@ const Products = () => {
           onPress={() => {
             const CatProducts = GetProduct.filter(e => e.category === category);
             console.log(CatProducts);
-            navigation.navigate('getAllProducts', {
+            navigation.navigate('ProductsList', {
               category,
               catProducts: CatProducts,
             });

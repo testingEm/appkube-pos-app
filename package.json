@@ -13,6 +13,7 @@
     "@aws-amplify/react-native": "^1.0.19",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/netinfo": "^11.3.1",
+    "@react-native-picker/picker": "^2.6.1",
     "@react-navigation/bottom-tabs": "^6.5.16",
     "@react-navigation/native": "^6.1.14",
     "@react-navigation/native-stack": "^6.9.22",
