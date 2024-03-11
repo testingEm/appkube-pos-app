@@ -35,7 +35,7 @@ const Share = () => {
       
    <Pressable
      style={{ backgroundColor: "blue", padding: 10, borderRadius: 5 }}
-     onPress={goToOrders}
+    //  onPress={goToOrders}
    >
      <Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
        Go to Orders
@@ -50,7 +50,7 @@ const Share = () => {
     </Pressable>
           <Pressable style={[styles.btn, styles.bgDark]} onPress={goToCustomers}>
 
-       <Entypo name="share" size={20} color="#d8f3dc" />
+       {/* <Entypo name="share" size={20} color="#d8f3dc" /> */}
           <Text style={[styles.light, styles.font]}>Share</Text>
         </Pressable>
 
