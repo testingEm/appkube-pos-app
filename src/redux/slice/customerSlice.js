@@ -1,8 +1,8 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-// import {creatingOrder} from '../../api/createOrder';
+import {creatingOrder} from '../../Api/createOrder';
 //  import {useDispatch} from 'react-redux'
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {creatingCustomer} from '../../api/createCustomer';
+import {creatingCustomer} from '../../Api/createCustomer';
 
 // // const dispatch = useDispatch();
 export const createOrder = createAsyncThunk('createOrder', async orderData => {

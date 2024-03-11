@@ -24,13 +24,12 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [allProducts, setAllProducts] = useState([]);
   const getProduct = async () => {
     try {
       const AllProducts = await fetchCategories();
-      setAllProducts(AllProducts.data.listProducts.items);
-      dispatch(AddAllProducts(allProducts));
-      console.log('fetching  ',allProducts);
+      const Products = AllProducts.data.listProducts.items;
+      dispatch(AddAllProducts(Products));
+      console.log('fetching  ',Products);
     } catch (error) {
       console.error(error);
     }
