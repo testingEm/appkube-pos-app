@@ -12,7 +12,9 @@ const Orders = () => {
   console.log("fetched orders", fetchedOrders);
   const handleOrder = (order) => {
     console.log('navigating to order');
+    console.log('order value ',order);
     navigation.navigate('Order', {value: order});
+    console.log('after order value ',order);
   };
   return (
     <View style={[styles.container]}>

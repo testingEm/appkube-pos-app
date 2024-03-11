@@ -44,7 +44,7 @@ const CustomerSlice = createSlice({
   reducers: {
     addOrders: (state, action) => {
       state.orders.push(action.payload);
-      // console.log('inn redux dispathing orders',action.payload)
+      console.log('inn redux dispathing orders',action.payload)
     },
     addCustomer: (state, action) => {
       state.users.push(action.payload);

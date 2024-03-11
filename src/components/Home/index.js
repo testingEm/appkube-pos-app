@@ -56,8 +56,8 @@ const Home = () => {
     };
 
   useEffect(() => {
-    fetchOrders();
     getProduct();
+    fetchOrders();
   }, []);
 
   //   console.log("this is the allProducts for the redux",allProducts);

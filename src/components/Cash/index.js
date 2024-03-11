@@ -48,12 +48,12 @@ const Cash = () => {
         }}>
         <Text>
           {' '}
-          <AntDesign
+          {/* <AntDesign
             name="close"
             size={30}
             color="blue"
             onPress={handleGoToCash}
-          />
+          /> */}
         </Text>
         <Text style={{fontSize: 16, fontWeight: 600}}>Mark unpaid</Text>
       </View>
