@@ -26,7 +26,7 @@ import styles from './styles';
 // //   Fontisto,
 // } from "@expo/vector-icons";
 
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 // import { addOrders} from "../../redux/slice/customerSlice";
 
@@ -75,14 +75,14 @@ const Home = () => {
   //   console.log("this is the allProducts for the redux",allProducts);
   dispatch(AddAllProducts(allProducts));
 
-  //   const navigation = useNavigation();
+    const navigation = useNavigation();
 
-  //   const handleGoToCheckout = () => {
-  //     navigation.navigate('Checkout');
-  //   };
-  //   const handleGoToAdduser = () => {
-  //     navigation.navigate('Adduser');
-  //   };
+    const handleGoToCheckout = () => {
+      navigation.navigate('Checkout');
+    };
+    const handleGoToAdduser = () => {
+      navigation.navigate('Adduser');
+    };
 
   return (
     <View style={[styles.container]}>
@@ -92,7 +92,7 @@ const Home = () => {
 
       <Pressable
         style={[styles.box, styles.bgDark]}
-        //   onPress={handleGoToAdduser}
+          onPress={handleGoToAdduser}
       >
         {/* <FontAwesome5 name="user-alt" size={18} color="#d8f3dc" /> */}
         <TouchableOpacity>
@@ -124,7 +124,7 @@ const Home = () => {
       <TouchableOpacity
         style={[styles.goToCartButton, styles.bgDark]}
 
-        // onPress={handleGoToCheckout}
+        onPress={handleGoToCheckout}
       >
         <Text style={[styles.light, styles.boldText]}>Go to cart</Text>
       </TouchableOpacity>

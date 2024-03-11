@@ -2,7 +2,7 @@
 // import { AntDesign } from "@expo/vector-icons";
 // import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
 // import { useSelector, useDispatch } from "react-redux";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 // import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
 // // import { removeCart } from '../../redux/slice/Product'
 
