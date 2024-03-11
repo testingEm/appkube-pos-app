@@ -21,8 +21,8 @@ import Products from './src/components/Products';
 import ProductsList from './src/components/ProductList';
 import ProductPage from './src/components/ProductPage.js';
 import Orders from './src/components/Orders/index.js';
-import PrintToA4 from './src/components/Print/index.js';
-import productPrinter from './src/components/productPrinter';
+// import PrintToA4 from './src/components/Print/index.js';
+// import productPrinter from './src/components/productPrinter';
 import Order from './src/components/Order/index.js';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,7 +32,7 @@ const HomeScreen = () => (
     screenOptions={{
       headerShown: false,
     }}>
-    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="HomePage" component={Home} />
     <Stack.Screen name="Adduser" component={Adduser} />
     <Stack.Screen name="Cash" component={Cash} />
     <Stack.Screen name="Share" component={Share} />
@@ -46,17 +46,16 @@ const SettingScreen = () => (
     screenOptions={{
       headerShown: false,
     }}>
-    <Stack.Screen name="Setting" component={Settings} />
+    <Stack.Screen name="Settings" component={Settings} />
     <Stack.Screen name="Customers" component={Customers} />
     {/* <Stack.Screen name="PrintToA4" component={PrintToA4} /> */}
     {/* <Stack.Screen name="productPrinter" component={productPrinter} /> */}
-
   </Stack.Navigator>
 );
 
 const OrdersScreen = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Orders" component={Orders} />
+    <Stack.Screen name="OrdersPage" component={Orders} />
     {/* <Stack.Screen name="Receipt" component={Receipt} /> */}
     <Stack.Screen name="Order" component={Order} />
   </Stack.Navigator>
@@ -67,8 +66,8 @@ const ProductsScreen = () => (
     screenOptions={{
       headerShown: true,
     }}>
-    <Stack.Screen name="Products" component={Products} />
-    <Stack.Screen name="ProductPage" component={ProductPage} />
+    <Stack.Screen name="ProductsPage" component={Products} />
+    <Stack.Screen name="Categorys" component={ProductPage} />
     {/* <Stack.Screen name="Catalog" component={Catalog} /> */}
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
@@ -81,13 +80,13 @@ const screenOptions = ({route}) => ({
   tabBarIcon: ({color, size}) => {
     let ionicons;
     if (route.name === 'Home') {
-      ionicons = 'ios-home';
+      ionicons = 'home-outline';
     } else if (route.name === 'Setting') {
-      ionicons = 'md-settings';
+      ionicons = 'settings-outline';
     } else if (route.name === 'Products') {
-      ionicons = 'md-products';
+      ionicons = 'cube-outline';
     } else if (route.name === 'orders') {
-      ionicons = 'md-cart';
+      ionicons = 'cart-outline';
     }
 
     return <Ionicons name={ionicons} size={size} color={color}  />;

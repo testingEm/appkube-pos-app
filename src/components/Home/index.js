@@ -8,6 +8,8 @@ import styles from './styles';
 // //   Fontisto,
 // } from "@expo/vector-icons";
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 
 import {useNavigation} from '@react-navigation/native';
@@ -80,23 +82,23 @@ const Home = () => {
       </Pressable>
 
       <View style={[styles.box, styles.bgDark]}>
-        {/* <AntDesign name="plus" size={18} color="#d8f3dc" /> */}
+        <AntDesign name="plus" size={18} color="#d8f3dc" />
         <Text style={[{textAlign: 'center'}, styles.light]}>
           Add custom sale
         </Text>
       </View>
 
       <View style={[styles.box, styles.bgLight]}>
-        {/* <FontAwesome5 name="percent" size={18} color="#31572c" /> */}
+        <FontAwesome5 name="percent" size={18} color="#31572c" />
         <Text style={[{textAlign: 'center'}, styles.dark]}>Apply discount</Text>
       </View>
       <View style={[styles.box, styles.bgLight, ,]}>
-        {/* <Fontisto name="shopping-basket" size={18} color="#31572c" /> */}
+        <Fontisto name="shopping-basket" size={18} color="#31572c" />
         <Text style={[styles.dark]}>Ship to customer</Text>
       </View>
       <TouchableOpacity
         style={[styles.box, styles.active, {alignSelf: 'flex-start'}]}>
-        {/* <AntDesign name="plus" size={20} color="#31572c" /> */}
+        <AntDesign name="plus" size={20} color="#31572c" />
         <Text style={[styles.dark]}>Add tile</Text>
       </TouchableOpacity>
 

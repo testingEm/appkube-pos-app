@@ -45,15 +45,15 @@ const Products = () => {
           }}
           style={[styles.flexRow, styles.box, styles.bgLight]}>
           <Text style={{color: 'black'}}>{category}</Text>
-          {/* <Ionicons name="ios-cart" size={20} color="black" /> */}
-          <Text style={{color: 'black'}}> {'>'} </Text>
+          <Ionicons name="cart" size={20} color="black" />
+          {/* <Text style={{color: 'black'}}> {'>'} </Text> */}
         </Pressable>
       ))}
     </View>
   );
 
   return (
-    <View style={{padding:5}}>
+    <View style={{padding: 5}}>
       {/* <Pressable
         onPress={() => navigation.navigate('ProductsList')}
         style={[styles.flexRow, styles.box, styles.bgLight]}>
