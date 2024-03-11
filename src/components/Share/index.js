@@ -30,9 +30,10 @@ const Share = () => {
   return (
     // <View style={[styles.wrapper]}>
     <View style={[styles.container]}>
-
-     <Text style={[styles.boldText,styles.dark,styles.shadow]}>Paid sucessfully</Text>
-      
+      <Text style={[styles.boldText, styles.dark, styles.shadow]}>
+        Paid sucessfully
+      </Text>
+      {/*
    <Pressable
      style={{ backgroundColor: "blue", padding: 10, borderRadius: 5 }}
      onPress={goToOrders}
@@ -40,21 +41,17 @@ const Share = () => {
      <Text style={{ color: "white", textAlign: "center", fontSize: 16 }}>
        Go to Orders
      </Text>
-   </Pressable>
+   </Pressable> */}
       <View style={[styles.btns]}>
-
-     <Pressable
-     style={[styles.bgLight,styles.btn]}>
+        <Pressable style={[styles.bgLight, styles.btn]} onPress={goToHome}>
           <Text style={[styles.dark, styles.font]}>Ok</Text>
-
-    </Pressable>
-          <Pressable style={[styles.btn, styles.bgDark]} onPress={goToCustomers}>
-
-       <Entypo name="share" size={20} color="#d8f3dc" />
+        </Pressable>
+        <Pressable style={[styles.btn, styles.bgDark]} onPress={goToCustomers}>
+          {/* <Entypo name="share" size={20} color="#d8f3dc" /> */}
           <Text style={[styles.light, styles.font]}>Share</Text>
         </Pressable>
 
-        <TextInput
+        {/* <TextInput
        style={{
          border: ".5px solid gray",
          padding: 6,
@@ -62,7 +59,7 @@ const Share = () => {
          flexDirection: "column",
        }}
        placeholder="please Enter your phone number"
-     ></TextInput>
+     ></TextInput> */}
       </View>
     </View>
   );

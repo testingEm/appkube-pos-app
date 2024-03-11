@@ -23,24 +23,12 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const [, setAllProducts] = useState([]);
-  // const getProduct = async () => {
-  //   try {
-  //     const AllProducts = await fetchCategories();
-
-  //     setAllProducts(AllProducts.data.listProducts.items);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const getProduct = async () => {
     try {
       const AllProducts = await fetchCategories();
-      setAllProducts(AllProducts.data.listProducts.items);
-      // dispatch(AddAllProducts(allProducts));
-      // console.log('fetching  ',allProducts);
-      dispatch(AddAllProducts(AllProducts.data.listProducts.items));
+      const Products = AllProducts.data.listProducts.items;
+      dispatch(AddAllProducts(Products));
+      console.log('fetching  ',Products);
     } catch (error) {
       console.error(error);
     }
@@ -63,8 +51,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
     getProduct();
+    fetchOrders();
   }, []);
 
   //   console.log("this is the allProducts for the redux",allProducts);
