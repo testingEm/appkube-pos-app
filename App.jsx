@@ -12,13 +12,19 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 // Screens
 import Home from './src/components/Home';
+import Adduser from './src/components/Adduser';
+import Checkout from './src/components/Checkout';
+import Cash from './src/components/Cash/index.js';
+import Customers from './src/components/Customer';
+import Share from './src/components/Share/index.js'
 import Settings from './src/components/Setting';
 import Products from './src/components/Products';
 import ProductsList from './src/components/ProductList';
 import ProductPage from './src/components/ProductPage.js';
-import Checkout from './src/components/Checkout/index.js';
 import Orders from './src/components/Orders/index.js';
-
+import PrintToA4 from './src/components/Print/index.js';
+import productPrinter from './src/components/productPrinter';
+import Order from './src/components/Order/index.js';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +34,11 @@ const HomeScreen = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Adduser" component={Adduser} />
+    <Stack.Screen name="Cash" component={Cash} />
+    <Stack.Screen name="Share" component={Share} />
+    <Stack.Screen name="Checkout" component={Checkout} />
+    <Stack.Screen name="Customers" component={Customers} />
   </Stack.Navigator>
 );
 
@@ -37,6 +48,10 @@ const SettingScreen = () => (
       headerShown: false,
     }}>
     <Stack.Screen name="Setting" component={Settings} />
+    <Stack.Screen name="Customers" component={Customers} />
+    {/* <Stack.Screen name="PrintToA4" component={PrintToA4} /> */}
+    {/* <Stack.Screen name="productPrinter" component={productPrinter} /> */}
+
   </Stack.Navigator>
 );
 
@@ -44,6 +59,7 @@ const OrdersScreen = () => (
   <Stack.Navigator>
     <Stack.Screen name="Orders" component={Orders} />
     {/* <Stack.Screen name="Receipt" component={Receipt} /> */}
+    <Stack.Screen name="Order" component={Order} />
   </Stack.Navigator>
 );
 
@@ -56,8 +72,8 @@ const ProductsScreen = () => (
     <Stack.Screen name="ProductPage" component={ProductPage} />
     {/* <Stack.Screen name="Catalog" component={Catalog} /> */}
     <Stack.Screen name="Checkout" component={Checkout} />
-    {/* <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} /> */}
-    {/* <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} /> */}
+    <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
+    <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} />
     <Stack.Screen name="ProductsList" component={ProductsList} />
   </Stack.Navigator>
 );
@@ -75,7 +91,7 @@ const screenOptions = ({route}) => ({
       ionicons = 'ios-cart';
     }
 
-    return <Ionicons name={ionicons} size={size} color={color} />;
+    return <Ionicons name={ionicons} size={size} color={color}  />;
   },
 });
 

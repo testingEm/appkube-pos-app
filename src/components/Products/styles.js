@@ -11,6 +11,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     // alignItems: 'center',
+    color:"black",
     overflow: "scroll",
   },
   shadow: {
