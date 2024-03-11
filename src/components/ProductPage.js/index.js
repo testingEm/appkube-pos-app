@@ -74,6 +74,7 @@ const ProductPage = () => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
+          marginLeft: 10,
           // gap: "20px",
           marginVertical: 20,
         }}>
@@ -84,14 +85,14 @@ const ProductPage = () => {
           style={{width: 70, height: 70, borderRadius: 10}}
         />
         {/* <View style={{ marginLeft: 20 }}> */}
-        <Text style={{fontSize: 16, fontWeight: 'bold'}}>
+        <Text style={{fontSize: 16, fontWeight: 'bold',marginLeft:10}}>
           {product.name} 1 {product.unit} {'\n'}
           Price : ₹ {product.price}
         </Text>
         {/* </View> */}
       </View>
 
-      <View style={{marginTop: 15}}>
+      <View style={{marginTop: 15,marginLeft:3}}>
         <Text
           style={{
             fontSize: 14,
@@ -150,7 +151,7 @@ const ProductPage = () => {
               //   backgroundColor: "#dddddd",
               paddingBottom: 10,
             }}>
-            <Text style={{color: 'black', fontWeight: 500}}>
+            <Text style={{color: 'black', fontWeight: 500,marginTop:10}}>
               Enter Custom Quantity
             </Text>
             <View style={styles.container}>
@@ -168,7 +169,7 @@ const ProductPage = () => {
                 style={{height: 40, width: 100, marginTop: 10}}>
                 {quantityTypes.map(type => (
                   <Picker.Item
-                    key={type.value}
+                    // key={type.value}
                     label={type.label}
                     value={type.value}
                   />
