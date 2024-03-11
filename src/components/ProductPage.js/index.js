@@ -14,7 +14,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {Picker} from '@react-native-picker/picker';
 
 // import { AddProduct, removeItem } from "../../redux/slice/Product";
-// import { addToCart } from "../../redux/slice/customerSlice";
+import { addToCart } from "../../redux/slice/customerSlice";
 // import DropDownPicker from "react-native-dropdown-picker";
 
 const ProductPage = () => {
@@ -236,7 +236,7 @@ const ProductPage = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-          // onPress={handleGoToCheckout}
+          onPress={()=> navigation.navigate('checkout')}
         >
           <Text
             style={{color: '#31572c', fontWeight: 700}}
