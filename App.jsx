@@ -82,13 +82,13 @@ const screenOptions = ({route}) => ({
   tabBarIcon: ({color, size}) => {
     let ionicons;
     if (route.name === 'Home') {
-      ionicons = 'ios-home';
+      ionicons = 'md-home';
     } else if (route.name === 'Setting') {
-      ionicons = 'ios-settings';
+      ionicons = 'md-settings';
     } else if (route.name === 'Products') {
-      ionicons = 'ios-products';
+      ionicons = 'md-products';
     } else if (route.name === 'orders') {
-      ionicons = 'ios-cart';
+      ionicons = 'md-cart';
     }
 
     return <Ionicons name={ionicons} size={size} color={color}  />;

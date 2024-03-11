@@ -1,20 +1,4 @@
-// import React from 'react';
-// import { View,Text,StyleSheet } from 'react-native';
-// export default function HomeScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Home Screen </Text>
-//     </View>
-//   );
-// }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-// });
 
 import React, {useState, useEffect} from 'react';
 import {TouchableOpacity, Text, View, Pressable} from 'react-native';
@@ -28,54 +12,57 @@ import styles from './styles';
 
 import { useNavigation } from "@react-navigation/native";
 
-// import { addOrders} from "../../redux/slice/customerSlice";
+import { addOrders} from "../../redux/slice/customerSlice";
 
 import {fetchCategories} from '../../Api/FetchProducts';
 
 import {AddAllProducts} from '../../redux/slice/getAllProductSlice';
 import {useDispatch} from 'react-redux';
-// import { fetchingOrders } from "../../api/fetchOrders";
+import { fetchingOrders } from '../../Api/fetchOrders';
 
 const Home = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [allProducts, setAllProducts] = useState([]);
   const getProduct = async () => {
     try {
       const AllProducts = await fetchCategories();
-
       setAllProducts(AllProducts.data.listProducts.items);
+      dispatch(AddAllProducts(allProducts));
+      console.log('fetching  ',allProducts);
     } catch (error) {
       console.error(error);
     }
   };
 
-  //   const fetchOrders = async () => {
-  //     try {
+    const fetchOrders = async () => {
+      try {
+        console.log('calling fetching');
+        const response = await fetchingOrders();
+        console.log('after fetching');
+        const data = response.data.listOrders.items;
+        console.log("orders data", data);
+        data.map((value) => {
+          console.log('order vakue',value);
+          dispatch(addOrders(value));
 
-  //       const response = await fetchingOrders();
-  //       const data = response.data.listOrders.items;
-  //       console.log("orders data", data);
-  //       data.map((value) => {
-  //         dispatch(addOrders(value));
+        });
 
-  //       });
+      } catch (error) {
+        console.log("orders error", error);
 
-  //     } catch (error) {
-  //       console.log("orders error", error);
-
-  //     }
-  //   };
+      }
+    };
 
   useEffect(() => {
+    fetchOrders();
     getProduct();
-    // fetchOrders();
   }, []);
 
   //   console.log("this is the allProducts for the redux",allProducts);
-  dispatch(AddAllProducts(allProducts));
+  
 
-    const navigation = useNavigation();
 
     const handleGoToCheckout = () => {
       navigation.navigate('Checkout');
