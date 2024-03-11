@@ -1,6 +1,5 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 //redux
 import {store} from './src/redux/store/store';
 import {Provider} from 'react-redux';
@@ -84,11 +83,11 @@ const screenOptions = ({route}) => ({
     if (route.name === 'Home') {
       ionicons = 'ios-home';
     } else if (route.name === 'Setting') {
-      ionicons = 'ios-settings';
+      ionicons = 'md-settings';
     } else if (route.name === 'Products') {
-      ionicons = 'ios-products';
+      ionicons = 'md-products';
     } else if (route.name === 'orders') {
-      ionicons = 'ios-cart';
+      ionicons = 'md-cart';
     }
 
     return <Ionicons name={ionicons} size={size} color={color}  />;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {
   View,
   Text,
@@ -36,7 +36,7 @@ const Customers = () => {
         <Text style={styles.customerEmail}>{item.email}</Text>
       </View>
       <Text>
-        {/* <Icon name="arrow-forward" /> */}
+        <Icon name="arrow-forward" />
       </Text>
     </TouchableOpacity>
   );
