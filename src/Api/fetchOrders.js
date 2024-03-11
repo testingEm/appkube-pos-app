@@ -4,6 +4,7 @@ import { generateClient } from 'aws-amplify/api';
 const client = generateClient();
 
  export  const fetchingOrders = async ()=>{
+  console.log('in fetching');
       try{
         await Amplify.configure({
           API: {
@@ -40,6 +41,7 @@ const client = generateClient();
               }
           `,
         });
+        console.log('orders result ',result);
       }
       catch (error) {
         console.error('Error fetching categories:', error);

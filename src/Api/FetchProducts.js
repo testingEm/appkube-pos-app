@@ -37,8 +37,8 @@ export const fetchCategories = async () => {
     });
 
     console.log(result);
-    // setData(result.data.listProducts.items)
     return result;
+    // setData(result.data.listProducts.items)
   } catch (error) {
     console.log(error);
   }

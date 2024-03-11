@@ -1,5 +1,5 @@
 import {View, Text, Pressable} from 'react-native';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import styles from './styles';
 // import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
 // import {Feather} from '@expo/vector-icons';
@@ -63,7 +63,7 @@ const Order = () => {
             <Text style={{marginLeft: 5}}>paid</Text>
           </View>
           <Pressable style={[styles.statusbox]}>
-            <Feather name="share-2" size={24} color="black" />
+            {/* <Feather name="share-2" size={24} color="black" /> */}
 
             <Text style={{marginLeft: 5}}>Share</Text>
           </Pressable>
