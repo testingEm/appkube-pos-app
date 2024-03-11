@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // import { AntDesign } from "@expo/vector-icons";
 import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
 // import { useSelector, useDispatch } from "react-redux";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 // import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
 // import {removeCart} from '../../redux/slice/Product'
 
@@ -13,7 +13,7 @@ import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
 
   const Checkout = () => {
 
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
     // const dispatch = useDispatch();
     // const checkout = useSelector((state) => state.CustomerSlice.cart);
     // const subtotal = checkout
@@ -31,13 +31,13 @@ import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
     //   dispatch(createOrder({ total: subtotal }));
     // };
   
-    // const handleGoToCash = () => {
-    //   if (checkout.length > 0) {
-    //     navigation.navigate('Cash',{value:subtotal});
-    //   } else {
-    //     setShowAlert(true); // Show alert if the cart is empty
-    //   }
-    // };
+    const handleGoToCash = () => {
+      // if (checkout.length > 0) {
+        navigation.navigate('Cash',{value:subtotal});
+      // } else {
+      //   setShowAlert(true); // Show alert if the cart is empty
+      // }
+    };
   
     // const handleRemoveCart = () => {
     //   dispatch(emptyCart());
@@ -215,7 +215,7 @@ import { View, Text, Pressable, Image, ScrollView, Alert } from "react-native";
             backgroundColor: "blue",
             borderRadius: 5,
           }}
-        //   onPress={handleGoToCash}
+          onPress={handleGoToCash}
         >
           <Text
             style={{

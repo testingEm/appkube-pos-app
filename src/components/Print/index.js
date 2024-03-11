@@ -1,24 +1,29 @@
 import React, {useState} from 'react';
-import {Text, View, Pressable} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import {Text, View, Button, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-// import {
-//   Ionicons,
-//   FontAwesome5,
-//   AntDesign,
-//   Fontisto,
-// } from "@expo/vector-icons";
+import {generateClient} from 'aws-amplify/api';
+// import {Ionicons, FontAwesome5, AntDesign, Fontisto} from '@expo/vector-icons';
 import styles from './styles';
 
-const Products = () => {
+const PrintToA4 = () => {
+  // const [data, setData] = useState([])
   const navigation = useNavigation();
   const ProductsData = useSelector(start => start.getAllProducts);
 
-  //   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
+  console.log(
+    'redux in products page in the product page',
+    ProductsData,
+    typeof ProductsData,
+  );
 
   const [GetProduct, setGetProducts] = useState([...ProductsData]);
+
+  const Header = () => (
+    <View>
+      <Text>Category</Text>
+    </View>
+  );
 
   const uniqueCategoriesSet = new Set();
 
@@ -33,36 +38,29 @@ const Products = () => {
   const BodyButton = () => (
     <View style={{padding: 10}}>
       {uniqueCategoriesArray.map(category => (
-        <Pressable
+        <TouchableOpacity
           key={category}
           onPress={() => {
             const CatProducts = GetProduct.filter(e => e.category === category);
             console.log(CatProducts);
-            navigation.navigate('ProductsList', {
+            navigation.navigate('ProductsPrint', {
               category,
               catProducts: CatProducts,
             });
           }}
           style={[styles.flexRow, styles.box, styles.bgLight]}>
-          <Text style={{color: 'black'}}>{category}</Text>
+          <Text>{category}</Text>
           {/* <Ionicons name="ios-cart" size={20} color="black" /> */}
-          <Text style={{color: 'black'}}> {'>'} </Text>
-        </Pressable>
+        </TouchableOpacity>
       ))}
     </View>
   );
 
   return (
-    <View style={{padding:5}}>
-      {/* <Pressable
-        onPress={() => navigation.navigate('ProductsList')}
-        style={[styles.flexRow, styles.box, styles.bgLight]}>
-        <Text>Frutes</Text>
-        <Ionicons name="ios-cart" size={20} color="black" />
-      </Pressable> */}
+    <View>
       <BodyButton />
     </View>
   );
 };
 
-export default Products;
+export default PrintToA4;
