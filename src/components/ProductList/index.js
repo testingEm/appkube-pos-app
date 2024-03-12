@@ -735,7 +735,7 @@ const GetAllProducts = () => {
 
   const handleProduct = (prod) => {
     console.log("navigate to product");
-    navigation.navigate("ProductPage", { value: prod });
+    navigation.navigate("Categorys", { value: prod });
     console.log("navigate to product 2");
   };
 

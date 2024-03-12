@@ -76,20 +76,28 @@ const ProductsScreen = () => (
   </Stack.Navigator>
 );
 
-const screenOptions = ({route}) => ({
-  tabBarIcon: ({color, size}) => {
-    let ionicons;
-    if (route.name === 'Home') {
-      ionicons = 'home-outline';
-    } else if (route.name === 'Setting') {
-      ionicons = 'settings-outline';
-    } else if (route.name === 'Products') {
-      ionicons = 'cube-outline';
-    } else if (route.name === 'orders') {
-      ionicons = 'cart-outline';
+const screenOptions = ({ route }) => ({
+  tabBarIcon: ({ color, size }) => {
+    let iconName;
+    switch (route.name) {
+      case 'Home':
+        iconName = 'home-outline';
+        break;
+      case 'Setting':
+        iconName = 'settings-outline';
+        break;
+      case 'Products':
+        iconName = 'cube-outline';
+        break;
+      case 'Orders':
+        iconName = 'cart-outline'; 
+        break;
+      default:
+        iconName = 'alert-circle-outline';
     }
 
-    return <Ionicons name={ionicons} size={size} color={color}  />;
+    // Use the iconName determined by the switch statement
+    return <Ionicons name={iconName} size={size} color={color} />;
   },
 });
 
