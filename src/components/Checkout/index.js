@@ -67,9 +67,9 @@ const Checkout = () => {
     navigation.goBack();
   };
 
-  const handleOrder = () => {
-    dispatch(createOrder({total: subtotal}));
-  };
+  // const handleOrder = () => {
+    // dispatch(createOrder({total: subtotal}));
+  // };
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
@@ -79,9 +79,9 @@ const Checkout = () => {
     }
   };
 
-  const handleRemoveCart = () => {
-    dispatch(emptyCart());
-  };
+  // const handleRemoveCart = () => {
+    // dispatch(emptyCart());
+  // };
 
   return (
     <View

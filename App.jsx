@@ -21,8 +21,8 @@ import Products from './src/components/Products';
 import ProductsList from './src/components/ProductList';
 import ProductPage from './src/components/ProductPage.js';
 import Orders from './src/components/Orders/index.js';
-// import PrintToA4 from './src/components/Print/index.js';
-// import productPrinter from './src/components/productPrinter';
+import PrintToA4 from './src/components/Print/index.js';
+import productPrinter from './src/components/productPrinter';
 import Order from './src/components/Order/index.js';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,8 +48,8 @@ const SettingScreen = () => (
     }}>
     <Stack.Screen name="Settings" component={Settings} />
     <Stack.Screen name="Customers" component={Customers} />
-    {/* <Stack.Screen name="PrintToA4" component={PrintToA4} /> */}
-    {/* <Stack.Screen name="productPrinter" component={productPrinter} /> */}
+    <Stack.Screen name="PrintToA4" component={PrintToA4} />
+    <Stack.Screen name="productPrinter" component={productPrinter} />
   </Stack.Navigator>
 );
 

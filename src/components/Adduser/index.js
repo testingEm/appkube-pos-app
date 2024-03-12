@@ -2,13 +2,12 @@ import React, {useState} from 'react';
 import {TextInput, View, Text, Button} from 'react-native';
 // import {AntDesign} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
-import {addCustomer} from '../../redux/slice/customerSlice';
+import {createCustomer} from '../../redux/slice/customerSlice';
 import {useDispatch} from 'react-redux';
 const Adduser = () => {
   const [inputUser, setInputUser] = useState({
-    FirstName: '',
-    LastName: '',
-    PhoneNumber: '',
+    name: '',
+    phone: '',
   });
   const dispatch = useDispatch();
 
@@ -17,8 +16,8 @@ const Adduser = () => {
   };
 
   const handleSubmit = () => {
-    console.log(inputUser);
-    // dispatch(addCustomer(inputUser));
+    console.log('details',inputUser);
+    dispatch(createCustomer(inputUser));
     console.log('sending user', inputUser);
     Navigation.navigate('Customers');
   };
@@ -55,7 +54,7 @@ const Adduser = () => {
           Contact Information{' '}
         </Text>
         <TextInput
-          placeholder="First Name * (Required)"
+          placeholder="Name * (Required)"
           placeholderTextColor="gray"
           style={{
             borderWidth: 1,
@@ -64,10 +63,10 @@ const Adduser = () => {
             fontSize: 16,
             padding: 15,
           }}
-          value={inputUser.FirstName}
-          onChangeText={e => handleChange('FirstName', e)}
+          value={inputUser.name}
+          onChangeText={e => handleChange('name', e)}
         />
-        <TextInput
+        {/* <TextInput
           placeholder="Last Name"
           placeholderTextColor="gray"
           style={{
@@ -79,7 +78,7 @@ const Adduser = () => {
           }}
           value={inputUser.LastName}
           onChangeText={text => handleChange('LastName', text)}
-        />
+        /> */}
         <TextInput
           placeholder="Phone Number"
           placeholderTextColor="gray"
@@ -90,8 +89,8 @@ const Adduser = () => {
             fontSize: 16,
             padding: 15,
           }}
-          value={inputUser.PhoneNumber}
-          onChangeText={text => handleChange('PhoneNumber', text)}
+          value={inputUser.phone}
+          onChangeText={text => handleChange('phone', text)}
         />
       </View>
     </View>
