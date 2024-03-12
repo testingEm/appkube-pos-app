@@ -91,6 +91,7 @@ const Checkout = () => {
         flex: 1,
         justifyContent: '',
         position: 'relative',
+        color:"black"
       }}>
       <View style={{marginTop: 30, marginLeft: 15}}>
         {/* <AntDesign
@@ -115,8 +116,9 @@ const Checkout = () => {
           alignItems: 'center',
           paddingHorizontal: 10,
           marginTop: 10,
+          color:"black"
         }}>
-        <Text style={{fontSize: 20, fontWeight: '700'}}>Cart</Text>
+        <Text style={{fontSize: 20, fontWeight: '700',color:"black"}}>Cart</Text>
         <View
           style={{
             flexDirection: 'row',
@@ -138,7 +140,7 @@ const Checkout = () => {
         }}>
         {checkout.length === 0 ? (
           <View style={{paddingHorizontal: 20}}>
-            <Text style={{fontSize: 20}}>No items available in the cart.</Text>
+            <Text style={{fontSize: 20,color:"black"}}>No items available in the cart.</Text>
           </View>
         ) : (
           checkout.map((e, index) => (
@@ -181,16 +183,16 @@ const Checkout = () => {
                     {e.quantity}
                   </Text>
                 </View>
-                <View>
-                  <Text style={{fontSize: 16}}>{e.name}</Text>
-                  <Text style={{fontSize: 16}}>Tax-exempt</Text>
+                <View style={{color:"black"}}>
+                  <Text style={{fontSize: 16,color:"black"}}>{e.name}</Text>
+                  <Text style={{fontSize: 16,color:"black"}}>Tax-exempt</Text>
                 </View>
               </View>
               <View style={{fontSize: 16}}>
-                <Text style={{fontSize: 10}}>
+                <Text style={{fontSize: 10,color:"black"}}>
                   ₹ {e.price} x {e.quantity}
                 </Text>
-                <Text>₹ {e.price * e.quantity}</Text>
+                <Text style={{color:"black"}}>₹ {e.price * e.quantity}</Text>
               </View>
             </View>
           ))
@@ -210,8 +212,8 @@ const Checkout = () => {
           paddingHorizontal: 10,
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 16}}>Subtotal</Text>
-        <Text style={{fontSize: 16}}>₹ {subtotal}</Text>
+        <Text style={{fontSize: 16,color:"black"}}>Subtotal</Text>
+        <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal}</Text>
       </View>
       <View
         style={{
@@ -230,8 +232,8 @@ const Checkout = () => {
           // backgroundColor:"red",
           marginBottom: 20,
         }}>
-        <Text style={{fontSize: 16, marginTop: 5}}>Taxes</Text>
-        <Text style={{fontSize: 16}}>₹ 0.00</Text>
+        <Text style={{fontSize: 16, marginTop: 5,color:"black"}}>Taxes</Text>
+        <Text style={{fontSize: 16,color:"black"}}>₹ 0.00</Text>
       </View>
 
       <View
@@ -248,12 +250,12 @@ const Checkout = () => {
             marginBottom: 10,
           }}>
           <View>
-            <Text style={{fontSize: 16}}>Total</Text>
+            <Text style={{fontSize: 16,color:"black"}}>Total</Text>
 
-            <Text style={{fontSize: 16}}>{ItemAdd} Item</Text>
+            <Text style={{fontSize: 16,color:"black"}}>{ItemAdd} Item</Text>
           </View>
           <View>
-            <Text style={{fontSize: 16}}>₹ {subtotal}</Text>
+            <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal}</Text>
           </View>
         </View>
         <Pressable
@@ -291,7 +293,7 @@ const Checkout = () => {
           }}>
           <View
             style={{backgroundColor: 'white', padding: 40, borderRadius: 10}}>
-            <Text style={{fontSize: 16, marginBottom: 10}}>
+            <Text style={{fontSize: 16, marginBottom: 10,color:"black"}}>
               Please add items to the cart before proceeding to checkout.
             </Text>
             <Pressable
