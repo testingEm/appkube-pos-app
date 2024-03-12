@@ -14,7 +14,7 @@ import styles from './styles';
 
 const Products = () => {
   const navigation = useNavigation();
-  const ProductsData = useSelector(start => start.getAllProducts);
+  const ProductsData = useSelector(state => state.getAllProducts);
 
   //   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
 
