@@ -28,35 +28,35 @@ const Setting = () => {
         {/* <AntDesign name="rightcircleo" size={24} color="black" /> */}
       </TouchableOpacity>
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.flexRow, styles.box, styles.bgLight, styles.gap]}
         onPress={navigateToPrint}>
-        <View style={[styles.flexRow]}>
+        <View style={[styles.flexRow]}> */}
           {/* <FontAwesome5 name="print" size={22} color="black" /> */}
-          <Text style={[styles.textColor]}>Print</Text>
-        </View>
+          {/* <Text style={[styles.textColor]}>Print</Text>
+        </View> */}
         {/* <AntDesign name="rightcircleo" size={24} color="black" /> */}
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.flexRow, styles.box, styles.bgLight, styles.gap]}
         onPress={() => navigation.navigate('ImportProducts')}>
-        <View style={[styles.flexRow]}>
+        <View style={[styles.flexRow]}> */}
           {/* <FontAwesome5 name="print" size={22} color="black" /> */}
-          <Text style={[styles.textColor]}>Import Products</Text>
-        </View>
+          {/* <Text style={[styles.textColor]}>Import Products</Text> */}
+        {/* </View> */}
         {/* <AntDesign name="rightcircleo" size={24} color="black" /> */}
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
 
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={[styles.flexRow, styles.box, styles.bgLight, styles.gap]}
         onPress={() => navigation.navigate('ThermalPrinterComponent')}>
-        <View style={[styles.flexRow]}>
+        <View style={[styles.flexRow]}> */}
           {/* <FontAwesome5 name="print" size={22} color="black" /> */}
-          <Text style={[styles.textColor]}>Import Products</Text>
-        </View>
+          {/* <Text style={[styles.textColor]}>Import Products</Text> */}
+        {/* </View> */}
         {/* <AntDesign name="rightcircleo" size={24} color="black" /> */}
-      </TouchableOpacity>
+      {/* </TouchableOpacity> */}
     </View>
   );
 

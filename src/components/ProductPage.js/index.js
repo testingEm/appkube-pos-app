@@ -78,12 +78,18 @@ const ProductPage = () => {
           // gap: "20px",
           marginVertical: 20,
         }}>
+        {product.image ? (
         <Image
-          source={{
-            uri: product.image,
+         source={{
+          uri: product.image,
           }}
-          style={{width: 70, height: 70, borderRadius: 10}}
+        style={{width: 70, height: 70, borderRadius: 10}}
         />
+        ) : (
+        // Render a default image or nothing if product.image is not available
+        <View style={{width: 70, height: 70, borderRadius: 10, backgroundColor: '#ccc'}} />
+        )}
+
         {/* <View style={{ marginLeft: 20 }}> */}
         <Text style={{fontSize: 16, fontWeight: 'bold',marginLeft:10}}>
           {product.name} 1 {product.unit} {'\n'}
@@ -167,9 +173,9 @@ const ProductPage = () => {
                 placeholder="units"
                 onValueChange={itemValue => handleSelectType(itemValue)}
                 style={{height: 40, width: 100, marginTop: 10}}>
-                {quantityTypes.map(type => (
+                {quantityTypes.map((type ,index)=> (
                   <Picker.Item
-                    // key={type.value}
+                    key={index}
                     label={type.label}
                     value={type.value}
                   />
