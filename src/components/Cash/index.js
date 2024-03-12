@@ -14,7 +14,7 @@ import {createOrder} from '../../redux/slice/customerSlice';
 
 const Cash = () => {
   const routdata = useRoute();
-  console.log(routdata.params.value);
+  // console.log(routdata.params.value);
   const navigation = useNavigation();
 
   const handleGoToCash = () => {
@@ -23,7 +23,7 @@ const Cash = () => {
   const dispatch = useDispatch();
 
   const handleOrder = () => {
-    dispatch(createOrder({total: routdata.params.value}));
+    // dispatch(createOrder({total: routdata.params.value}));
     navigation.navigate('Share');
   };
 
@@ -81,7 +81,7 @@ const Cash = () => {
           }}>
           <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
             {' '}
-            ₹ {routdata.params.value}.00
+            {/* ₹ {routdata.params.value}.00 */}
           </Text>
           <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
             Select Payment Option

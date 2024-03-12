@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Pressable,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const Customers = () => {
@@ -19,6 +19,8 @@ const Customers = () => {
   ]);
 
   const navigation = useNavigation();
+  // const route = useRoute()
+  // const data = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
 
   const matchingResults = customers.filter(
@@ -30,7 +32,10 @@ const Customers = () => {
   const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.customerContainer}
-      onPress={() => console.log('Selected customer:', item)}>
+      onPress={() => {
+        console.log('Selected customer:', item)
+        navigation.navigate('Cash');
+        }}>
       <View style={styles.customerInfo}>
         <Text style={styles.customerName}>{item.name}</Text>
         <Text style={styles.customerEmail}>{item.email}</Text>

@@ -73,7 +73,9 @@ const Checkout = () => {
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
-      navigation.navigate('Cash', {value: subtotal});
+      // navigation.navigate('Cash', {value: subtotal});
+      navigation.navigate('Customers');
+
     } else {
       setShowAlert(true); // Show alert if the cart is empty
     }
