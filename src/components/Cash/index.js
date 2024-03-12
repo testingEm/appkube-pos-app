@@ -55,7 +55,7 @@ const Cash = () => {
             onPress={handleGoToCash}
           /> */}
         </Text>
-        <Text style={{fontSize: 16, fontWeight: 600}}>Mark unpaid</Text>
+        <Text style={{fontSize: 16, fontWeight: 600,color:"black"}}>Mark unpaid</Text>
       </View>
       <View
         style={{
@@ -70,6 +70,7 @@ const Cash = () => {
           style={{
             paddingHorizontal: 20,
             fontSize: 16,
+            color:"black"
           }}>
           Loading ........
         </Text>
@@ -78,11 +79,11 @@ const Cash = () => {
           style={{
             paddingHorizontal: 20,
           }}>
-          <Text style={{fontWeight: 600, fontSize: 17}}>
+          <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
             {' '}
             ₹ {routdata.params.value}.00
           </Text>
-          <Text style={{fontSize: 14, fontWeight: 500}}>
+          <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
             Select Payment Option
           </Text>
         </View>
@@ -109,7 +110,7 @@ const Cash = () => {
             {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
 
             <Text
-              style={{padding: 8, fontSize: 14, fontWeight: 500}}
+              style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}
               onPress={handleOrder}>
               Cash
             </Text>
@@ -136,7 +137,7 @@ const Cash = () => {
               alignItems: 'center',
             }}>
             {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
-            <Text style={{padding: 8, fontSize: 14, fontWeight: 500}}>Upi</Text>
+            <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>Upi</Text>
           </View>
           {/* <AntDesign name="right" size={20} color="black" /> */}
         </View>
@@ -160,7 +161,7 @@ const Cash = () => {
               alignItems: 'center',
             }}>
             {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
-            <Text style={{padding: 8, fontSize: 14, fontWeight: 500}}>
+            <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>
               Split Payment
             </Text>
           </View>

@@ -806,6 +806,7 @@ const GetAllProducts = () => {
                 alignItems: 'flex-start',
 
                 width: '100%',
+                color:"black"
               }}
             >
               {
@@ -820,7 +821,7 @@ const GetAllProducts = () => {
               }
             </Text>
 
-            <Text style={{ width: "100%", fontWeight: 700 }}>
+            <Text style={{ width: "100%", fontWeight: 700,color:"black" }}>
               orders: {reduxData.cart?.length}
             </Text>
           </View>
@@ -833,7 +834,8 @@ const GetAllProducts = () => {
               width: 100,
               height: 50,
               backgroundColor: 'lightgray',
-              fontWeight: 700
+              fontWeight: 700,
+              color:"black"
             }}
           >
             Checkout
@@ -858,6 +860,7 @@ const GetAllProducts = () => {
                 borderWidth: 1,
                 borderColor: 'lightgray',
                 margin: 2,
+                color:"black"
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -865,14 +868,14 @@ const GetAllProducts = () => {
                   source={{
                     uri: `${veg.image}`,
                   }}
-                  style={{ width: 70, height: 70, borderRadius: 10 }}
+                  style={{ width: 70, height: 70, borderRadius: 10, }}
                 />
                 <View style={{ marginLeft: 20 }}>
                   <Text
                     numberOfLines={2}
                     ellipsizeMode='tail'
                     style={{
-                      fontSize: 16, fontWeight: 'bold', width: 120
+                      fontSize: 16, fontWeight: 'bold', width: 120,color:"black"
                     }}
                   >
                     {veg.name}!
@@ -881,15 +884,15 @@ const GetAllProducts = () => {
                     {/* Quantity: {veg.quantity || 1}, Total: $ */}
                     {/* {calculateItemPrice(veg) } */}
                   </Text>
-                  <Text style={{ fontSize: 12 }}>Price: ${veg.price}</Text>
+                  <Text style={{ fontSize: 12,color:"black" }}>Price: ${veg.price}</Text>
                 </View>
               </View>
-              <View style={{ alignItems: 'center', gap: 10 }}>
+              <View style={{ alignItems: 'center', gap: 10 ,}}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <View>
-                    <Text>Qty: {veg.unit}</Text>
+                    <Text style={{color:"black"}}>Qty: {veg.unit}</Text>
 
-                    <Text>
+                    <Text style={{color:"black"}}>
                       Qty:{" "}
                       {/* {reduxData.Data[0] && reduxData.Data[0].quantity} */}
                       {reduxData.cart[
@@ -899,7 +902,7 @@ const GetAllProducts = () => {
                           reduxData.cart.findIndex((item) => item.id == veg.id)
                         ].quantity}
                     </Text>
-                    <Text>
+                    <Text style={{color:"black"}}>
                       Price:
                       {reduxData.cart[
                         reduxData.cart.findIndex((item) => item.id == veg.id)
