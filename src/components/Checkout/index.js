@@ -47,6 +47,7 @@ import {View, Text, Pressable, Image, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 // import { clearCart } from "../../redux/slice/Product";
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
 // import {removeCart} from '../../redux/slice/Product'
@@ -79,9 +80,9 @@ const Checkout = () => {
     }
   };
 
-  // const handleRemoveCart = () => {
-    // dispatch(emptyCart());
-  // };
+  const handleRemoveCart = () => {
+    dispatch(emptyCart());
+  };
 
   return (
     <View
@@ -94,12 +95,12 @@ const Checkout = () => {
         color:"black"
       }}>
       <View style={{marginTop: 30, marginLeft: 15}}>
-        {/* <AntDesign
+        <AntDesign
           name="close"
           size={30}
           color="blue"
           onPress={handleGoToCheckout}
-        /> */}
+        />
       </View>
       <View
         style={{
@@ -128,7 +129,7 @@ const Checkout = () => {
             padding: 6,
             backgroundColor: 'pink',
           }}>
-          {/* <AntDesign onPress={handleRemoveCart} name="delete" size={18} color="red" /> */}
+          <AntDesign onPress={handleRemoveCart} name="delete" size={18} color="red" />
         </View>
       </View>
       <ScrollView

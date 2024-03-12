@@ -1,9 +1,8 @@
 
-import {View, Text} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
-// import {AntDesign} from '@expo/vector-icons';
-// import {MaterialCommunityIcons} from '@expo/vector-icons';
-// import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {createOrder,emptyCart} from '../../redux/slice/customerSlice';
@@ -32,7 +31,7 @@ const Cash = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsloadig(false);
-    }, 3000);
+    }, 2000);
     return () => {
       clearTimeout(timer);
     };
@@ -49,12 +48,12 @@ const Cash = () => {
         }}>
         <Text>
           {' '}
-          {/* <AntDesign
+          <AntDesign
             name="close"
             size={30}
             color="blue"
             onPress={handleGoToCash}
-          /> */}
+          />
         </Text>
         <Text style={{fontSize: 16, fontWeight: 600,color:"black"}}>Mark unpaid</Text>
       </View>
@@ -97,27 +96,28 @@ const Cash = () => {
           gap: 20,
           padding: 15,
         }}>
-        <View
+        <Pressable
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          }}>
+          }}
+          onPress={handleOrder}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
+            <MaterialCommunityIcons name="cash" size={24} color="black" />
 
             <Text
               style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}
-              onPress={handleOrder}>
+              >
               Cash
             </Text>
           </View>
-          {/* <AntDesign name="right" size={20} color="black" /> */}
-        </View>
+          <AntDesign name="right" size={20} color="black" />
+        </Pressable>
         <View
           style={{
             borderBottomColor: 'lightgray',
@@ -126,22 +126,23 @@ const Cash = () => {
             color: 'white',
           }}
         />
-        <View
+        <Pressable
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          }}>
+          }}
+          onPress={handleOrder}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
+            <MaterialCommunityIcons name="cash" size={24} color="black" />
             <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>Upi</Text>
           </View>
-          {/* <AntDesign name="right" size={20} color="black" /> */}
-        </View>
+          <AntDesign name="right" size={20} color="black" />
+        </Pressable>
         <View
           style={{
             borderBottomColor: 'lightgray',
@@ -150,24 +151,25 @@ const Cash = () => {
             color: 'white',
           }}
         />
-        <View
+        <Pressable
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          }}>
+          }} 
+          onPress={handleOrder}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
+            <MaterialCommunityIcons name="cash" size={24} color="black" />
             <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>
               Split Payment
             </Text>
           </View>
-          {/* <AntDesign name="right" size={20} color="black" /> */}
-        </View>
+          <AntDesign name="right" size={20} color="black" />
+        </Pressable>
       </View>
     </View>
   );

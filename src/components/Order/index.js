@@ -3,6 +3,9 @@ import {useRoute} from '@react-navigation/native';
 import styles from './styles';
 // import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
 // import {Feather} from '@expo/vector-icons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
+
 import React from 'react';
 
 const Order = () => {
@@ -43,32 +46,32 @@ const Order = () => {
                   flex: 1,
                   fontWeight: '700',
                 }}>
-                {/* <FontAwesome
+                <FontAwesome
                 name="rupee"
                 size={18}
                 color="#31572c"
                 style={{marginRight: 5}}
-              /> */}
+              />
                 {/* Total : {order.totalPrice} */}
               </Text>
             </View>
             <View style={[styles.arrowbox, {margin: 5}, {marginBottom: 20}]}>
               <Text>No Customer </Text>
-              {/* <FontAwesome5 name="angle-right" size={26} color="black" /> */}
+              <FontAwesome5 name="angle-right" size={26} color="black" />
             </View>
           </View>
           <View style={[styles.status]}>
             <View style={[styles.statusbox]}>
-              {/* <FontAwesome
+              <FontAwesome
               name="circle"
               size={18}
               color="#31572c"
               // style={{ margin: 0 }}
-            /> */}
+            />
               <Text style={{marginLeft: 5}}>paid</Text>
             </View>
             <Pressable style={[styles.statusbox]}>
-              {/* <Feather name="share-2" size={24} color="black" /> */}
+              <Feather name="share-2" size={24} color="black" />
 
               <Text style={{marginLeft: 5}}>Share</Text>
             </Pressable>

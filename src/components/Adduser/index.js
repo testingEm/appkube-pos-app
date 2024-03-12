@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {TextInput, View, Text, Button} from 'react-native';
-// import {AntDesign} from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import {createCustomer} from '../../redux/slice/customerSlice';
 import {useDispatch} from 'react-redux';
+// import Fontisto from 'react-native-vector-icons/Fontisto';
 const Adduser = () => {
   const [inputUser, setInputUser] = useState({
     name: '',
@@ -38,12 +39,12 @@ const Adduser = () => {
             alignItems: 'center',
             padding: 20,
           }}>
-          {/* <AntDesign
+          <AntDesign
             name="close"
             size={30}
-            color="blue"
+            color="#31572c"
             onPress={handleGoToAdduser}
-          /> */}
+          />
           <Text style={{fontSize: 20}} onPress={handleSubmit}>
             Save
           </Text>
