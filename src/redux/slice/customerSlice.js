@@ -5,7 +5,7 @@ import {creatingOrder} from '../../Api/createOrder';
 import {creatingCustomer} from '../../Api/createCustomer';
 
 // // const dispatch = useDispatch();
-export const createOrder = createAsyncThunk('createOrder', async orderData => {
+export const createOrder = createAsyncThunk('createOrder', async (orderData) => {
   try {
     console.log('creating order', orderData);
 
@@ -19,7 +19,7 @@ export const createOrder = createAsyncThunk('createOrder', async orderData => {
 });
 export const createCustomer = createAsyncThunk(
   'createCustomer',
-  async details => {
+  async (details) => {
     try {
       console.log('creating customer', details);
 
@@ -37,7 +37,7 @@ const CustomerSlice = createSlice({
   initialState: {
     orders: [],
     cart: [],
-    users: [],
+    customers: [],
     loading: false,
     error: null,
   },
@@ -47,7 +47,7 @@ const CustomerSlice = createSlice({
       console.log('inn redux dispathing orders',action.payload)
     },
     addCustomer: (state, action) => {
-      state.users.push(action.payload);
+      state.customers.push(action.payload);
       console.log('added user in slice', action.payload);
     },
     addToCart: (state, action) => {

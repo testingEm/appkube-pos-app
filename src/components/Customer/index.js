@@ -12,12 +12,13 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const Customers = () => {
+  const data =  useSelector(state=> state.CustomerSlice.customers)
   const [searchQuery, setSearchQuery] = useState('');
   const [customers] = useState([
     {id: 1, name: 'John Doe', email: 'john@gmail.com'},
     // ... (other customer data)
   ]);
-
+ console.log('customers', data);
   const navigation = useNavigation();
   // const users = useSelector(state => state.CustomerSlice.users);
 

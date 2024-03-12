@@ -6,7 +6,7 @@ import React, {useState, useEffect} from 'react';
 // import { AntDesign } from '@expo/vector-icons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {createOrder} from '../../redux/slice/customerSlice';
+import {createOrder,emptyCart} from '../../redux/slice/customerSlice';
 
 // const valuePass=()=>{
 
@@ -24,6 +24,7 @@ const Cash = () => {
 
   const handleOrder = () => {
     dispatch(createOrder({total: routdata.params.value}));
+    dispatch(emptyCart());
     navigation.navigate('Share');
   };
 
