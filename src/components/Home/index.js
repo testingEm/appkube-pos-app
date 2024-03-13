@@ -15,12 +15,12 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/native';
 
 import {fetchCategories} from '../../Api/FetchProducts';
-import {addOrders} from '../../redux/slice/customerSlice';
+import {addOrders, addCustomer} from '../../redux/slice/customerSlice';
 
 import {AddAllProducts} from '../../redux/slice/getAllProductSlice';
 import {useDispatch} from 'react-redux';
 import {fetchingOrders} from '../../Api/fetchOrders';
-
+import { fetchingCustomers} from '../../Api/fetchCustomers';
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -51,10 +51,26 @@ const Home = () => {
       console.log('orders error', error);
     }
   };
+  const fetchCustomers = async () => {
+    try {
+      console.log('calling fetching');
+      const response = await fetchingCustomers();
+      console.log('after fetching');
+      const data = response;
+      console.log('customers data', data);
+      data.map(value => {
+        console.log('customer value', value);
+        dispatch(addCustomer(value));
+      });
+    } catch (error) {
+      console.log('orders error', error);
+    }
+  };
 
   useEffect(() => {
     getProduct();
     fetchOrders();
+    fetchCustomers();
   }, []);
 
   //   console.log("this is the allProducts for the redux",allProducts);

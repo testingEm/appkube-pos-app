@@ -735,7 +735,7 @@ const GetAllProducts = () => {
 
   const handleProduct = (prod) => {
     console.log("navigate to product");
-    navigation.navigate("ProductPage", { value: prod });
+    navigation.navigate("Categorys", { value: prod });
     console.log("navigate to product 2");
   };
 
@@ -833,6 +833,9 @@ const GetAllProducts = () => {
               alignItems: 'center',
               width: 100,
               height: 50,
+              paddingHorizontal:16,
+              paddingTop:13,
+              borderRadius:10,
               backgroundColor: 'lightgray',
               fontWeight: 700,
               color:"black",

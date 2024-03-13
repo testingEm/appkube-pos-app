@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, Pressable} from 'react-native';
+import {Text, View, Pressable,ActivityIndicator} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useNavigation} from '@react-navigation/native';
@@ -14,7 +14,7 @@ import styles from './styles';
 
 const Products = () => {
   const navigation = useNavigation();
-  const ProductsData = useSelector(start => start.getAllProducts);
+  const ProductsData = useSelector(state => state.getAllProducts);
 
   //   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
 
@@ -32,7 +32,7 @@ const Products = () => {
 
   const BodyButton = () => (
     <View style={{padding: 10}}>
-      {uniqueCategoriesArray.map(category => (
+      {(uniqueCategoriesArray.length > 0)? (uniqueCategoriesArray.map(category => (
         <Pressable
           key={category}
           onPress={() => {
@@ -48,7 +48,8 @@ const Products = () => {
           <Ionicons name="cart" size={20} color="black" />
           {/* <Text style={{color: 'black'}}> {'>'} </Text> */}
         </Pressable>
-      ))}
+      )))
+      :(<ActivityIndicator size="large" color='#31572c' />)}
     </View>
   );
 

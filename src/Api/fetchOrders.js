@@ -44,8 +44,7 @@ const client = generateClient();
         console.log('orders result ',result);
       }
       catch (error) {
-        console.error('Error fetching categories:', error);
-        setError('Error fetching categories');
+        console.error('Error fetching orders:', error);
       } 
       
       return result

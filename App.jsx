@@ -19,9 +19,9 @@ import Share from './src/components/Share/index.js'
 import Settings from './src/components/Setting';
 import Products from './src/components/Products';
 import ProductsList from './src/components/ProductList';
-import ProductPage from './src/components/ProductPage.js';
+import ProductPage from './src/components/ProductPage/index.js';
 import Orders from './src/components/Orders/index.js';
-// import PrintToA4 from './src/components/Print/index.js';
+import PrintToA4 from './src/components/Print/index.js';
 // import productPrinter from './src/components/productPrinter';
 import Order from './src/components/Order/index.js';
 const Tab = createBottomTabNavigator();
@@ -48,7 +48,7 @@ const SettingScreen = () => (
     }}>
     <Stack.Screen name="Settings" component={Settings} />
     <Stack.Screen name="Customers" component={Customers} />
-    {/* <Stack.Screen name="PrintToA4" component={PrintToA4} /> */}
+    <Stack.Screen name="PrintToA4" component={PrintToA4} />
     {/* <Stack.Screen name="productPrinter" component={productPrinter} /> */}
   </Stack.Navigator>
 );
@@ -69,6 +69,7 @@ const ProductsScreen = () => (
     <Stack.Screen name="ProductsPage" component={Products} />
     <Stack.Screen name="Categorys" component={ProductPage} />
     {/* <Stack.Screen name="Catalog" component={Catalog} /> */}
+    <Stack.Screen name="Customers" component={Customers} />
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
     <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} />
@@ -76,20 +77,28 @@ const ProductsScreen = () => (
   </Stack.Navigator>
 );
 
-const screenOptions = ({route}) => ({
-  tabBarIcon: ({color, size}) => {
-    let ionicons;
-    if (route.name === 'Home') {
-      ionicons = 'home-outline';
-    } else if (route.name === 'Setting') {
-      ionicons = 'settings-outline';
-    } else if (route.name === 'Products') {
-      ionicons = 'cube-outline';
-    } else if (route.name === 'orders') {
-      ionicons = 'cart-outline';
+const screenOptions = ({ route }) => ({
+  tabBarIcon: ({ color, size }) => {
+    let iconName;
+    switch (route.name) {
+      case 'Home':
+        iconName = 'home-outline';
+        break;
+      case 'Setting':
+        iconName = 'settings-outline';
+        break;
+      case 'Products':
+        iconName = 'cube-outline';
+        break;
+      case 'Orders':
+        iconName = 'cart-outline'; 
+        break;
+      default:
+        iconName = 'alert-circle-outline';
     }
 
-    return <Ionicons name={ionicons} size={size} color={color}  />;
+    // Use the iconName determined by the switch statement
+    return <Ionicons name={iconName} size={size} color={color} />;
   },
 });
 

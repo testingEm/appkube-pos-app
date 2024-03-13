@@ -1,12 +1,11 @@
 
-import {View, Text} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
-// import {AntDesign} from '@expo/vector-icons';
-// import {MaterialCommunityIcons} from '@expo/vector-icons';
-// import { AntDesign } from '@expo/vector-icons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {createOrder} from '../../redux/slice/customerSlice';
+import {createOrder,emptyCart} from '../../redux/slice/customerSlice';
 
 // const valuePass=()=>{
 
@@ -14,7 +13,8 @@ import {createOrder} from '../../redux/slice/customerSlice';
 
 const Cash = () => {
   const routdata = useRoute();
-  console.log(routdata.params.value);
+  console.log("route value",routdata.params.value);
+  console.log("route user",routdata.params.user);
   const navigation = useNavigation();
 
   const handleGoToCash = () => {
@@ -22,16 +22,20 @@ const Cash = () => {
   };
   const dispatch = useDispatch();
 
-  const handleOrder = () => {
-    dispatch(createOrder({total: routdata.params.value}));
-    navigation.navigate('Share');
+  const handleOrder = (payment) => {
+    const total =  routdata.params.value
+    const user =  routdata.params.user
+    const orderData = {paymentMethod: payment , totolPrice:total , id:user.id}
+    console.log("sending data of order",orderData)
+    dispatch(createOrder(orderData));
+    navigation.navigate('Share',{userData:user});
   };
 
   const [Isloading, setIsloadig] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsloadig(false);
-    }, 3000);
+    }, 2000);
     return () => {
       clearTimeout(timer);
     };
@@ -48,12 +52,12 @@ const Cash = () => {
         }}>
         <Text>
           {' '}
-          {/* <AntDesign
+          <AntDesign
             name="close"
             size={30}
             color="blue"
             onPress={handleGoToCash}
-          /> */}
+          />
         </Text>
         <Text style={{fontSize: 16, fontWeight: 600,color:"black"}}>Mark unpaid</Text>
       </View>
@@ -81,7 +85,7 @@ const Cash = () => {
           }}>
           <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
             {' '}
-            ₹ {routdata.params.value}.00
+            {/* ₹ {routdata.params.value}.00 */}
           </Text>
           <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
             Select Payment Option
@@ -96,27 +100,28 @@ const Cash = () => {
           gap: 20,
           padding: 15,
         }}>
-        <View
+        <Pressable
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          }}>
+          }}
+          onPress={() => handleOrder("CASH")}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
+            <MaterialCommunityIcons name="cash" size={24} color="black" />
 
             <Text
               style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}
-              onPress={handleOrder}>
+              >
               Cash
             </Text>
           </View>
-          {/* <AntDesign name="right" size={20} color="black" /> */}
-        </View>
+          <AntDesign name="right" size={20} color="black" />
+        </Pressable>
         <View
           style={{
             borderBottomColor: 'lightgray',
@@ -125,22 +130,23 @@ const Cash = () => {
             color: 'white',
           }}
         />
-        <View
+        <Pressable
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          }}>
+          }}
+          onPress={() => handleOrder("UPI")}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
+            <MaterialCommunityIcons name="cash" size={24} color="black" />
             <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>Upi</Text>
           </View>
-          {/* <AntDesign name="right" size={20} color="black" /> */}
-        </View>
+          <AntDesign name="right" size={20} color="black" />
+        </Pressable>
         <View
           style={{
             borderBottomColor: 'lightgray',
@@ -149,24 +155,27 @@ const Cash = () => {
             color: 'white',
           }}
         />
-        <View
+        <Pressable
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-          }}>
+            backgroundColor:'gray',
+          }} 
+          // onPress={handleOrder}
+          >
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
-            {/* <MaterialCommunityIcons name="cash" size={24} color="black" /> */}
+            <MaterialCommunityIcons name="cash" size={24} color="black" />
             <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>
               Split Payment
             </Text>
           </View>
-          {/* <AntDesign name="right" size={20} color="black" /> */}
-        </View>
+          <AntDesign name="right" size={20} color="black" />
+        </Pressable>
       </View>
     </View>
   );
