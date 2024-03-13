@@ -2,7 +2,6 @@ import {Amplify} from 'aws-amplify';
 import {generateClient, graphqlOperation} from 'aws-amplify/api';
 
 const client = generateClient();
-
 export const creatingOrder = async (order) => {
   try {
     console.log('creating order api', order);
@@ -19,23 +18,25 @@ export const creatingOrder = async (order) => {
     });
     const result = await client.graphql({
       query: `
-              mutation CreateOrder($paymentMethod: String! ,$totalPrice: Float!, $customerOrdersId: String!) {
-                createOrder(input: {paymentMethod: $paymentMethod, totalPrice: $totalPrice, customerOrdersId: $customerOrdersId}) {
-                  id
-                }
-              }
-            `,
+        mutation CreateOrder($paymentMethod: PaymentCategory!, $totalPrice: Float!, $customerOrdersId: ID!) {
+          createOrder(input: { paymentMethod: $paymentMethod, totalPrice: $totalPrice, customerOrdersId: $customerOrdersId }) {
+            id
+            totalPrice
+
+          }
+        }
+      `,
       variables: {
         paymentMethod: order.paymentMethod,
         totalPrice: order.totolPrice,
-        customerOrdersId: order.id, 
+        customerOrdersId: order.id,
       },
     });
 
     console.log('success', result);
     return result.data.createOrder;
   } catch (error) {
-    console.error('Error :', error);
+    console.error('Error:', error);
     throw error;
   }
 };

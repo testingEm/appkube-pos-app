@@ -62,7 +62,8 @@ const Customers = () => {
         onChangeText={setSearchQuery}
       />
       <FlatList
-        data={matchingResults}
+        // data={matchingResults}
+        data= {data}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
       />

@@ -28,6 +28,7 @@ const Cash = () => {
     const orderData = {paymentMethod: payment , totolPrice:total , id:user.id}
     console.log("sending data of order",orderData)
     dispatch(createOrder(orderData));
+    dispatch(emptyCart())
     navigation.navigate('Share',{userData:user});
   };
 
@@ -85,7 +86,7 @@ const Cash = () => {
           }}>
           <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
             {' '}
-            {/* ₹ {routdata.params.value}.00 */}
+            ₹ {routdata.params.value}.00
           </Text>
           <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
             Select Payment Option
