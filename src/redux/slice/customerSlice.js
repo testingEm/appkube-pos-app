@@ -7,7 +7,7 @@ import {creatingCustomer} from '../../Api/createCustomer';
 // // const dispatch = useDispatch();
 export const createOrder = createAsyncThunk('createOrder', async (orderData) => {
   try {
-    console.log('creating order', orderData);
+    console.log('creating order async', orderData);
 
     const response = await creatingOrder(orderData);
     console.log('created order response ', response);

@@ -3,7 +3,7 @@ import {generateClient} from 'aws-amplify/api';
 // import { API } from 'aws-amplify';
 const client = generateClient();
 
-export const creatingCustomer = async details => {
+export const creatingCustomer = async (details) => {
   console.log('in creating customer', details);
   try {
     await Amplify.configure({

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Pressable, TextInput} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 // import {Entypo} from '@expo/vector-icons';
 import styles from './styles';
 
@@ -8,8 +8,10 @@ const Share = () => {
   // const [showShare, setshowShare] = useState(false);
 
   const navigation = useNavigation();
-  const [reloadScreen, setReloadScreen] = useState(false); // State to trigger screen reload
-
+  // const [reloadScreen, setReloadScreen] = useState(false); // State to trigger screen reload
+  const route =  useRoute();
+  const user = route.params.userData;
+  console.log('user details: ' + user)
   // const handleOkClick = () => {
   //   setshowShare(true);
   // };
@@ -20,11 +22,11 @@ const Share = () => {
 
   const goToHome = () => {
     navigation.navigate('Home');
-    setReloadScreen(true);
+    // setReloadScreen(true);
   };
   const goToCustomers = () => {
     navigation.navigate('Customers');
-    setReloadScreen(true);
+    // setReloadScreen(true);
   };
 
   return (
