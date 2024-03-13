@@ -195,7 +195,7 @@ const Checkout = () => {
                 <Text style={{fontSize: 10,color:"black"}}>
                   ₹ {e.price} x {e.quantity}
                 </Text>
-                <Text style={{color:"black"}}>₹ {e.price * e.quantity}</Text>
+                <Text style={{color:"black"}}>₹ {(e.price * e.quantity).toFixed(2)}</Text>
               </View>
             </View>
           ))
@@ -216,7 +216,7 @@ const Checkout = () => {
           alignItems: 'center',
         }}>
         <Text style={{fontSize: 16,color:"black"}}>Subtotal</Text>
-        <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal}</Text>
+        <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal.toFixed(2)}</Text>
       </View>
       <View
         style={{
@@ -258,7 +258,7 @@ const Checkout = () => {
             <Text style={{fontSize: 16,color:"black"}}>{ItemAdd} Item</Text>
           </View>
           <View>
-            <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal}</Text>
+            <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal.toFixed(2)}</Text>
           </View>
         </View>
         <Pressable

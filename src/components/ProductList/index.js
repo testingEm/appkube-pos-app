@@ -912,7 +912,7 @@ const GetAllProducts = () => {
                       ] &&
                         reduxData.cart[
                           reduxData.cart.findIndex((item) => item.id == veg.id)
-                        ].totalPrice}
+                        ].totalPrice.toFixed(2)}
                     </Text>
                   </View>
                   <View style={{ flexDirection: 'row', marginLeft: 10 }}>

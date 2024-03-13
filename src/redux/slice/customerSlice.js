@@ -72,7 +72,7 @@ const CustomerSlice = createSlice({
           ...state,
           cart: [
             ...state.cart,
-            {
+            action.payload.hasOwnProperty('quantity')?{...action.payload}:{
               ...action.payload,
               quantity: 1,
               totalPrice: action.payload.price * 1,

@@ -63,7 +63,9 @@ const ProductPage = () => {
     console.log('Selected Type:', type);
     setSelectedType(type);
   };
-
+  
+  const priceOne =
+    Math.ceil(quantity * typePrice[selectedType].price * 1000) / 1000;
   return (
     <View
       style={{
@@ -238,8 +240,18 @@ const ProductPage = () => {
             //     1000,
             // });
             // console.log(cart);
-            const data = dispatch(addToCart(product));
-            // console.log(data.payload)
+            product.price = 999
+            const data = dispatch(
+              addToCart({
+                ...product,
+                price:typePrice[selectedType].price,
+                totalPrice: priceOne,
+                unit: selectedType,
+                quantity: quantity,
+              }),
+            );
+            console.log(data.payload)
+            console.log("oooooooooooooooooooooooooooooooooooooooooooo",{...product,price:999})
             // console.log(data.payload)
           }}>
           <FontAwesome name="plus" size={20} color="white" />
