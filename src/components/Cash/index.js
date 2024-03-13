@@ -22,9 +22,13 @@ const Cash = () => {
   };
   const dispatch = useDispatch();
 
-  const handleOrder = () => {
-    dispatch(createOrder({total: routdata.params.value}));
-    navigation.navigate('Share');
+  const handleOrder = (payment) => {
+    const total =  routdata.params.value
+    const user =  routdata.params.user
+    const orderData = {paymentMethod: payment , totolPrice:total , id:user.id}
+    console.log("sending data of order",orderData)
+    dispatch(createOrder(orderData));
+    navigation.navigate('Share',{userData:user});
   };
 
   const [Isloading, setIsloadig] = useState(true);
@@ -102,7 +106,7 @@ const Cash = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
-          onPress={handleOrder}>
+          onPress={() => handleOrder("CASH")}>
           <View
             style={{
               flexDirection: 'row',
@@ -132,7 +136,7 @@ const Cash = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
-          onPress={handleOrder}>
+          onPress={() => handleOrder("UPI")}>
           <View
             style={{
               flexDirection: 'row',
@@ -156,8 +160,10 @@ const Cash = () => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
+            backgroundColor:'gray',
           }} 
-          onPress={handleOrder}>
+          // onPress={handleOrder}
+          >
           <View
             style={{
               flexDirection: 'row',
