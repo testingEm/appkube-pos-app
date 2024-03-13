@@ -833,6 +833,9 @@ const GetAllProducts = () => {
               alignItems: 'center',
               width: 100,
               height: 50,
+              paddingHorizontal:16,
+              paddingTop:13,
+              borderRadius:10,
               backgroundColor: 'lightgray',
               fontWeight: 700,
               color:"black"
