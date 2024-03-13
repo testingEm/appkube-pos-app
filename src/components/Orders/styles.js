@@ -114,4 +114,3 @@ export default StyleSheet.create({
     gap: 10,
   },
 });
-
