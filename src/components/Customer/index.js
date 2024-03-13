@@ -12,15 +12,16 @@ import {useNavigation,useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const Customers = () => {
+  const data =  useSelector(state=> state.CustomerSlice.customers)
   const [searchQuery, setSearchQuery] = useState('');
   const [customers] = useState([
     {id: 1, name: 'John Doe', email: 'john@gmail.com'},
     // ... (other customer data)
   ]);
-
+ console.log('customers', data);
   const navigation = useNavigation();
-  // const route = useRoute()
-  // const data = route.params.value
+  const route = useRoute()
+  // const  = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
 
   const matchingResults = customers.filter(
@@ -34,7 +35,7 @@ const Customers = () => {
       style={styles.customerContainer}
       onPress={() => {
         console.log('Selected customer:', item)
-        navigation.navigate('Cash');
+        navigation.navigate('Cash',{value:route.params.value,user:item});
         }}>
       <View style={styles.customerInfo}>
         <Text style={styles.customerName}>{item.name}</Text>

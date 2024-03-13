@@ -47,6 +47,7 @@ import {View, Text, Pressable, Image, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 // import { clearCart } from "../../redux/slice/Product";
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
 // import {removeCart} from '../../redux/slice/Product'
@@ -67,14 +68,14 @@ const Checkout = () => {
     navigation.goBack();
   };
 
-  const handleOrder = () => {
-    dispatch(createOrder({total: subtotal}));
-  };
+  // const handleOrder = () => {
+    // dispatch(createOrder({total: subtotal}));
+  // };
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
-      // navigation.navigate('Cash', {value: subtotal});
-      navigation.navigate('Customers');
+      navigation.navigate('Customers', {value: subtotal});
+      // navigation.navigate('Customers');
 
     } else {
       setShowAlert(true); // Show alert if the cart is empty
@@ -96,12 +97,12 @@ const Checkout = () => {
         color:"black"
       }}>
       <View style={{marginTop: 30, marginLeft: 15}}>
-        {/* <AntDesign
+        <AntDesign
           name="close"
           size={30}
           color="blue"
           onPress={handleGoToCheckout}
-        /> */}
+        />
       </View>
       <View
         style={{
@@ -130,7 +131,7 @@ const Checkout = () => {
             padding: 6,
             backgroundColor: 'pink',
           }}>
-          {/* <AntDesign onPress={handleRemoveCart} name="delete" size={18} color="red" /> */}
+          <AntDesign onPress={handleRemoveCart} name="delete" size={18} color="red" />
         </View>
       </View>
       <ScrollView

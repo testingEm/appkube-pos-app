@@ -36,6 +36,8 @@ const ProductPage = () => {
 
   const typePrice = {
     // kgs: { price: 50 },
+
+    
     kgs: {price: product.price},
     gms: {price: product.price / 1000},
     // gms: { price: 0.3 },

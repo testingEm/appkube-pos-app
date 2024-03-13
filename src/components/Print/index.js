@@ -9,7 +9,7 @@ import styles from './styles';
 const PrintToA4 = () => {
   // const [data, setData] = useState([])
   const navigation = useNavigation();
-  const ProductsData = useSelector(start => start.getAllProducts);
+  const ProductsData = useSelector(state => state.getAllProducts);
 
   console.log(
     'redux in products page in the product page',
@@ -43,7 +43,7 @@ const PrintToA4 = () => {
           onPress={() => {
             const CatProducts = GetProduct.filter(e => e.category === category);
             console.log(CatProducts);
-            navigation.navigate('ProductsPrint', {
+            navigation.navigate('productPrinter', {
               category,
               catProducts: CatProducts,
             });

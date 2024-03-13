@@ -17,7 +17,7 @@ const Orders = () => {
   const fetchedOrders = useSelector(state => state.CustomerSlice.orders);
 
   console.log('fetched orders', fetchedOrders);
-  const handleOrder = order => {
+  const handleOrder = (order) => {
     console.log('navigating to order');
     console.log('order value ',order);
     navigation.navigate('Order', {value: order});
