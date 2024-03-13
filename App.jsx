@@ -19,7 +19,7 @@ import Share from './src/components/Share/index.js'
 import Settings from './src/components/Setting';
 import Products from './src/components/Products';
 import ProductsList from './src/components/ProductList';
-import ProductPage from './src/components/ProductPage.js';
+import ProductPage from './src/components/ProductPage/index.js';
 import Orders from './src/components/Orders/index.js';
 // import PrintToA4 from './src/components/Print/index.js';
 // import productPrinter from './src/components/productPrinter';
