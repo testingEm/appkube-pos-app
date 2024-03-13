@@ -4,6 +4,7 @@ import styles from './styles';
 // import {FontAwesome, FontAwesome5} from '@expo/vector-icons';
 // import {Feather} from '@expo/vector-icons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 
 import React from 'react';
@@ -31,12 +32,12 @@ const Order = () => {
         <Pressable style={[styles.box, styles.shadow]}>
           <View style={[{flex: 1}, styles.gap]}>
             <Text style={{fontWeight: 500, fontSize: 16, color: 'blue'}}>
-              {/* {order.createdAt} */}
+              {order.createdAt}
             </Text>
             <View style={[styles.border]} />
             <View style={[styles.gap]}>
               <Text style={{fontSize: 16, color: 'blue'}}>
-                {/* #{order.__typename} id : */}
+                #{order.__typename} id :
               </Text>
               <Text style={{color: 'blue'}}>{order.id}</Text>
               <Text
@@ -52,7 +53,7 @@ const Order = () => {
                 color="#31572c"
                 style={{marginRight: 5}}
               />
-                {/* Total : {order.totalPrice} */}
+                Total : {order.totalPrice}
               </Text>
             </View>
             <View style={[styles.arrowbox, {margin: 5}, {marginBottom: 20}]}>

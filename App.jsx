@@ -69,6 +69,7 @@ const ProductsScreen = () => (
     <Stack.Screen name="ProductsPage" component={Products} />
     <Stack.Screen name="Categorys" component={ProductPage} />
     {/* <Stack.Screen name="Catalog" component={Catalog} /> */}
+    <Stack.Screen name="Customers" component={Customers} />
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />
     <Stack.Screen name="Share" component={Share} options={{ headerShown: false }} />
