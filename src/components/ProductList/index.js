@@ -833,9 +833,14 @@ const GetAllProducts = () => {
               alignItems: 'center',
               width: 100,
               height: 50,
+              paddingHorizontal:16,
+              paddingTop:13,
+              borderRadius:10,
               backgroundColor: 'lightgray',
               fontWeight: 700,
-              color:"black"
+              color:"black",
+              paddingHorizontal:18,
+              paddingTop:14
             }}
           >
             Checkout
@@ -909,7 +914,7 @@ const GetAllProducts = () => {
                       ] &&
                         reduxData.cart[
                           reduxData.cart.findIndex((item) => item.id == veg.id)
-                        ].totalPrice}
+                        ].totalPrice.toFixed(2)}
                     </Text>
                   </View>
                   <View style={{ flexDirection: 'row', marginLeft: 10 }}>

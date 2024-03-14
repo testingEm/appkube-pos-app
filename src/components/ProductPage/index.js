@@ -8,13 +8,14 @@ import {
   Pressable,
 } from 'react-native';
 // import { Entypo } from "@expo/vector-icons";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {useRoute, useNavigation} from '@react-navigation/native';
 
 import {useSelector, useDispatch} from 'react-redux';
 import {Picker} from '@react-native-picker/picker';
 
 // import { AddProduct, removeItem } from "../../redux/slice/Product";
-import { addToCart } from "../../redux/slice/customerSlice";
+import {addToCart} from '../../redux/slice/customerSlice';
 // import DropDownPicker from "react-native-dropdown-picker";
 
 const ProductPage = () => {
@@ -26,6 +27,8 @@ const ProductPage = () => {
   const route = useRoute();
   const navigation = useNavigation();
   console.log(route.params.value);
+  const reduxData = useSelector(state => state.CustomerSlice);
+
 
   useEffect(() => {
     setProduct(route.params.value);
@@ -36,6 +39,7 @@ const ProductPage = () => {
 
   const typePrice = {
     // kgs: { price: 50 },
+
     kgs: {price: product.price},
     gms: {price: product.price / 1000},
     // gms: { price: 0.3 },
@@ -60,6 +64,8 @@ const ProductPage = () => {
     setSelectedType(type);
   };
   
+  const priceOne =
+    Math.ceil(quantity * typePrice[selectedType].price * 1000) / 1000;
   return (
     <View
       style={{
@@ -79,26 +85,33 @@ const ProductPage = () => {
           marginVertical: 20,
         }}>
         {product.image ? (
-        <Image
-         source={{
-          uri: product.image,
-          }}
-        style={{width: 70, height: 70, borderRadius: 10}}
-        />
+          <Image
+            source={{
+              uri: product.image,
+            }}
+            style={{width: 70, height: 70, borderRadius: 10}}
+          />
         ) : (
-        // Render a default image or nothing if product.image is not available
-        <View style={{width: 70, height: 70, borderRadius: 10, backgroundColor: '#ccc'}} />
+          // Render a default image or nothing if product.image is not available
+          <View
+            style={{
+              width: 70,
+              height: 70,
+              borderRadius: 10,
+              backgroundColor: '#ccc',
+            }}
+          />
         )}
 
         {/* <View style={{ marginLeft: 20 }}> */}
-        <Text style={{fontSize: 16, fontWeight: 'bold',marginLeft:10}}>
+        <Text style={{fontSize: 16, fontWeight: 'bold', marginLeft: 10}}>
           {product.name} 1 {product.unit} {'\n'}
           Price : ₹ {product.price}
         </Text>
         {/* </View> */}
       </View>
 
-      <View style={{marginTop: 15,marginLeft:3}}>
+      <View style={{marginTop: 15, marginLeft: 3}}>
         <Text
           style={{
             fontSize: 14,
@@ -157,7 +170,7 @@ const ProductPage = () => {
               //   backgroundColor: "#dddddd",
               paddingBottom: 10,
             }}>
-            <Text style={{color: 'black', fontWeight: 500,marginTop:10}}>
+            <Text style={{color: 'black', fontWeight: 500, marginTop: 20}}>
               Enter Custom Quantity
             </Text>
             <View style={styles.container}>
@@ -172,8 +185,8 @@ const ProductPage = () => {
                 selectedValue={selectedType}
                 placeholder="units"
                 onValueChange={itemValue => handleSelectType(itemValue)}
-                style={{height: 40, width: 100, marginTop: 10}}>
-                {quantityTypes.map((type ,index)=> (
+                style={{height: 40, width: 130}}>
+                {quantityTypes.map((type, index) => (
                   <Picker.Item
                     key={index}
                     label={type.label}
@@ -198,7 +211,9 @@ const ProductPage = () => {
           alignItems: 'center',
           position: 'absolute',
           bottom: 10,
-          paddingRight: 10,
+          // paddingRight:,
+          marginLeft: 10,
+          marginBottom: 10,
           width: '95%',
           // justifySelf: "end",
           justifySelf: 'flex-end',
@@ -225,10 +240,21 @@ const ProductPage = () => {
             //     1000,
             // });
             // console.log(cart);
-            const data = dispatch(addToCart(product));
-            // console.log(data.payload)
+            product.price = 999
+            const data = dispatch(
+              addToCart({
+                ...product,
+                price:typePrice[selectedType].price,
+                totalPrice: priceOne,
+                unit: selectedType,
+                quantity: quantity,
+              }),
+            );
+            console.log(data.payload)
+            console.log("oooooooooooooooooooooooooooooooooooooooooooo",{...product,price:999})
             // console.log(data.payload)
           }}>
+          <FontAwesome name="plus" size={20} color="white" />
           {/* <Entypo name="plus" size={24} color="white" /> */}
         </Pressable>
         <Pressable
@@ -242,8 +268,7 @@ const ProductPage = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-          onPress={()=> navigation.navigate('checkout')}
-        >
+          onPress={() => navigation.navigate('checkout')}>
           <Text
             style={{color: '#31572c', fontWeight: 700}}
             onPress={() => {
@@ -252,8 +277,7 @@ const ProductPage = () => {
             Go to cart
           </Text>
           <Text style={{color: 'grey'}}>
-            {/* {reduxData.length}  */}
-            items
+            {reduxData.cart?.length} items
           </Text>
         </Pressable>
       </View>
@@ -277,7 +301,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   picker: {
-    width: 100,
+    width: 110,
     height: 40,
     padding: 8,
     borderRadius: 5,

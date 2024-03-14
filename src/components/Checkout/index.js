@@ -43,12 +43,23 @@
 import React, {useState} from 'react';
 // import { AntDesign } from "@expo/vector-icons";
 // import { FontAwesome } from "@expo/vector-icons";
-import {View, Text, Pressable, Image, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Image,
+  ScrollView,
+  ToastAndroid,
+  Platform,
+} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 // import { clearCart } from "../../redux/slice/Product";
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import { emptyCart, createOrder } from "../../redux/slice/customerSlice";
+import {emptyCart, createOrder} from '../../redux/slice/customerSlice';
+import reactNativeHTMLToPdf from 'react-native-html-to-pdf';
+import RNFS from 'react-native-fs';
 // import {removeCart} from '../../redux/slice/Product'
 // import { useState } from "react";
 
@@ -73,9 +84,8 @@ const Checkout = () => {
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
-      // navigation.navigate('Cash', {value: subtotal});
-      navigation.navigate('Customers');
-
+      navigation.navigate('Customers', {value: subtotal});
+      // navigation.navigate('Customers');
     } else {
       setShowAlert(true); // Show alert if the cart is empty
     }
@@ -83,6 +93,132 @@ const Checkout = () => {
 
   const handleRemoveCart = () => {
     dispatch(emptyCart());
+  };
+  // const [Generete,setGenerate]=useState(checkout)
+  // console.log("cart items",Generete)
+  // Generate HTML content with fetched data
+  const currentDate = new Date().toLocaleDateString();
+  const currentTime = new Date().toLocaleTimeString([], {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  const htmlContent = `
+ <html>
+  <body>
+    <h1 style="color: blue; font-size: 30px; font-family: Arial; text-align: center; font-weight: 600;">Synectiks Farm</h1>
+    <div style="display: flex; justify-content: space-between; padding:30px">
+    <div>
+        <p>Customer Name: Mohammed Nadeem</p>
+        <p>Phone-Number: +91-8142340247</p>
+    </div>
+    <div>
+        <p>${currentDate}</p>
+        <p>${currentTime}</p>
+    </div>
+</div>
+
+
+    <table style="width:100%">
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+      ${checkout.map((data, index) => {
+        return `
+        <tr style="text-align: center">
+          <td>${index + 1}</td>
+          <td><img src="${
+            data.image
+          }" alt="Product Image" style="width: 50px; height: 50px;"></td>
+          <td>${data.name}</td>
+          <td>${data.price}</td>
+          <td>${data.quantity}</td>
+          <td>${data.price * data.quantity}</td>
+          </tr>
+          `;
+      })}
+          <tr>
+   <td colspan="6" style="text-align: right;  font-size: 20px">Subtotal: ${subtotal}</td>
+   
+ </tr>
+    </table>
+
+  </body>
+</html>
+
+      `;
+  // <p>Tax: ${data.price}</p>
+
+  const generatePdf = async () => {
+    try {
+      const options = {
+        html: htmlContent,
+        fileName: 'total-amount',
+        directory: RNFS.DownloadDirectory, // Save in the downloads directory
+      };
+
+      const file = await reactNativeHTMLToPdf.convert(options);
+      console.log(file);
+
+      const base64String = await RNFS.readFile(file.filePath, 'base64');
+      console.log('Base64 encoded string:', base64String);
+      sendBills(base64String);
+
+      // Show success message
+      if (Platform.OS === 'android') {
+        ToastAndroid.show('PDF downloaded successfully!', ToastAndroid.SHORT);
+      } else {
+        Alert.alert('Success', 'PDF downloaded successfully!');
+      }
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      // Show error message
+      if (Platform.OS === 'android') {
+        ToastAndroid.show('Failed to download PDF', ToastAndroid.SHORT);
+      } else {
+        Alert.alert('Error', 'Failed to download PDF');
+      }
+    }
+    // sendBills(Bill)
+  };
+
+  // ------- api fetching------
+  const sendBills = async content => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    const raw = JSON.stringify({
+      content: content,
+      name: 'directory',
+      phoneNumber:"9505934716"
+    });
+
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+    try {
+      const response = await fetch(
+        'https://2evfwh96lk.execute-api.us-east-1.amazonaws.com/sendBills',
+        requestOptions,
+      ); // Corrected options to requestOptions
+      if (response.ok) {
+        console.log('Pdf send');
+      }
+      if (!response.ok) {
+        // throw new Error(HTTP error! Status: ${response.status});
+      }
+      return await response.text();
+    } catch (error) {
+      console.error(error);
+      return null; // Return null or handle the error as needed
+    }
   };
 
   return (
@@ -93,15 +229,15 @@ const Checkout = () => {
         flex: 1,
         justifyContent: '',
         position: 'relative',
-        color:"black"
+        color: 'black',
       }}>
       <View style={{marginTop: 30, marginLeft: 15}}>
-        {/* <AntDesign
+        <AntDesign
           name="close"
           size={30}
           color="blue"
           onPress={handleGoToCheckout}
-        /> */}
+        />
       </View>
       <View
         style={{
@@ -118,9 +254,11 @@ const Checkout = () => {
           alignItems: 'center',
           paddingHorizontal: 10,
           marginTop: 10,
-          color:"black"
+          color: 'black',
         }}>
-        <Text style={{fontSize: 20, fontWeight: '700',color:"black"}}>Cart</Text>
+        <Text style={{fontSize: 20, fontWeight: '700', color: 'black'}}>
+          Cart
+        </Text>
         <View
           style={{
             flexDirection: 'row',
@@ -130,7 +268,12 @@ const Checkout = () => {
             padding: 6,
             backgroundColor: 'pink',
           }}>
-          {/* <AntDesign onPress={handleRemoveCart} name="delete" size={18} color="red" /> */}
+          <AntDesign
+            onPress={handleRemoveCart}
+            name="delete"
+            size={18}
+            color="red"
+          />
         </View>
       </View>
       <ScrollView
@@ -142,7 +285,9 @@ const Checkout = () => {
         }}>
         {checkout.length === 0 ? (
           <View style={{paddingHorizontal: 20}}>
-            <Text style={{fontSize: 20,color:"black"}}>No items available in the cart.</Text>
+            <Text style={{fontSize: 20, color: 'black'}}>
+              No items available in the cart.
+            </Text>
           </View>
         ) : (
           checkout.map((e, index) => (
@@ -185,16 +330,16 @@ const Checkout = () => {
                     {e.quantity}
                   </Text>
                 </View>
-                <View style={{color:"black"}}>
-                  <Text style={{fontSize: 16,color:"black"}}>{e.name}</Text>
-                  <Text style={{fontSize: 16,color:"black"}}>Tax-exempt</Text>
+                <View style={{color: 'black'}}>
+                  <Text style={{fontSize: 16, color: 'black'}}>{e.name}</Text>
+                  <Text style={{fontSize: 16, color: 'black'}}>Tax-exempt</Text>
                 </View>
               </View>
               <View style={{fontSize: 16}}>
-                <Text style={{fontSize: 10,color:"black"}}>
+                <Text style={{fontSize: 10, color: 'black'}}>
                   ₹ {e.price} x {e.quantity}
                 </Text>
-                <Text style={{color:"black"}}>₹ {e.price * e.quantity}</Text>
+                <Text style={{color: 'black'}}>₹ {e.price * e.quantity}</Text>
               </View>
             </View>
           ))
@@ -214,8 +359,8 @@ const Checkout = () => {
           paddingHorizontal: 10,
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 16,color:"black"}}>Subtotal</Text>
-        <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal}</Text>
+        <Text style={{fontSize: 16, color: 'black'}}>Subtotal</Text>
+        <Text style={{fontSize: 16, color: 'black'}}>₹ {subtotal}</Text>
       </View>
       <View
         style={{
@@ -234,8 +379,8 @@ const Checkout = () => {
           // backgroundColor:"red",
           marginBottom: 20,
         }}>
-        <Text style={{fontSize: 16, marginTop: 5,color:"black"}}>Taxes</Text>
-        <Text style={{fontSize: 16,color:"black"}}>₹ 0.00</Text>
+        <Text style={{fontSize: 16, marginTop: 5, color: 'black'}}>Taxes</Text>
+        <Text style={{fontSize: 16, color: 'black'}}>₹ 0.00</Text>
       </View>
 
       <View
@@ -252,12 +397,12 @@ const Checkout = () => {
             marginBottom: 10,
           }}>
           <View>
-            <Text style={{fontSize: 16,color:"black"}}>Total</Text>
+            <Text style={{fontSize: 16, color: 'black'}}>Total</Text>
 
-            <Text style={{fontSize: 16,color:"black"}}>{ItemAdd} Item</Text>
+            <Text style={{fontSize: 16, color: 'black'}}>{ItemAdd} Item</Text>
           </View>
           <View>
-            <Text style={{fontSize: 16,color:"black"}}>₹ {subtotal}</Text>
+            <Text style={{fontSize: 16, color: 'black'}}>₹ {subtotal}</Text>
           </View>
         </View>
         <Pressable
@@ -295,7 +440,7 @@ const Checkout = () => {
           }}>
           <View
             style={{backgroundColor: 'white', padding: 40, borderRadius: 10}}>
-            <Text style={{fontSize: 16, marginBottom: 10,color:"black"}}>
+            <Text style={{fontSize: 16, marginBottom: 10, color: 'black'}}>
               Please add items to the cart before proceeding to checkout.
             </Text>
             <Pressable
@@ -306,6 +451,19 @@ const Checkout = () => {
           </View>
         </View>
       )}
+
+      {/* <Pressable>
+        <Text
+          style={{
+            color: 'white',
+            backgroundColor: 'blue',
+            margin: 20,
+            padding: 10,
+          }}
+          onPress={generatePdf}>
+          Generate Pdf
+        </Text>
+      </Pressable> */}
     </View>
   );
 };
