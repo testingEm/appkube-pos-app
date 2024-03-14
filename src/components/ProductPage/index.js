@@ -273,6 +273,32 @@ const ProductPage = () => {
   );
 };
 
+/* 
+
+iske each individual price and total sub price of a product with respect to units must be seperated for same product
+
+if(action.payload.id  in state){ agr item exist hai array mai
+  if(action.payload.unit != state[exitstingitemindex].unit){ aur uska unit dusra hai to ek new object banake push karro
+    state.push(action.payload);
+  }
+  else{ aur agr unit same hai to uski quantity and price incoming product se add kardo
+    state[existsitemindex].quantity += action.payload.quantity
+    state[existsitemindex].price += action.payload.price
+  }
+}
+else if(state[exitstingitemindex] == -1){ agr item exists nahi raha to action.payload ke sath karna push
+  if(action.payload has property of totalprice and quantity){
+    state.push(action.payload);
+  }
+  else{ agr action.payload me total price and quantity set nahi hai to 
+    state.push({...action.payload,quantity:1,totalprice:quantity*action.payload.price})
+
+  }
+
+}
+
+*/
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',

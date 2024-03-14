@@ -85,7 +85,7 @@ const Cash = () => {
           }}>
           <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
             {' '}
-            {/* ₹ {routdata.params.value}.00 */}
+            ₹ {routdata.params.value}.00
           </Text>
           <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
             Select Payment Option
