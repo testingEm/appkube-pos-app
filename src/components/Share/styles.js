@@ -62,6 +62,10 @@ export default StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
+  semiBoldText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   border: {
     borderBottomColor: 'lightgray',
     borderBottomWidth: 2,
