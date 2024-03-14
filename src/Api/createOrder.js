@@ -29,7 +29,7 @@ export const creatingOrder = async (order) => {
       variables: {
         paymentMethod: order.paymentMethod,
         totalPrice: order.totolPrice,
-        customerOrdersId: order.id,
+        customerOrdersId: order.user.id,
       },
     });
 

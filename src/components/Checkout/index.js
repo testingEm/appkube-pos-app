@@ -452,7 +452,7 @@ const Checkout = () => {
         </View>
       )}
 
-      <Pressable>
+      {/* <Pressable>
         <Text
           style={{
             color: 'white',
@@ -463,7 +463,7 @@ const Checkout = () => {
           onPress={generatePdf}>
           Generate Pdf
         </Text>
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 };
