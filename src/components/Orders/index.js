@@ -23,6 +23,7 @@ const Orders = () => {
     navigation.navigate('Order', {value: order});
     console.log('after order value ',order);
   };
+  
   return (
     <View style={[styles.container]}>
       <View style={{width: '100%', height: '20%'}}>

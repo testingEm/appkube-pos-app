@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Text, View, Pressable} from 'react-native';
+import React, {useState,useEffect} from 'react';
+import {Text, View, Pressable,ActivityIndicator} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {useNavigation} from '@react-navigation/native';
@@ -18,11 +18,18 @@ const Products = () => {
 
   //   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
 
-  const [GetProduct, setGetProducts] = useState([...ProductsData]);
+  // const [GetProduct, setGetProducts] = useState([...ProductsData]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (ProductsData.length > 0) {
+      setLoading(false);
+    }
+  }, [ProductsData]);
 
   const uniqueCategoriesSet = new Set();
 
-  GetProduct.forEach(item => {
+  ProductsData.forEach(item => {
     if (item && item.category) {
       uniqueCategoriesSet.add(item.category);
     }
@@ -51,6 +58,14 @@ const Products = () => {
       ))}
     </View>
   );
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={{padding: 5}}>
