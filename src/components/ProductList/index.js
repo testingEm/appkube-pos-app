@@ -838,7 +838,9 @@ const GetAllProducts = () => {
               borderRadius:10,
               backgroundColor: 'lightgray',
               fontWeight: 700,
-              color:"black"
+              color:"black",
+              paddingHorizontal:18,
+              paddingTop:14
             }}
           >
             Checkout

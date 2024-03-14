@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Pressable,
+  ActivityIndicator
 } from 'react-native';
 import {useNavigation,useRoute} from '@react-navigation/native';
 import {useSelector} from 'react-redux';

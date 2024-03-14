@@ -106,7 +106,7 @@ const Home = () => {
 
       <View style={[styles.box, styles.bgLight]}>
         <FontAwesome5 name="percent" size={18} color="#31572c" />
-        <Text style={[{textAlign: 'center'}, styles.dark]}>Apply discount</Text>
+        <Text style={[{textAlign: 'center'}, styles.dark]}>Apply discount </Text>
       </View>
       <View style={[styles.box, styles.bgLight, ,]}>
         <Fontisto name="shopping-basket" size={18} color="#31572c" />
