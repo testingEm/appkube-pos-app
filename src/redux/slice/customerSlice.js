@@ -37,6 +37,7 @@ const CustomerSlice = createSlice({
   initialState: {
     orders: [],
     cart: [],
+    // customerToSend: [],
     customers: [],
     loading: false,
     error: null,
@@ -44,7 +45,7 @@ const CustomerSlice = createSlice({
   reducers: {
     addOrders: (state, action) => {
       state.orders.push(action.payload);
-      console.log('inn redux dispathing orders',action.payload)
+      console.log('inn redux dispathing orders', action.payload);
     },
     addCustomer: (state, action) => {
       state.customers.push(action.payload);
@@ -72,11 +73,13 @@ const CustomerSlice = createSlice({
           ...state,
           cart: [
             ...state.cart,
-            {
-              ...action.payload,
-              quantity: 1,
-              totalPrice: action.payload.price * 1,
-            },
+            action.payload.hasOwnProperty('quantity')
+              ? {...action.payload}
+              : {
+                  ...action.payload,
+                  quantity: 1,
+                  totalPrice: action.payload.price * 1,
+                },
           ],
         };
       }
@@ -110,6 +113,9 @@ const CustomerSlice = createSlice({
     emptyCart: (state, action) => {
       state.cart = [];
     },
+    // customerToSend: (state, action) => {
+    //   state.cartCustomer = action.payload;
+    // },
   },
   extraReducers: builder => {
     builder
@@ -144,5 +150,11 @@ const CustomerSlice = createSlice({
   },
 });
 export default CustomerSlice.reducer;
-export const {addToCart, removeFromCart, addOrders, addCustomer, emptyCart} =
-  CustomerSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  addOrders,
+  addCustomer,
+  emptyCart,
+  // customerToSend,
+} = CustomerSlice.actions;

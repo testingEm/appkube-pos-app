@@ -5,7 +5,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {createOrder,emptyCart} from '../../redux/slice/customerSlice';
+import {createOrder} from '../../redux/slice/customerSlice';
 
 // const valuePass=()=>{
 
@@ -25,10 +25,11 @@ const Cash = () => {
   const handleOrder = (payment) => {
     const total =  routdata.params.value
     const user =  routdata.params.user
-    const orderData = {paymentMethod: payment , totolPrice:total , id:user.id}
+    const orderData = {paymentMethod: payment , totolPrice:total , user:user}
     console.log("sending data of order",orderData)
     dispatch(createOrder(orderData));
-    navigation.navigate('Share',{userData:user});
+    // dispatch(emptyCart())
+    navigation.navigate('Share',{data:orderData});
   };
 
   const [Isloading, setIsloadig] = useState(true);
