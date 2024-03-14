@@ -813,9 +813,6 @@ const GetAllProducts = () => {
                 totalPrice === null // Check for null to handle empty initial state
                   ? "Calculating total price..." // Display loading message or placeholder
                   : `Total Price: ${totalPrice.toFixed(2)}
-                  
-               
-
                   `
                 // Display calculated total price
               }
@@ -889,7 +886,7 @@ const GetAllProducts = () => {
                     {/* Quantity: {veg.quantity || 1}, Total: $ */}
                     {/* {calculateItemPrice(veg) } */}
                   </Text>
-                  <Text style={{ fontSize: 12,color:"black" }}>Price: ${veg.price}</Text>
+                  <Text style={{ fontSize: 12,color:"black" }}>Price: ₹{veg.price}</Text>
                 </View>
               </View>
               <View style={{ alignItems: 'center', gap: 10 ,}}>

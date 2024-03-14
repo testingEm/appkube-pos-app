@@ -43,7 +43,7 @@ const Products = () => {
         <Pressable
           key={category}
           onPress={() => {
-            const CatProducts = GetProduct.filter(e => e.category === category);
+            const CatProducts = ProductsData.filter(e => e.category === category);
             console.log(CatProducts);
             navigation.navigate('ProductsList', {
               category,
