@@ -58,15 +58,31 @@ const CustomerSlice = createSlice({
         item => item.id === action.payload.id,
       );
 
+      const existingIndex = state.cart.indexOf(action.payload)
+
       // If item exists, update its quantity
+      console.log(existingItem);
+      console.log(action.payload.unit);
+      console.log(existingItem);
       if (existingItem) {
         if(action.payload.unit != existingItem.unit){
           state.cart.push(action.payload);
         }
+        else{
         console.log('existing', existingItem);
-        existingItem.quantity++;
+        console.log(action.payload);
+        console.log(existingItem.quantity);
+        action.payload = action.payload.hasOwnProperty('quantity')
+          ? {...action.payload}
+          : {
+              ...action.payload,
+              quantity: 1,
+              totalPrice: action.payload.price * 1,
+            },
+          (existingItem.quantity += action.payload.quantity);
         existingItem.totalPrice = existingItem.price * existingItem.quantity;
         console.log('existing', existingItem);
+        }
 
         // localStorage.setItem('cart', JSON.stringify(state.cart));
         // Modify the draft directly (Immer handles immutability)

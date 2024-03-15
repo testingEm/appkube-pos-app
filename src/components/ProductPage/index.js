@@ -20,19 +20,18 @@ import {addToCart} from '../../redux/slice/customerSlice';
 
 const ProductPage = () => {
   // const [cart, setCart] = useState([]);
-  const [piece, setPiece] = useState(1);
-  const [quantity, setQuantity] = useState('1');
-  const [selectedType, setSelectedType] = useState('pieces');
   const [product, setProduct] = useState([]);
   const route = useRoute();
-  const navigation = useNavigation();
-  console.log(route.params.value);
-  const reduxData = useSelector(state => state.CustomerSlice);
-
-
   useEffect(() => {
     setProduct(route.params.value);
   }, []);
+  const [piece, setPiece] = useState(1);
+  const [quantity, setQuantity] = useState('1');
+  const [selectedType, setSelectedType] = useState(route.params.value.unit);
+  // console.log('unit :: ', product);
+  const navigation = useNavigation();
+  console.log(route.params.value);
+  const reduxData = useSelector(state => state.CustomerSlice);
 
   const dispatch = useDispatch();
   // const reduxData = useSelector((state) => state.CustomerSlice.cart);
@@ -40,16 +39,16 @@ const ProductPage = () => {
   const typePrice = {
     // kgs: { price: 50 },
 
-    kgs: {price: product.price},
+    KG: {price: product.price},
     gms: {price: product.price / 1000},
     // gms: { price: 0.3 },
-    pieces: {price: product.price},
+    PIECE: {price: product.price},
   };
 
   const quantityTypes =
     product.unit === 'KG'
       ? [
-          {label: 'KG', value: 'kgs'},
+          {label: 'KG', value: 'KG'},
           {label: 'Grams', value: 'gms'},
         ]
       : [{label: product.unit, value: product.unit}];
@@ -63,7 +62,7 @@ const ProductPage = () => {
     console.log('Selected Type:', type);
     setSelectedType(type);
   };
-  
+
   const priceOne =
     Math.ceil(quantity * typePrice[selectedType].price * 1000) / 1000;
   return (
@@ -240,18 +239,23 @@ const ProductPage = () => {
             //     1000,
             // });
             // console.log(cart);
-            product.price = 999
+            product.price = 999;
             const data = dispatch(
               addToCart({
                 ...product,
-                price:typePrice[selectedType].price,
+                // price: typePrice[selectedType].price,
+                perPrice:
+               ( selectedType == 'gms'? typePrice[selectedType].price : ''),
                 totalPrice: priceOne,
                 unit: selectedType,
-                quantity: quantity,
+                quantity: parseInt(quantity),
               }),
             );
-            console.log(data.payload)
-            console.log("oooooooooooooooooooooooooooooooooooooooooooo",{...product,price:999})
+            console.log(data.payload);
+            console.log('oooooooooooooooooooooooooooooooooooooooooooo', {
+              ...product,
+              price: 999,
+            });
             // console.log(data.payload)
           }}>
           <FontAwesome name="plus" size={20} color="white" />
@@ -276,9 +280,7 @@ const ProductPage = () => {
             }}>
             Go to cart
           </Text>
-          <Text style={{color: 'grey'}}>
-            {reduxData.cart?.length} items
-          </Text>
+          <Text style={{color: 'grey'}}>{reduxData.cart?.length} items</Text>
         </Pressable>
       </View>
     </View>
