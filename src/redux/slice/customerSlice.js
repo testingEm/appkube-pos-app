@@ -2,6 +2,7 @@ import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {creatingOrder} from '../../Api/createOrder';
 //  import {useDispatch} from 'react-redux'
 // import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import {creatingCustomer} from '../../Api/createCustomer';
 
 // // const dispatch = useDispatch();

@@ -146,7 +146,7 @@ const Share = () => {
       const raw = JSON.stringify({
         content: content,
         name: 'directory',
-        phoneNumber: '8142340247',
+        phoneNumber: '7993561986',
       });
 
       const requestOptions = {

@@ -889,7 +889,7 @@ const GetAllProducts = () => {
                     {/* Quantity: {veg.quantity || 1}, Total: $ */}
                     {/* {calculateItemPrice(veg) } */}
                   </Text>
-                  <Text style={{ fontSize: 12,color:"black" }}>Price: ${veg.price}</Text>
+                  <Text style={{ fontSize: 12,color:"black" }}>Price: ₹{veg.price}</Text>
                 </View>
               </View>
               <View style={{ alignItems: 'center', gap: 10 ,}}>
