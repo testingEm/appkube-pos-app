@@ -59,6 +59,9 @@ const CustomerSlice = createSlice({
 
       // If item exists, update its quantity
       if (existingItem) {
+        if(action.payload.unit != existingItem.unit){
+          state.cart.push(action.payload);
+        }
         console.log('existing', existingItem);
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.price * existingItem.quantity;
