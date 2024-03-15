@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   View,
@@ -9,15 +9,15 @@ import {
   Pressable,
   ActivityIndicator
 } from 'react-native';
-import {useNavigation,useRoute} from '@react-navigation/native';
+import {useNavigation,useRoute,useFocusEffect} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 
 const Customers = () => {
   const data =  useSelector(state=> state.CustomerSlice.customers)
   const [searchQuery, setSearchQuery] = useState('');
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [customers] = useState([
     {id: 1, name: 'John Doe', email: 'john@gmail.com'},
-    // ... (other customer data)
   ]);
  console.log('customers', data);
   const navigation = useNavigation();
@@ -25,19 +25,58 @@ const Customers = () => {
   // const  = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
 
-  const matchingResults = customers.filter(
-    customer =>
-      customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      customer.email.toLowerCase().includes(searchQuery.toLowerCase()),
+  const filterCustomers = (customers, query) => {
+    if (!query) {
+      return customers; 
+    }
+
+    return customers.filter(customer =>
+      (customer.name && customer.name.toLowerCase().includes(query.toLowerCase())) ||
+      (customer.email && customer.email.toLowerCase().includes(query.toLowerCase()))
+    );
+  };
+  
+
+
+  const handleSearchQueryChange = (query) => {
+    setSearchQuery(query);
+    if (query) {
+      setFilteredCustomers(filterCustomers(data, query));
+    } else {
+      setFilteredCustomers(data);
+    }
+  };
+  
+  
+
+  const addCustomer = () => {
+    console.log('addCustomer');
+    navigation.navigate('Adduser');
+  };
+
+  const handleItemPress = (item) => {
+    console.log('Selected customer:', item);
+    navigation.navigate('Cash', { value: route.params.value, user: item });
+  };
+
+    
+  useEffect(() => {
+    setFilteredCustomers(filterCustomers(data, searchQuery));
+  }, [data, searchQuery]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setSearchQuery('');
+      setFilteredCustomers(data);
+    }, [data])
   );
 
-  const renderItem = ({item}) => (
+
+
+  const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.customerContainer}
-      onPress={() => {
-        console.log('Selected customer:', item)
-        navigation.navigate('Cash',{value:route.params.value,user:item});
-        }}>
+      onPress={() => handleItemPress(item)}>
       <View style={styles.customerInfo}>
         <Text style={styles.customerName}>{item.name}</Text>
         <Text style={styles.customerEmail}>{item.email}</Text>
@@ -48,10 +87,7 @@ const Customers = () => {
     </TouchableOpacity>
   );
 
-  const addCustomer = () => {
-    console.log('addCustomer');
-    navigation.navigate('Adduser');
-  };
+  
 
   return (
     <View style={styles.container}>
@@ -59,11 +95,10 @@ const Customers = () => {
         style={styles.input}
         placeholder="Search for customers..."
         value={searchQuery}
-        onChangeText={setSearchQuery}
+        onChangeText={handleSearchQueryChange}
       />
-      <FlatList
-        // data={matchingResults}
-        data= {data}
+       <FlatList
+        data={filteredCustomers} 
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
       />
