@@ -90,11 +90,13 @@ const styles = {
     flex: 1,
     padding: 16,
     marginTop: 25,
+    color:"black"
   },
   input: {
     marginBottom: 16,
     padding: 10,
     borderWidth: 1,
+    
   },
   customerContainer: {
     flexDirection: 'row',
@@ -103,6 +105,7 @@ const styles = {
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    
   },
   customerInfo: {
     flex: 1,
@@ -111,6 +114,8 @@ const styles = {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
+    color:"black"
+
   },
   customerEmail: {
     fontSize: 14,

@@ -45,11 +45,11 @@ const Adduser = () => {
             color="#31572c"
             onPress={handleGoToAdduser}
           />
-          <Text style={{fontSize: 20}} onPress={handleSubmit}>
+          <Text style={{fontSize: 20,color:"blue"}} onPress={handleSubmit}>
             Save
           </Text>
         </View>
-        <Text style={{fontSize: 25, marginBottom: 20}}>Add new Customer</Text>
+        <Text style={{fontSize: 25, marginBottom: 20 , color:"black"}}>Add new Customer</Text>
 
         <Text style={{fontSize: 15, color: 'gray', marginBottom: 10}}>
           Contact Information{' '}
