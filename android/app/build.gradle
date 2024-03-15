@@ -106,6 +106,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
 }
 
 dependencies {
@@ -117,6 +118,12 @@ dependencies {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("lint")) {
+        task.dependsOn 'copyReactNativeVectorIconFonts'
     }
 }
 

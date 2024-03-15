@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {Text, View, Pressable,ActivityIndicator} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -18,11 +18,18 @@ const Products = () => {
 
   //   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
 
-  const [GetProduct, setGetProducts] = useState([...ProductsData]);
+  // const [GetProduct, setGetProducts] = useState([...ProductsData]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (ProductsData.length > 0) {
+      setLoading(false);
+    }
+  }, [ProductsData]);
 
   const uniqueCategoriesSet = new Set();
 
-  GetProduct.forEach(item => {
+  ProductsData.forEach(item => {
     if (item && item.category) {
       uniqueCategoriesSet.add(item.category);
     }
@@ -32,11 +39,11 @@ const Products = () => {
 
   const BodyButton = () => (
     <View style={{padding: 10}}>
-      {(uniqueCategoriesArray.length > 0)? (uniqueCategoriesArray.map(category => (
+      {uniqueCategoriesArray.map(category => (
         <Pressable
           key={category}
           onPress={() => {
-            const CatProducts = GetProduct.filter(e => e.category === category);
+            const CatProducts = ProductsData.filter(e => e.category === category);
             console.log(CatProducts);
             navigation.navigate('ProductsList', {
               category,
@@ -48,10 +55,17 @@ const Products = () => {
           <Ionicons name="cart" size={20} color="black" />
           {/* <Text style={{color: 'black'}}> {'>'} </Text> */}
         </Pressable>
-      )))
-      :(<ActivityIndicator size="large" color='#31572c' />)}
+      ))}
     </View>
   );
+
+  if (loading) {
+    return (
+      <View style={[styles.container, styles.loadingContainer]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={{padding: 5}}>

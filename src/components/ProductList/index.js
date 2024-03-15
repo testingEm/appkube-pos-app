@@ -813,9 +813,6 @@ const GetAllProducts = () => {
                 totalPrice === null // Check for null to handle empty initial state
                   ? "Calculating total price..." // Display loading message or placeholder
                   : `Total Price: ${totalPrice.toFixed(2)}
-                  
-               
-
                   `
                 // Display calculated total price
               }

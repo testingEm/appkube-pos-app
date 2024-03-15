@@ -25,12 +25,12 @@ const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+
   const getProduct = async () => {
     try {
       const AllProducts = await fetchCategories();
       const Products = AllProducts.data.listProducts.items;
       dispatch(AddAllProducts(Products));
-      console.log('fetching  ',Products);
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +73,6 @@ const Home = () => {
     fetchCustomers();
   }, []);
 
-  //   console.log("this is the allProducts for the redux",allProducts);
 
   const handleGoToCheckout = () => {
     navigation.navigate('Checkout');
