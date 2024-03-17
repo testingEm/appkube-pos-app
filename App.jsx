@@ -103,6 +103,7 @@ const screenOptions = ({ route }) => ({
 });
 
 const App = () => {
+
   return (
     <Provider store={store}>
       <NavigationContainer>

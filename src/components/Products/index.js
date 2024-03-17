@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react';
 import {Text, View, Pressable,ActivityIndicator} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 // import {
 //   Ionicons,

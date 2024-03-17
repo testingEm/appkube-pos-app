@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {creatingOrder} from '../../Api/createOrder';
 //  import {useDispatch} from 'react-redux'
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {creatingCustomer} from '../../Api/createCustomer';
 
@@ -40,6 +40,7 @@ const CustomerSlice = createSlice({
     cart: [],
     // customerToSend: [],
     customers: [],
+    users: [],
     loading: false,
     error: null,
   },
@@ -157,6 +158,8 @@ const CustomerSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.loading = false;
         state.orders.push(action.payload);
+        // state.orders = action.payload
+
         AsyncStorage.setItem('orders', JSON.stringify(state.orders));
         state.cart = [];
         AsyncStorage.setItem('cart', JSON.stringify(state.cart));
