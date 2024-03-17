@@ -71,6 +71,7 @@ const CustomerSlice = createSlice({
             action.payload.hasOwnProperty('quantity')
           ) {
             console.log(existingItem.quantity);
+            console.log("working")
             existingItem.quantity += parseInt( action.payload.quantity);
           }
           //changes made
