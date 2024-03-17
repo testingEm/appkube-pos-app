@@ -73,6 +73,7 @@ const CustomerSlice = createSlice({
             console.log(existingItem.quantity);
             existingItem.quantity += parseInt( action.payload.quantity);
           }
+          //changes made
           else{
           state.cart.push(action.payload);
           }
