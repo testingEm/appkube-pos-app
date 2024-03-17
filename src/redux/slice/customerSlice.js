@@ -65,8 +65,17 @@ const CustomerSlice = createSlice({
       console.log(action.payload.unit);
       console.log(existingItem);
       if (existingItem) {
-        if(action.payload.unit != existingItem.unit){
+        if(action.payload.unit != existingItem.unit ){
+          if (
+            action.payload.unit == 'KG' && existingItem.quantity == 'KG' &&
+            action.payload.hasOwnProperty('quantity')
+          ) {
+            console.log(existingItem.quantity);
+            existingItem.quantity += parseInt( action.payload.quantity);
+          }
+          else{
           state.cart.push(action.payload);
+          }
         }
         else{
         console.log('existing', existingItem);
