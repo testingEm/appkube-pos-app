@@ -67,6 +67,7 @@ const Checkout = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const checkout = useSelector(state => state.CustomerSlice.cart);
+  // console.log("displaying data in console log while user click on checkout",checkout)
   const subtotal = checkout
     .filter(item => item && typeof item.price === 'number')
     .reduce((acc, curr) => acc + (curr.perPrice? curr.perPrice : curr.price) * curr.quantity, 0);

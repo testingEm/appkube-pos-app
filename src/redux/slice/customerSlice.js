@@ -161,7 +161,7 @@ const CustomerSlice = createSlice({
         // state.orders = action.payload
 
         AsyncStorage.setItem('orders', JSON.stringify(state.orders));
-        state.cart = [];
+        // state.cart = [];
         AsyncStorage.setItem('cart', JSON.stringify(state.cart));
       })
       .addCase(createOrder.rejected, (state, action) => {
