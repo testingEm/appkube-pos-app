@@ -90,11 +90,50 @@ const CustomerSlice = createSlice({
     // },
 
     addToCart: (state, action) => {
-      const existingItem = state.cart.find(item => item.id === action.payload.id);
-    
+      // Find existing item with the same ID
+      const existingItem = state.cart.find(
+        item => item.id === action.payload.id,
+      );
+
+      const existingIndex = state.cart.indexOf(action.payload)
+
+      // If item exists, update its quantity
+      console.log(existingItem);
+      console.log(action.payload.unit);
+      console.log(existingItem);
       if (existingItem) {
-        existingItem.quantity++; // Increase quantity if the item already exists
+        if(action.payload.unit != existingItem.unit ){
+          if (
+            action.payload.unit == 'KG' && existingItem.quantity == 'KG' &&
+            action.payload.hasOwnProperty('quantity')
+          ) {
+            console.log(existingItem.quantity);
+            console.log("working")
+            existingItem.quantity += parseInt( action.payload.quantity);
+          }
+          //changes made
+          else{
+          state.cart.push(action.payload);
+          }
+        }
+        else{
+        console.log('existing', existingItem);
+        console.log(action.payload);
+        console.log(existingItem.quantity);
+        action.payload = action.payload.hasOwnProperty('quantity')
+          ? {...action.payload}
+          : {
+              ...action.payload,
+              quantity: 1,
+              totalPrice: action.payload.price * 1,
+            },
+          (existingItem.quantity += action.payload.quantity);
         existingItem.totalPrice = existingItem.price * existingItem.quantity;
+        console.log('existing', existingItem);
+        }
+
+        // localStorage.setItem('cart', JSON.stringify(state.cart));
+        // Modify the draft directly (Immer handles immutability)
       } else {
         state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price }); // Add item with quantity 1
       }
@@ -159,7 +198,7 @@ const CustomerSlice = createSlice({
         // state.orders = action.payload
 
         AsyncStorage.setItem('orders', JSON.stringify(state.orders));
-        state.cart = [];
+        // state.cart = [];
         AsyncStorage.setItem('cart', JSON.stringify(state.cart));
       })
       .addCase(createOrder.rejected, (state, action) => {

@@ -67,9 +67,10 @@ const Checkout = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const checkout = useSelector(state => state.CustomerSlice.cart);
+  // console.log("displaying data in console log while user click on checkout",checkout)
   const subtotal = checkout
     .filter(item => item && typeof item.price === 'number')
-    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+    .reduce((acc, curr) => acc + (curr.perPrice? curr.perPrice : curr.price) * curr.quantity, 0);
   const ItemAdd = checkout.length;
 
   const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
@@ -328,32 +329,44 @@ const Checkout = () => {
                   style={{width: 70, height: 70, borderRadius: 10}}
                 />
                 <View>
-                  <Text
-                    style={{
-                      width: 25,
-                      height: 25,
-                      position: 'absolute',
-                      right: 12,
-                      bottom: 17,
-                      backgroundColor: 'black',
-                      color: 'white',
-                      padding: 3,
-                      borderRadius: 40,
-                      textAlign: 'center',
-                    }}>
-                    {e.quantity}
-                  </Text>
+                  {!e.perPrice && (
+                    <Text
+                      style={{
+                        width: 25,
+                        height: 25,
+                        position: 'absolute',
+                        right: 12,
+                        bottom: 17,
+                        backgroundColor: 'black',
+                        color: 'white',
+                        padding: 3,
+                        borderRadius: 40,
+                        textAlign: 'center',
+                      }}>
+                      {e.quantity}
+                    </Text>
+                  )}
                 </View>
                 <View style={{color: 'black'}}>
                   <Text style={{fontSize: 16, color: 'black'}}>{e.name}</Text>
                   <Text style={{fontSize: 16, color: 'black'}}>Tax-exempt</Text>
+                  {e.perPrice && (
+                    <Text style={{fontSize: 12, color: 'black'}}> ( {e.quantity} gms )</Text>
+                  )}
                 </View>
               </View>
               <View style={{fontSize: 16}}>
                 <Text style={{fontSize: 10, color: 'black'}}>
-                  ₹ {e.price} x {e.quantity}
+                  {`${
+                    e.perPrice
+                      ? ``
+                      : `₹ ${e.price} x ${e.quantity}`
+                  }`}
                 </Text>
-                <Text style={{color: 'black'}}>₹ {e.price * e.quantity}</Text>
+                <Text style={{color: 'black'}}>
+                  ₹{' '}
+                  {e.perPrice ? e.perPrice * e.quantity : e.price * e.quantity}
+                </Text>
               </View>
             </View>
           ))

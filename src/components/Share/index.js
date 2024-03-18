@@ -19,7 +19,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {emptyCart} from '../../redux/slice/customerSlice';
 const Share = () => {
   const checkout = useSelector(state => state.CustomerSlice.cart);
-  console.log("displaying data ",checkout);
+  // console.log("share ",checkout)
   // const checkout =  useSelector()
   const [show, setshow] = useState(false);
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const Share = () => {
         ],
       }),
     );
-    // dispatch(emptyCart())
+    dispatch(emptyCart())
     // setReloadScreen(true);
   };
   // const HandleShare = () => {
@@ -153,8 +153,8 @@ const Share = () => {
 
     const raw = JSON.stringify({
       content: content,
-      name: 'directory',
-      phoneNumber: '7993561986',
+      name: `${data.user.name}`,
+      phoneNumber: `${data.user.phone}`,
     });
 
     const requestOptions = {
