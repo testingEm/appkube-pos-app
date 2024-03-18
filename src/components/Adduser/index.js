@@ -21,12 +21,15 @@ const Adduser = () => {
     dispatch(createCustomer(inputUser));
     console.log('sending user', inputUser);
     Navigation.navigate('Customers');
+    setReloadScreen(true);
   };
+
   const navigation = useNavigation();
 
   const handleGoToAdduser = () => {
     navigation.goBack();
   };
+
   const Navigation = useNavigation();
 
   return (

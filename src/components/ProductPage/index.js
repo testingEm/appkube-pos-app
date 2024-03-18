@@ -268,12 +268,13 @@ const ProductPage = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-          onPress={() => navigation.navigate('checkout')}>
+          onPress={() => navigation.navigate('Checkout')}>
           <Text
             style={{color: '#31572c', fontWeight: 700}}
-            onPress={() => {
-              navigation.navigate('Checkout');
-            }}>
+            // onPress={() => {
+            //   navigation.navigate('Checkout');
+            // }}
+            >
             Go to cart
           </Text>
           <Text style={{color: 'grey'}}>

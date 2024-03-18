@@ -11,17 +11,21 @@ import {
 } from 'react-native';
 import {useNavigation,useRoute,useFocusEffect} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
+// import { fetchingCustomers } from '../../Api/fetchCustomers';
+// import { addCustomer } from '../../redux/slice/customerSlice';
 
 const Customers = () => {
   const data =  useSelector(state=> state.CustomerSlice.customers)
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState([]);
+  // const [Isloading,setIsloadig] = useState(true)
   const [customers] = useState([
     {id: 1, name: 'John Doe', email: 'john@gmail.com'},
   ]);
  console.log('customers', data);
   const navigation = useNavigation();
   const route = useRoute()
+  // const dispatch = useDispatch()
   // const  = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
 
@@ -49,27 +53,51 @@ const Customers = () => {
   
   
 
-  const addCustomer = () => {
-    console.log('addCustomer');
+  // const addCustomer = () => {
+  //   console.log('addCustomer');
+  //   navigation.navigate('Adduser');
+  // };
+
+  const navigateToAddUser = () => {
+    console.log('Navigate to AddUser');
     navigation.navigate('Adduser');
   };
+  
 
   const handleItemPress = (item) => {
     console.log('Selected customer:', item);
-    navigation.navigate('Cash', { value: route.params.value, user: item });
+    navigation.navigate('Cash', { value: route.params.value, user: item ,items:route.params.items});
   };
+
+  //   const fetchCustomers = async () => {
+  //   try {
+  //     console.log('calling fetching');
+  //     const response = await fetchingCustomers();
+  //     console.log('after fetching');
+  //     const data = response;
+  //     console.log('customers data', data);
+  //     data.map(value => {
+  //       console.log('customer value', value);
+  //       dispatch(addCustomer(value));
+  //     });
+  //     setIsloadig(false)
+  //   } catch (error) {
+  //     console.log('orders error', error);
+  //   }
+  // };
 
     
   useEffect(() => {
     setFilteredCustomers(filterCustomers(data, searchQuery));
+    // fetchCustomers()
   }, [data, searchQuery]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      setSearchQuery('');
-      setFilteredCustomers(data);
-    }, [data])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     setSearchQuery('');
+  //     setFilteredCustomers(data);
+  //   }, [data])
+  // );
 
 
 
@@ -86,6 +114,14 @@ const Customers = () => {
       </Text>
     </TouchableOpacity>
   );
+
+  // if (Isloading) {
+  //   return (
+  //     <View style={[styles.container, styles.loadingContainer]}>
+  //       <ActivityIndicator size="large" color="#0000ff" />
+  //     </View>
+  //   );
+  // }
 
   
 
@@ -109,7 +145,7 @@ const Customers = () => {
           borderRadius: 5,
           marginTop: 10,
         }}
-        onPress={addCustomer}>
+        onPress={navigateToAddUser}>
         <Text style={{color: 'white', textAlign: 'center', fontSize: 16}}>
           Add Customer
         </Text>

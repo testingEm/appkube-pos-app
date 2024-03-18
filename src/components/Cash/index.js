@@ -25,7 +25,8 @@ const Cash = () => {
   const handleOrder = (payment) => {
     const total =  routdata.params.value
     const user =  routdata.params.user
-    const orderData = {paymentMethod: payment , totolPrice:total , user:user}
+    const items = routdata.params.items
+    const orderData = {paymentMethod: payment , totolPrice:total , user:user,items:items}
     console.log("sending data of order",orderData)
     dispatch(createOrder(orderData));
     // dispatch(emptyCart())

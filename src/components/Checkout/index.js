@@ -78,13 +78,27 @@ const Checkout = () => {
     navigation.goBack();
   };
 
+  console.log(
+    'chackout data of the cart',
+    checkout.map(item => item.id),
+  );
+  const orderArray = checkout.map(item => {
+    return {
+      productId: item.id,
+      quantity: item.quantity,
+    };
+  });
+
+  console.log("for mutation",orderArray);
+
   const handleOrder = () => {
-    dispatch(createOrder({total: subtotal}));
+    // dispatch(createOrder({ total: subtotal, items: orderArray }));
   };
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
-      navigation.navigate('Customers', {value: subtotal});
+      navigation.navigate('Customers', {value: subtotal, items: orderArray});
+      dispatch(createOrder({total: subtotal, items: orderArray}));
       // navigation.navigate('Customers');
     } else {
       setShowAlert(true); // Show alert if the cart is empty
@@ -92,7 +106,7 @@ const Checkout = () => {
   };
 
   const handleRemoveCart = () => {
-    dispatch(emptyCart());
+    // dispatch(emptyCart());
   };
   // const [Generete,setGenerate]=useState(checkout)
   // console.log("cart items",Generete)
@@ -194,7 +208,7 @@ const Checkout = () => {
     const raw = JSON.stringify({
       content: content,
       name: 'directory',
-      phoneNumber:"9505934716"
+      phoneNumber: '9505934716',
     });
 
     const requestOptions = {

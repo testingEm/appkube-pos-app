@@ -7,6 +7,7 @@ import {creatingCustomer} from '../../Api/createCustomer';
 
 // // const dispatch = useDispatch();
 export const createOrder = createAsyncThunk('createOrder', async (orderData) => {
+  console.log("This is items ",orderData);
   try {
     console.log('creating order async', orderData);
 
@@ -53,65 +54,92 @@ const CustomerSlice = createSlice({
       state.customers.push(action.payload);
       console.log('added user in slice', action.payload);
     },
+    // addToCart: (state, action) => {
+    //   // Find existing item with the same ID
+    //   const existingItem = state.cart.find(
+    //     item => item.id === action.payload.id,
+    //   );
+
+    //   // If item exists, update its quantity
+    //   if (existingItem) {
+    //     console.log('existing', existingItem);
+    //     existingItem.quantity++;
+    //     existingItem.totalPrice = existingItem.price * existingItem.quantity;
+    //     console.log('existing', existingItem);
+
+    //     // localStorage.setItem('cart', JSON.stringify(state.cart));
+    //     // Modify the draft directly (Immer handles immutability)
+    //   } else {
+    //     // If item doesn't exist, add it with initial quantity 1
+    //     // state.total++;
+    //     return {
+    //       ...state,
+    //       cart: [
+    //         ...state.cart,
+    //         action.payload.hasOwnProperty('quantity')
+    //           ? {...action.payload}
+    //           : {
+    //               ...action.payload,
+    //               quantity: 1,
+    //               totalPrice: action.payload.price * 1,
+    //             },
+    //       ],
+    //     };
+    //   }
+    //   // AsyncStorage.setItem('cart', JSON.stringify(state.cart));
+    // },
+
     addToCart: (state, action) => {
-      // Find existing item with the same ID
-      const existingItem = state.cart.find(
-        item => item.id === action.payload.id,
-      );
-
-      // If item exists, update its quantity
+      const existingItem = state.cart.find(item => item.id === action.payload.id);
+    
       if (existingItem) {
-        console.log('existing', existingItem);
-        existingItem.quantity++;
+        existingItem.quantity++; // Increase quantity if the item already exists
         existingItem.totalPrice = existingItem.price * existingItem.quantity;
-        console.log('existing', existingItem);
-
-        // localStorage.setItem('cart', JSON.stringify(state.cart));
-        // Modify the draft directly (Immer handles immutability)
       } else {
-        // If item doesn't exist, add it with initial quantity 1
-        // state.total++;
-        return {
-          ...state,
-          cart: [
-            ...state.cart,
-            action.payload.hasOwnProperty('quantity')
-              ? {...action.payload}
-              : {
-                  ...action.payload,
-                  quantity: 1,
-                  totalPrice: action.payload.price * 1,
-                },
-          ],
-        };
+        state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price }); // Add item with quantity 1
       }
-      // AsyncStorage.setItem('cart', JSON.stringify(state.cart));
     },
+    
+
+    // removeFromCart: (state, action) => {
+    //   // Retrieve the ID of the item to remove from the action payload
+    //   const itemIdToRemove = action.payload;
+
+    //   // Find the index of the item in the data array
+    //   const itemIndex = state.cart.findIndex(
+    //     item => item.id === itemIdToRemove,
+    //   );
+    //   // Check if the item exists
+    //   if (itemIndex !== -1) {
+    //     // Immer provides a draft state for direct modification
+    //     // No need to create a copy of the Data array
+    //     if (state.cart[itemIndex].quantity > 1) {
+    //       state.cart[itemIndex].quantity--;
+    //       state.cart[itemIndex].totalPrice =
+    //         state.cart[itemIndex].price * state.cart[itemIndex].quantity; // Modify draft directly
+    //     } else {
+    //       state.cart.splice(itemIndex, 1); // Modify draft directly
+    //     }
+    //   }
+    //   // Immer handles returning the modified state
+    //   // AsyncStorage.setItem('cart', JSON.stringify(state.cart));
+    //   return; // No need to return anything explicitly
+    // },
 
     removeFromCart: (state, action) => {
-      // Retrieve the ID of the item to remove from the action payload
       const itemIdToRemove = action.payload;
-
-      // Find the index of the item in the data array
-      const itemIndex = state.cart.findIndex(
-        item => item.id === itemIdToRemove,
-      );
-      // Check if the item exists
+      const itemIndex = state.cart.findIndex(item => item.id === itemIdToRemove);
+    
       if (itemIndex !== -1) {
-        // Immer provides a draft state for direct modification
-        // No need to create a copy of the Data array
         if (state.cart[itemIndex].quantity > 1) {
-          state.cart[itemIndex].quantity--;
-          state.cart[itemIndex].totalPrice =
-            state.cart[itemIndex].price * state.cart[itemIndex].quantity; // Modify draft directly
+          state.cart[itemIndex].quantity--; // Decrease quantity if greater than 1
+          state.cart[itemIndex].totalPrice = state.cart[itemIndex].price * state.cart[itemIndex].quantity;
         } else {
-          state.cart.splice(itemIndex, 1); // Modify draft directly
+          state.cart.splice(itemIndex, 1); // Remove item if quantity is 1
         }
       }
-      // Immer handles returning the modified state
-      // AsyncStorage.setItem('cart', JSON.stringify(state.cart));
-      return; // No need to return anything explicitly
     },
+    
     emptyCart: (state, action) => {
       state.cart = [];
     },

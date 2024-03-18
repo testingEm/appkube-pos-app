@@ -19,6 +19,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {emptyCart} from '../../redux/slice/customerSlice';
 const Share = () => {
   const checkout = useSelector(state => state.CustomerSlice.cart);
+  console.log("displaying data ",checkout);
   // const checkout =  useSelector()
   const [show, setshow] = useState(false);
   const dispatch = useDispatch();

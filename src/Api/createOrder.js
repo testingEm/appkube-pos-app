@@ -3,30 +3,36 @@ import {generateClient, graphqlOperation} from 'aws-amplify/api';
 
 const client = generateClient();
 export const creatingOrder = async (order) => {
+  console.log('creating order api', order);
   try {
-    console.log('creating order api', order);
     await Amplify.configure({
       API: {
         GraphQL: {
           endpoint:
-            'https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql',
+            'https://r7q2x3svonbvbg3qt4da6diuty.appsync-api.us-east-1.amazonaws.com/graphql',
           region: 'us-east-1',
           defaultAuthMode: 'apiKey',
-          apiKey: 'da2-6f52wp2npzd3vgd2nmm5vwigra',
+          apiKey: 'da2-tt7a24loa5ch7ceq7onemeej7a',
         },
       },
     });
     const result = await client.graphql({
       query: `
-        mutation CreateOrder($paymentMethod: PaymentCategory!, $totalPrice: Float!, $customerOrdersId: ID!) {
-          createOrder(input: { paymentMethod: $paymentMethod, totalPrice: $totalPrice, customerOrdersId: $customerOrdersId }) {
-            id
-            totalPrice
-
-          }
+      mutation CreateOrder($items: [OrderItemInput]!,$paymentMethod: PaymentCategory!, $totalPrice: Float!, $customerOrdersId: ID!) {
+        createOrder(input: {
+          items: $items,
+          paymentMethod: $paymentMethod,
+          totalPrice: $totalPrice,
+          customerOrdersId: $customerOrdersId
+        }) {
+          id
+          totalPrice
         }
+      }
+      
       `,
       variables: {
+        items: order.items,
         paymentMethod: order.paymentMethod,
         totalPrice: order.totolPrice,
         customerOrdersId: order.user.id,
