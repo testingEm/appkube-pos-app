@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {creatingOrder} from '../../Api/createOrder';
 //  import {useDispatch} from 'react-redux'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {creatingCustomer} from '../../Api/createCustomer';
 
@@ -135,11 +135,16 @@ const CustomerSlice = createSlice({
         // localStorage.setItem('cart', JSON.stringify(state.cart));
         // Modify the draft directly (Immer handles immutability)
       } else {
-        state.cart.push({
-          ...action.payload,
-          quantity: 1,
-          totalPrice: action.payload.price,
-        }); // Add item with quantity 1
+        // state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price }); // Add item with quantity 1
+        state.cart.push(
+          action.payload.hasOwnProperty('quantity')
+            ? {...action.payload}
+            : {
+                ...action.payload,
+                quantity: 1,
+                totalPrice: action.payload.price * 1,
+              },
+        ); // Add item with quantity 1
       }
     },
 
@@ -203,9 +208,9 @@ const CustomerSlice = createSlice({
         state.orders.push(action.payload);
         // state.orders = action.payload
 
-        AsyncStorage.setItem('orders', JSON.stringify(state.orders));
+        // AsyncStorage.setItem('orders', JSON.stringify(state.orders));
         // state.cart = [];
-        AsyncStorage.setItem('cart', JSON.stringify(state.cart));
+        // AsyncStorage.setItem('cart', JSON.stringify(state.cart));
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;
@@ -218,7 +223,7 @@ const CustomerSlice = createSlice({
       .addCase(createCustomer.fulfilled, (state, action) => {
         state.loading = false;
         state.users.push(action.payload);
-        AsyncStorage.setItem('users', JSON.stringify(state.orders));
+        // AsyncStorage.setItem('users', JSON.stringify(state.orders));
       })
       .addCase(createCustomer.rejected, (state, action) => {
         state.loading = false;

@@ -103,7 +103,13 @@ const ProductPage = () => {
         )}
 
         {/* <View style={{ marginLeft: 20 }}> */}
-        <Text style={{fontSize: 16, fontWeight: 'bold', marginLeft: 10}}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: 'bold',
+            marginLeft: 10,
+            color: 'black',
+          }}>
           {product.name} 1 {product.unit} {'\n'}
           Price : ₹ {product.price}
         </Text>
@@ -186,7 +192,13 @@ const ProductPage = () => {
                 selectedValue={selectedType}
                 placeholder="units"
                 onValueChange={itemValue => handleSelectType(itemValue)}
-                style={{height: 40, width: 130}}>
+                style={{
+                  height: 40,
+                  width: 130,
+                  color: 'white',
+                  backgroundColor: '#31572c',
+                  // borderRadius:"10px"
+                }}>
                 {quantityTypes.map((type, index) => (
                   <Picker.Item
                     key={index}
@@ -330,6 +342,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#ccc',
+    color:"black"
   },
   picker: {
     width: 110,
