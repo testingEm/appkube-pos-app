@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {creatingCustomer} from '../../Api/createCustomer';
 
 // // const dispatch = useDispatch();
-export const createOrder = createAsyncThunk('createOrder', async (orderData) => {
-  console.log("This is items ",orderData);
+export const createOrder = createAsyncThunk('createOrder', async orderData => {
+  console.log('This is items ', orderData);
   try {
     console.log('creating order async', orderData);
 
@@ -21,7 +21,7 @@ export const createOrder = createAsyncThunk('createOrder', async (orderData) => 
 });
 export const createCustomer = createAsyncThunk(
   'createCustomer',
-  async (details) => {
+  async details => {
     try {
       console.log('creating customer', details);
 
@@ -95,50 +95,53 @@ const CustomerSlice = createSlice({
         item => item.id === action.payload.id,
       );
 
-      const existingIndex = state.cart.indexOf(action.payload)
+      const existingIndex = state.cart.indexOf(action.payload);
 
       // If item exists, update its quantity
       console.log(existingItem);
       console.log(action.payload.unit);
       console.log(existingItem);
       if (existingItem) {
-        if(action.payload.unit != existingItem.unit ){
+        if (action.payload.unit != existingItem.unit) {
           if (
-            action.payload.unit == 'KG' && existingItem.quantity == 'KG' &&
+            action.payload.unit == 'KG' &&
+            existingItem.quantity == 'KG' &&
             action.payload.hasOwnProperty('quantity')
           ) {
             console.log(existingItem.quantity);
-            console.log("working")
-            existingItem.quantity += parseInt( action.payload.quantity);
+            console.log('working');
+            existingItem.quantity += parseInt(action.payload.quantity);
           }
           //changes made
-          else{
-          state.cart.push(action.payload);
+          else {
+            state.cart.push(action.payload);
           }
-        }
-        else{
-        console.log('existing', existingItem);
-        console.log(action.payload);
-        console.log(existingItem.quantity);
-        action.payload = action.payload.hasOwnProperty('quantity')
-          ? {...action.payload}
-          : {
-              ...action.payload,
-              quantity: 1,
-              totalPrice: action.payload.price * 1,
-            },
-          (existingItem.quantity += action.payload.quantity);
-        existingItem.totalPrice = existingItem.price * existingItem.quantity;
-        console.log('existing', existingItem);
+        } else {
+          console.log('existing', existingItem);
+          console.log(action.payload);
+          console.log(existingItem.quantity);
+          (action.payload = action.payload.hasOwnProperty('quantity')
+            ? {...action.payload}
+            : {
+                ...action.payload,
+                quantity: 1,
+                totalPrice: action.payload.price * 1,
+              }),
+            (existingItem.quantity += action.payload.quantity);
+          existingItem.totalPrice = existingItem.price * existingItem.quantity;
+          console.log('existing', existingItem);
         }
 
         // localStorage.setItem('cart', JSON.stringify(state.cart));
         // Modify the draft directly (Immer handles immutability)
       } else {
-        state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price }); // Add item with quantity 1
+        state.cart.push({
+          ...action.payload,
+          quantity: 1,
+          totalPrice: action.payload.price,
+        }); // Add item with quantity 1
       }
     },
-    
 
     // removeFromCart: (state, action) => {
     //   // Retrieve the ID of the item to remove from the action payload
@@ -167,18 +170,21 @@ const CustomerSlice = createSlice({
 
     removeFromCart: (state, action) => {
       const itemIdToRemove = action.payload;
-      const itemIndex = state.cart.findIndex(item => item.id === itemIdToRemove);
-    
+      const itemIndex = state.cart.findIndex(
+        item => item.id === itemIdToRemove,
+      );
+
       if (itemIndex !== -1) {
         if (state.cart[itemIndex].quantity > 1) {
           state.cart[itemIndex].quantity--; // Decrease quantity if greater than 1
-          state.cart[itemIndex].totalPrice = state.cart[itemIndex].price * state.cart[itemIndex].quantity;
+          state.cart[itemIndex].totalPrice =
+            state.cart[itemIndex].price * state.cart[itemIndex].quantity;
         } else {
           state.cart.splice(itemIndex, 1); // Remove item if quantity is 1
         }
       }
     },
-    
+
     emptyCart: (state, action) => {
       state.cart = [];
     },

@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   View,
@@ -7,42 +7,49 @@ import {
   FlatList,
   TouchableOpacity,
   Pressable,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
-import {useNavigation,useRoute,useFocusEffect} from '@react-navigation/native';
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 // import { fetchingCustomers } from '../../Api/fetchCustomers';
 // import { addCustomer } from '../../redux/slice/customerSlice';
 
 const Customers = () => {
-  const data =  useSelector(state=> state.CustomerSlice.customers)
+  const data = useSelector(state => state.CustomerSlice.customers);
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   // const [Isloading,setIsloadig] = useState(true)
   const [customers] = useState([
     {id: 1, name: 'John Doe', email: 'john@gmail.com'},
   ]);
- console.log('customers', data);
+  console.log('customers', data);
   const navigation = useNavigation();
-  const route = useRoute()
+  const route = useRoute();
   // const dispatch = useDispatch()
   // const  = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
 
   const filterCustomers = (customers, query) => {
     if (!query) {
-      return customers; 
+      return customers;
     }
 
-    return customers.filter(customer =>
-      (customer.name && customer.name.toLowerCase().includes(query.toLowerCase())) ||
-      (customer.email && customer.email.toLowerCase().includes(query.toLowerCase()))
+    return customers.filter(
+      customer =>
+        (customer.name &&
+          customer.name.toLowerCase().includes(query.toLowerCase())) ||
+        (customer.email &&
+          customer.email.toLowerCase().includes(query.toLowerCase())) ||
+        (customer.phone &&
+          customer.phone.toLowerCase().includes(query.toLowerCase())),
     );
   };
-  
 
-
-  const handleSearchQueryChange = (query) => {
+  const handleSearchQueryChange = query => {
     setSearchQuery(query);
     if (query) {
       setFilteredCustomers(filterCustomers(data, query));
@@ -50,8 +57,6 @@ const Customers = () => {
       setFilteredCustomers(data);
     }
   };
-  
-  
 
   // const addCustomer = () => {
   //   console.log('addCustomer');
@@ -62,11 +67,14 @@ const Customers = () => {
     console.log('Navigate to AddUser');
     navigation.navigate('Adduser');
   };
-  
 
-  const handleItemPress = (item) => {
+  const handleItemPress = item => {
     console.log('Selected customer:', item);
-    navigation.navigate('Cash', { value: route.params.value, user: item ,items:route.params.items});
+    navigation.navigate('Cash', {
+      value: route.params.value,
+      user: item,
+      items: route.params.items,
+    });
   };
 
   //   const fetchCustomers = async () => {
@@ -86,7 +94,6 @@ const Customers = () => {
   //   }
   // };
 
-    
   useEffect(() => {
     setFilteredCustomers(filterCustomers(data, searchQuery));
     // fetchCustomers()
@@ -99,9 +106,7 @@ const Customers = () => {
   //   }, [data])
   // );
 
-
-
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.customerContainer}
       onPress={() => handleItemPress(item)}>
@@ -123,8 +128,6 @@ const Customers = () => {
   //   );
   // }
 
-  
-
   return (
     <View style={styles.container}>
       <TextInput
@@ -133,8 +136,8 @@ const Customers = () => {
         value={searchQuery}
         onChangeText={handleSearchQueryChange}
       />
-       <FlatList
-        data={filteredCustomers} 
+      <FlatList
+        data={filteredCustomers}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
       />
@@ -161,13 +164,12 @@ const styles = {
     flex: 1,
     padding: 16,
     marginTop: 25,
-    color:"black"
+    color: 'black',
   },
   input: {
     marginBottom: 16,
     padding: 10,
     borderWidth: 1,
-    
   },
   customerContainer: {
     flexDirection: 'row',
@@ -176,7 +178,6 @@ const styles = {
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    
   },
   customerInfo: {
     flex: 1,
@@ -185,8 +186,7 @@ const styles = {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
-    color:"black"
-
+    color: 'black',
   },
   customerEmail: {
     fontSize: 14,

@@ -21,6 +21,7 @@ export const creatingOrder = async (order) => {
       query: `
       mutation CreateOrder($items: [OrderItemInput]!,$paymentMethod: PaymentCategory!, $totalPrice: Float!, $customerOrdersId: ID!) {
         createOrder(input: {
+          status:FULFIL,
           items: $items,
           paymentMethod: $paymentMethod,
           totalPrice: $totalPrice,

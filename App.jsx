@@ -24,6 +24,8 @@ import Orders from './src/components/Orders/index.js';
 import PrintToA4 from './src/components/Print/index.js';
 // import productPrinter from './src/components/productPrinter';
 import Order from './src/components/Order/index.js';
+import UpdateProducts from './src/components/updateProducts/index.js';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -68,7 +70,7 @@ const ProductsScreen = () => (
     }}>
     <Stack.Screen name="ProductsPage" component={Products} />
     <Stack.Screen name="Categorys" component={ProductPage} />
-    {/* <Stack.Screen name="Catalog" component={Catalog} /> */}
+    <Stack.Screen name="UpdateProducts" component={UpdateProducts} />
     <Stack.Screen name="Customers" component={Customers} />
     <Stack.Screen name="Checkout" component={Checkout} />
     <Stack.Screen name="Cash" component={Cash} options={{ headerShown: false }} />

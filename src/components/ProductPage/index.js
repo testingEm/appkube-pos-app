@@ -107,8 +107,10 @@ const ProductPage = () => {
           {product.name} 1 {product.unit} {'\n'}
           Price : ₹ {product.price}
         </Text>
+        
         {/* </View> */}
       </View>
+      <Text onPress={() => navigation.navigate('UpdateProducts',{product: product})}>Edit</Text>
 
       <View style={{marginTop: 15, marginLeft: 3}}>
         <Text
@@ -245,7 +247,7 @@ const ProductPage = () => {
                 ...product,
                 // price: typePrice[selectedType].price,
                 perPrice:
-               ( selectedType == 'gms'? typePrice[selectedType].price : ''),
+                  selectedType == 'gms' ? typePrice[selectedType].price : '',
                 totalPrice: priceOne,
                 unit: selectedType,
                 quantity: parseInt(quantity),
@@ -278,7 +280,7 @@ const ProductPage = () => {
             // onPress={() => {
             //   navigation.navigate('Checkout');
             // }}
-            >
+          >
             Go to cart
           </Text>
           <Text style={{color: 'grey'}}>{reduxData.cart?.length} items</Text>
