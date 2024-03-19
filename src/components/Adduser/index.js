@@ -48,11 +48,13 @@ const Adduser = () => {
             color="#31572c"
             onPress={handleGoToAdduser}
           />
-          <Text style={{fontSize: 20,color:"blue"}} onPress={handleSubmit}>
+          <Text style={{fontSize: 20, color: 'blue'}} onPress={handleSubmit}>
             Save
           </Text>
         </View>
-        <Text style={{fontSize: 25, marginBottom: 20 , color:"black"}}>Add new Customer</Text>
+        <Text style={{fontSize: 25, marginBottom: 20, color: 'black'}}>
+          Add new Customer
+        </Text>
 
         <Text style={{fontSize: 15, color: 'gray', marginBottom: 10}}>
           Contact Information{' '}
@@ -66,6 +68,7 @@ const Adduser = () => {
             marginBottom: 20,
             fontSize: 16,
             padding: 15,
+            color: 'black',
           }}
           value={inputUser.name}
           onChangeText={e => handleChange('name', e)}
@@ -92,6 +95,7 @@ const Adduser = () => {
             marginBottom: 20,
             fontSize: 16,
             padding: 15,
+            color: 'black',
           }}
           value={inputUser.phone}
           onChangeText={text => handleChange('phone', text)}
