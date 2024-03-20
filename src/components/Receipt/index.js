@@ -13,9 +13,6 @@
 // //     Button,
 // // } from 'react-native';
 
-
-
-
 // import {
 //     Container,
 //     Content,
@@ -29,7 +26,7 @@
 // // import styles from './styles';
 
 // const Receipt = ({ route }) => {
-    
+
 //     const { order } = route.params;
 //     const lineItemList = order.lineItems.map(lineItem => (
 //         <ListItem icon key={lineItem.id}>
@@ -106,34 +103,23 @@
 
 // export default Receipt;
 
-
-
-
-
-
-
-
-
-
-
-
 //
 
 import React from 'react';
 import moment from 'moment';
-import { View, Text } from 'react-native';
+import {View, Text} from 'react-native';
 
-const Receipt = ({ route }) => {
-  const { order } = route.params;
-  const lineItemList = order.lineItems.map((lineItem) => (
-    <View key={lineItem.id} style={{ flexDirection: 'row', paddingVertical: 5 }}>
-      <View style={{ flex: 1 }}>
+const Receipt = ({route}) => {
+  const {order} = route.params;
+  const lineItemList = order.lineItems.map(lineItem => (
+    <View key={lineItem.id} style={{flexDirection: 'row', paddingVertical: 5}}>
+      <View style={{flex: 1}}>
         <Text>{lineItem.qty}</Text>
       </View>
-      <View style={{ flex: 3 }}>
+      <View style={{flex: 3}}>
         <Text>{lineItem.description}</Text>
       </View>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <Text>${lineItem.total.toFixed(2)}</Text>
       </View>
     </View>
@@ -141,58 +127,64 @@ const Receipt = ({ route }) => {
 
   return (
     <View>
-      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'black' }}>
-        <Text></Text>
+      <View
+        style={{padding: 10, borderBottomWidth: 1, borderBottomColor: 'black'}}>
+        <Text />
       </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-        <View style={{ flex: 1 }}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
+        <View style={{flex: 1}}>
           <Text>Order Number</Text>
         </View>
-        <View style={{ flex: 3 }}>
+        <View style={{flex: 3}}>
           <Text note>{order.id}</Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-        <View style={{ flex: 1 }}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
+        <View style={{flex: 1}}>
           <Text>Date</Text>
         </View>
-        <View style={{ flex: 3 }}>
-          <Text note>{moment(order.createdAt).format('YYYY-MM-DD hh:mm A')}</Text>
+        <View style={{flex: 3}}>
+          <Text note>
+            {moment(order.createdAt).format('YYYY-MM-DD hh:mm A')}
+          </Text>
         </View>
       </View>
-      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'black' }}>
-        <Text></Text>
+      <View
+        style={{padding: 10, borderBottomWidth: 1, borderBottomColor: 'black'}}>
+        <Text />
       </View>
       {lineItemList}
-      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'black' }}>
-        <Text></Text>
+      <View
+        style={{padding: 10, borderBottomWidth: 1, borderBottomColor: 'black'}}>
+        <Text />
       </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-        <View style={{ flex: 3 }}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
+        <View style={{flex: 3}}>
           <Text>Subtotal</Text>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>${order.subtotal.toFixed(2)}</Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-        <View style={{ flex: 3 }}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
+        <View style={{flex: 3}}>
           <Text>Tax</Text>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>${order.tax.toFixed(2)}</Text>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
-        <View style={{ flex: 3 }}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
+        <View style={{flex: 3}}>
           <Text>Total</Text>
         </View>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           <Text>${order.total.toFixed(2)}</Text>
         </View>
       </View>
-      <View style={{ padding: 10, borderBottomWidth: 1, borderBottomColor: 'black' }}>
-        <Text></Text>
+      <View
+        style={{padding: 10, borderBottomWidth: 1, borderBottomColor: 'black'}}>
+        <Text />
       </View>
     </View>
   );
