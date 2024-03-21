@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     flexWrap: "wrap",
     gap: 2,
-    padding: 10,
+    padding: 4,
     flexDirection: "row",
     // justifyContent: "center",
     // alignItems: 'center',
@@ -17,7 +17,7 @@ export default StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 1,
+    // elevation: 1,
   },
   scrollbar: {
     width: "100%",
@@ -110,7 +110,22 @@ export default StyleSheet.create({
     width: "auto",
     height: "40%",
     padding: 8,
-    paddingVertical: 15,
+    paddingVertical: 8,
     gap: 10,
   },
+  statusbar:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "#31572c",
+    backgroundColor: "#d8f3dc",
+    borderRadius: 20,
+    width: "auto",
+    // height: "40%",
+    padding: 8,
+    paddingVertical: 8,
+    gap: 10,
+
+  }
 });
