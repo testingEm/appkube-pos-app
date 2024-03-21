@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import {TextInput, View, Text, Button} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {createCustomer} from '../../redux/slice/customerSlice';
+import {addCustomer} from '../../redux/slice/customerSlice';
 import {useDispatch} from 'react-redux';
+import { creatingCustomer } from '../../Api/createCustomer';
 // import Fontisto from 'react-native-vector-icons/Fontisto';
 const Adduser = () => {
   const [inputUser, setInputUser] = useState({
@@ -11,6 +12,7 @@ const Adduser = () => {
     phone: '',
   });
   const dispatch = useDispatch();
+  const navigation = useNavigation();
  const route =  useRoute();
   const handleChange = (name, value) => {
     setInputUser({...inputUser, [name]: value});
@@ -19,20 +21,33 @@ const Adduser = () => {
   const items = route.params.items
   const handleSubmit = () => {
     console.log('details',inputUser);
-    dispatch(createCustomer(inputUser));
+    const CustomerCreated = createCustomer(inputUser);
+    dispatch(addCustomer(CustomerCreated));
     console.log('sending user', inputUser);
     // Navigation.navigate('Customers');
-    Navigation.navigate('Customers',{total: total, items: items});
+    navigation.navigate('Customers',{total: total, items: items});
     // setReloadScreen(true);
   };
 
-  const navigation = useNavigation();
 
   const handleGoToAdduser = () => {
     navigation.goBack();
   };
 
-  const Navigation = useNavigation();
+  // const Navigation = useNavigation();
+  const createCustomer = async (details)=>{
+    console.log('This is items ', details);
+    try {
+      console.log('creating customer async', details);
+  
+      const response = await creatingCustomer(details);
+      console.log('created customer response ', response);
+  
+      return response;
+    } catch (error) {
+      console.log('error creating customer', error);
+    }
+   }
 
   return (
     <View>

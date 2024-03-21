@@ -26,9 +26,14 @@ const Customers = () => {
   // const [customers] = useState([
   //   {id: 1, name: 'John Doe', email: 'john@gmail.com'},
   // ]);
-  console.log('customers', data);
   const navigation = useNavigation();
   const route = useRoute();
+  // const currentRouteName = navigation.route.name;
+  // console.log('routing name',currentRouteName)
+  // const currentRoute = route.name;
+    // const parentRoute = currentRoute.routes[currentRoute.index];
+    // console.log('parent route',parentRoute,'cureen',currentRoute)
+  console.log('customers', data);
   // const dispatch = useDispatch()
   // const  = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
@@ -62,8 +67,8 @@ const Customers = () => {
   //   console.log('addCustomer');
   //   navigation.navigate('Adduser');
   // };
-  const total = route.params.total;
-  const items = route.params.items;
+  const total = route.params?.total;
+  const items = route.params?.items;
   const navigateToAddUser = () => {
     console.log('Navigate to AddUser');
     // navigation.navigate('Adduser');
@@ -73,9 +78,9 @@ const Customers = () => {
   const handleItemPress = item => {
     console.log('Selected customer:', item);
     navigation.navigate('Cash', {
-      total: route.params.total,
+      total: total,
       user: item,
-      items: route.params.items,
+      items: items,
     });
   };
 

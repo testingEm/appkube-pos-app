@@ -5,7 +5,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {createOrder} from '../../redux/slice/customerSlice';
+import {addOrders} from '../../redux/slice/customerSlice';
+import { creatingOrder } from '../../api/createOrder';
 
 // const valuePass=()=>{
 
@@ -28,11 +29,24 @@ const Cash = () => {
   const handleOrder = (payment) => {
     const orderData = {paymentMethod: payment , totolPrice:total , user:user,items:items}
     console.log("sending data of order",orderData)
-    dispatch(createOrder(orderData));
+    const OrderCreated = createOrder(orderData);
+    dispatch(addOrders(OrderCreated))
     // dispatch(emptyCart())
     navigation.navigate('Share',{data:orderData});
   };
+ const createOrder = async (order)=>{
+  console.log('This is items ', order);
+  try {
+    console.log('creating order async', order);
 
+    const response = await creatingOrder(order);
+    console.log('created order response ', response);
+
+    return response;
+  } catch (error) {
+    console.log('error creating order', error);
+  }
+ }
   const [Isloading, setIsloadig] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
