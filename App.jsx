@@ -16,9 +16,11 @@ import Checkout from './src/components/Checkout';
 import Cash from './src/components/Cash/index.js';
 import Customers from './src/components/Customer';
 import Share from './src/components/Share/index.js'
-import Settings from './src/components/Setting';
+// import Settings from './src/components/Setting';
+import Settings from './src/components/setting/index.js';
 import Products from './src/components/Products';
-import ProductsList from './src/components/ProductList';
+// import ProductsList from './src/components/ProductList';
+import ProductsList from './src/components/ProductList/index.js'
 import ProductPage from './src/components/ProductPage/index.js';
 import Orders from './src/components/Orders/index.js';
 import PrintToA4 from './src/components/Print/index.js';

@@ -14,13 +14,13 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import {useNavigation} from '@react-navigation/native';
 
-import {fetchCategories} from '../../Api/FetchProducts';
+import { fetchCategories } from '../../api/fetchProducts';
 import {addOrders, addCustomer} from '../../redux/slice/customerSlice';
 
 import {AddAllProducts} from '../../redux/slice/getAllProductSlice';
 import {useDispatch} from 'react-redux';
-import {fetchingOrders} from '../../Api/fetchOrders';
-import { fetchingCustomers} from '../../Api/fetchCustomers';
+import { fetchingOrders } from '../../api/fetchOrders';
+import { fetchingCustomers } from '../../api/fetchCustomers';
 const Home = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();

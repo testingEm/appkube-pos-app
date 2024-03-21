@@ -9,15 +9,15 @@ import {
   Pressable,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+// import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Order = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  console.log('order params ', route.params);
   const order = route.params.value;
+  console.log('order params ', route.params);
   console.log('order data', order);
 
    const goToCustomers = () => {
