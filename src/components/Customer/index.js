@@ -62,8 +62,8 @@ const Customers = () => {
   //   console.log('addCustomer');
   //   navigation.navigate('Adduser');
   // };
-  const total = route.params.total;
-  const items = route.params.items;
+  const total = route.params?.total;
+  const items = route.params?.items;
   const navigateToAddUser = () => {
     console.log('Navigate to AddUser');
     // navigation.navigate('Adduser');
@@ -73,9 +73,9 @@ const Customers = () => {
   const handleItemPress = item => {
     console.log('Selected customer:', item);
     navigation.navigate('Cash', {
-      total: route.params.total,
+      total: total,
       user: item,
-      items: route.params.items,
+      items: items,
     });
   };
 

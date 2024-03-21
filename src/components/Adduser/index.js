@@ -15,11 +15,11 @@ const Adduser = () => {
   const handleChange = (name, value) => {
     setInputUser({...inputUser, [name]: value});
   };
-  const total = route.params.total
-  const items = route.params.items
-  const handleSubmit = () => {
+  const total = route.params?.total
+  const items = route.params?.items
+  const handleSubmit = async () => {
     console.log('details',inputUser);
-    dispatch(createCustomer(inputUser));
+   await dispatch(createCustomer(inputUser));
     console.log('sending user', inputUser);
     // Navigation.navigate('Customers');
     Navigation.navigate('Customers',{total: total, items: items});
