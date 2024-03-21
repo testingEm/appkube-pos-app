@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-// import styles from "./styles";
+import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   View,
@@ -7,51 +6,112 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
-  Pressable
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
+import {
+  useNavigation,
+  useRoute,
+  useFocusEffect,
+} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+// import { fetchingCustomers } from '../../Api/fetchCustomers';
+// import { addCustomer } from '../../redux/slice/customerSlice';
 
 const Customers = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [customers, setCustomers] = useState([
-    { id: 1, name: "John Doe", email: "john@gmail.com" },
-    { id: 2, name: "Jane Smith", email: "smith@gmail.com" },
-    { id: 3, name: "Alice Johnson", email: "Alice@gmail.com" },
-    { id: 4, name: "Bob Brown", email: "Bob@gmail.com" },
-    { id: 5, name: "Alice Johnson", email: "alice@example.com" },
-  { id: 6, name: "Charlie Davis", email: "charlie@example.com" },
-  { id: 7, name: "Emma Smith", email: "emma@example.com" },
-  { id: 8, name: "David Wilson", email: "david@example.com" },
-  { id: 9, name: "Ella Martinez", email: "ella@example.com" },
-  { id: 10, name: "Frank Thompson", email: "frank@example.com" },
-  { id: 11, name: "Grace Lee", email: "grace@example.com" },
-  { id: 12, name: "Henry Clark", email: "henry@example.com" },
-  { id: 13, name: "Ian Martinez", email: "ian@example.com" },
-  { id: 14, name: "Jennifer Brown", email: "jennifer@example.com" },
-  { id: 15, name: "Kevin Taylor", email: "kevin@example.com" },
-  { id: 16, name: "Linda Harris", email: "linda@example.com" },
-  { id: 17, name: "Michael Adams", email: "michael@example.com" },
-  { id: 18, name: "Nancy Scott", email: "nancy@example.com" }
-    //   { id: 1, name: 'alex Doe' ,email: "john@gmail.com" },
-    //   { id: 2, name: 'flex Smith' ,email: "smith@gmail.com" },
-    //   { id: 3, name: 'ben Johnson',email: "Alice@gmail.com" },
-    //   { id: 4, name: 'juan Brown',email: "Bob@gmail.com" },
-    // Add more customers as needed
-  ]);
- const navigation = useNavigation();
- const users = useSelector((state)=> state.CustomerSlice.users)
-  const matchingResults = customers.filter(
-    (customer) =>
-      customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      customer.email.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const data = useSelector(state => state.CustomerSlice.customers);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredCustomers, setFilteredCustomers] = useState([]);
+  // const [Isloading,setIsloadig] = useState(true)
+  // const [customers] = useState([
+  //   {id: 1, name: 'John Doe', email: 'john@gmail.com'},
+  // ]);
+  console.log('customers', data);
+  const navigation = useNavigation();
+  const route = useRoute();
+  // const dispatch = useDispatch()
+  // const  = route.params.value
+  // const users = useSelector(state => state.CustomerSlice.users);
 
-  const renderItem = ({ item }) => (
+  const filterCustomers = (customers, query) => {
+    if (!query) {
+      return customers;
+    }
+
+    return customers.filter(
+      customer =>
+        (customer.name &&
+          customer.name.toLowerCase().includes(query.toLowerCase())) ||
+        (customer.email &&
+          customer.email.toLowerCase().includes(query.toLowerCase())) ||
+        (customer.phone &&
+          customer.phone.toLowerCase().includes(query.toLowerCase())),
+    );
+  };
+
+  const handleSearchQueryChange = query => {
+    setSearchQuery(query);
+    if (query) {
+      setFilteredCustomers(filterCustomers(data, query));
+    } else {
+      setFilteredCustomers(data);
+    }
+  };
+
+  // const addCustomer = () => {
+  //   console.log('addCustomer');
+  //   navigation.navigate('Adduser');
+  // };
+  const total = route.params.total;
+  const items = route.params.items;
+  const navigateToAddUser = () => {
+    console.log('Navigate to AddUser');
+    // navigation.navigate('Adduser');
+    navigation.navigate('Adduser',{total: total, items: items});
+  };
+
+  const handleItemPress = item => {
+    console.log('Selected customer:', item);
+    navigation.navigate('Cash', {
+      total: route.params.total,
+      user: item,
+      items: route.params.items,
+    });
+  };
+
+  //   const fetchCustomers = async () => {
+  //   try {
+  //     console.log('calling fetching');
+  //     const response = await fetchingCustomers();
+  //     console.log('after fetching');
+  //     const data = response;
+  //     console.log('customers data', data);
+  //     data.map(value => {
+  //       console.log('customer value', value);
+  //       dispatch(addCustomer(value));
+  //     });
+  //     setIsloadig(false)
+  //   } catch (error) {
+  //     console.log('orders error', error);
+  //   }
+  // };
+
+  useEffect(() => {
+    setFilteredCustomers(filterCustomers(data, searchQuery));
+    // fetchCustomers()
+  }, [data, searchQuery]);
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     setSearchQuery('');
+  //     setFilteredCustomers(data);
+  //   }, [data])
+  // );
+
+  const renderItem = ({item}) => (
     <TouchableOpacity
       style={styles.customerContainer}
-      onPress={() => console.log("Selected customer:", item)}
-    >
+      onPress={() => handleItemPress(item)}>
       <View style={styles.customerInfo}>
         <Text style={styles.customerName}>{item.name}</Text>
         <Text style={styles.customerEmail}>{item.email}</Text>
@@ -61,33 +121,40 @@ const Customers = () => {
       </Text>
     </TouchableOpacity>
   );
-  const addCustomer = ()=>{
-    console.log('addCustomer')
-    navigation.navigate('Adduser');
-  }
+
+  // if (Isloading) {
+  //   return (
+  //     <View style={[styles.container, styles.loadingContainer]}>
+  //       <ActivityIndicator size="large" color="#0000ff" />
+  //     </View>
+  //   );
+  // }
 
   return (
     <View style={styles.container}>
-      {console.log('users',users)}
       <TextInput
         style={styles.input}
         placeholder="Search for customers..."
         value={searchQuery}
-        onChangeText={setSearchQuery}
+        onChangeText={handleSearchQueryChange}
       />
       <FlatList
-        data={matchingResults}
+        data={filteredCustomers}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={item => item.id.toString()}
       />
-      <Pressable 
-        style={{ backgroundColor: 'blue', padding: 10, borderRadius: 5 }}
-        onPress={addCustomer}>
-            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16 }}>
-              add Customer 
-            </Text>
-        </Pressable>
-       
+      <Pressable
+        style={{
+          backgroundColor: 'blue',
+          padding: 10,
+          borderRadius: 5,
+          marginTop: 10,
+        }}
+        onPress={navigateToAddUser}>
+        <Text style={{color: 'white', textAlign: 'center', fontSize: 16}}>
+          Add Customer
+        </Text>
+      </Pressable>
     </View>
   );
 };
@@ -98,7 +165,8 @@ const styles = {
   container: {
     flex: 1,
     padding: 16,
-    marginTop:25
+    marginTop: 25,
+    color: 'black',
   },
   input: {
     marginBottom: 16,
@@ -106,23 +174,24 @@ const styles = {
     borderWidth: 1,
   },
   customerContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: '#ccc',
   },
   customerInfo: {
     flex: 1,
   },
   customerName: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 4,
+    color: 'black',
   },
   customerEmail: {
     fontSize: 14,
-    color: "#666",
+    color: '#666',
   },
 };
