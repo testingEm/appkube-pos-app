@@ -1,9 +1,12 @@
+
+
 import React, {useState} from 'react';
-import {TextInput, View, Text, Button} from 'react-native';
+import {TextInput, View, Text, Button, Alert} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {useNavigation} from '@react-navigation/native';
-import {createCustomer} from '../../redux/slice/customerSlice';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {addCustomer} from '../../redux/slice/customerSlice';
 import {useDispatch} from 'react-redux';
+import { creatingCustomer } from '../../api/createCustomer';
 // import Fontisto from 'react-native-vector-icons/Fontisto';
 const Adduser = () => {
   const [inputUser, setInputUser] = useState({
@@ -11,26 +14,52 @@ const Adduser = () => {
     phone: '',
   });
   const dispatch = useDispatch();
-
+  const navigation = useNavigation();
+ const route =  useRoute();
   const handleChange = (name, value) => {
     setInputUser({...inputUser, [name]: value});
   };
+  const total = route.params?.total
+  const items = route.params?.items
+  const handleSubmit = async () => {
+    // if(inputUser.name !=='' && inputUser.phone !== '' )
+    if(inputUser.name.trim().length > 0 && inputUser.phone.trim().length > 0){
 
-  const handleSubmit = () => {
     console.log('details',inputUser);
-    dispatch(createCustomer(inputUser));
-    console.log('sending user', inputUser);
-    Navigation.navigate('Customers');
-    setReloadScreen(true);
+    const CustomerCreated = await createCustomer(inputUser);
+    console.log('sending custometr to redux', CustomerCreated);
+    dispatch(addCustomer(CustomerCreated));
+
+    // Navigation.navigate('Customers');
+    navigation.navigate('Customers',{total: total, items: items});
+    // setReloadScreen(true);
+    setInputUser({ name: '',
+    phone: '',})
+    }
+    else{
+      Alert.alert("can't proceed with empty values")
+    }
   };
 
-  const navigation = useNavigation();
 
   const handleGoToAdduser = () => {
     navigation.goBack();
   };
 
-  const Navigation = useNavigation();
+  // const Navigation = useNavigation();
+  const createCustomer = async (details)=>{
+    console.log('This is items ', details);
+    try {
+      console.log('creating customer async', details);
+  
+      const response = await creatingCustomer(details);
+      console.log('created customer response ', response);
+  
+      return response;
+    } catch (error) {
+      console.log('error creating customer', error);
+    }
+   }
 
   return (
     <View>

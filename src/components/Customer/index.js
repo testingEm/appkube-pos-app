@@ -1,3 +1,5 @@
+
+
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
@@ -23,12 +25,17 @@ const Customers = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   // const [Isloading,setIsloadig] = useState(true)
-  const [customers] = useState([
-    {id: 1, name: 'John Doe', email: 'john@gmail.com'},
-  ]);
-  console.log('customers', data);
+  // const [customers] = useState([
+  //   {id: 1, name: 'John Doe', email: 'john@gmail.com'},
+  // ]);
   const navigation = useNavigation();
   const route = useRoute();
+  // const currentRouteName = navigation.route.name;
+  // console.log('routing name',currentRouteName)
+  // const currentRoute = route.name;
+    // const parentRoute = currentRoute.routes[currentRoute.index];
+    // console.log('parent route',parentRoute,'cureen',currentRoute)
+  console.log('customers', data);
   // const dispatch = useDispatch()
   // const  = route.params.value
   // const users = useSelector(state => state.CustomerSlice.users);
@@ -62,19 +69,32 @@ const Customers = () => {
   //   console.log('addCustomer');
   //   navigation.navigate('Adduser');
   // };
-
+  const total = route.params?.total;
+  const items = route.params?.items;
   const navigateToAddUser = () => {
     console.log('Navigate to AddUser');
-    navigation.navigate('Adduser');
+    // navigation.navigate('Adduser');
+    navigation.navigate('Adduser',{total: total, items: items});
   };
 
-  const handleItemPress = item => {
-    console.log('Selected customer:', item);
-    navigation.navigate('Cash', {
-      value: route.params.value,
-      user: item,
-      items: route.params.items,
-    });
+  // const handleItemPress = item => {
+  //   console.log('Selected customer:', item);
+  //   navigation.navigate('Cash', {
+  //     total: total,
+  //     user: item,
+  //     items: items,
+  //   });
+  // };
+  const handleItemPress = customer => {
+    console.log('Selected customer:', customer);
+    { (navigation.getState().routes[0].name == 'Settings') ?  (console.log('customer details',customer) ):
+     ( navigation.navigate('Cash', {
+        total: total,
+        user: customer,
+        items: items,
+      }) )
+    }
+
   };
 
   //   const fetchCustomers = async () => {
@@ -139,7 +159,7 @@ const Customers = () => {
       <FlatList
         data={filteredCustomers}
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item?.id.toString()}
       />
       <Pressable
         style={{

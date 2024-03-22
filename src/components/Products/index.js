@@ -14,22 +14,12 @@ import styles from './styles';
 
 const Products = () => {
   const navigation = useNavigation();
-<<<<<<< HEAD
-
-  const ProductsData = useSelector((start) => start.getAllProducts)
-=======
   const ProductsData = useSelector(state => state.getAllProducts);
->>>>>>> f641019caae99090915a266d7e9f412f6f6dcb45
 
   //   console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
 
-<<<<<<< HEAD
-
-  console.log("redux in products page in the product page",ProductsData,typeof(ProductsData));
-=======
   // const [GetProduct, setGetProducts] = useState([...ProductsData]);
   const [loading, setLoading] = useState(true);
->>>>>>> f641019caae99090915a266d7e9f412f6f6dcb45
 
   useEffect(() => {
     if (ProductsData.length > 0) {
@@ -37,11 +27,7 @@ const Products = () => {
     }
   }, [ProductsData]);
 
-<<<<<<< HEAD
-  
-=======
   const uniqueCategoriesSet = new Set();
->>>>>>> f641019caae99090915a266d7e9f412f6f6dcb45
 
   ProductsData.forEach(item => {
     if (item && item.category) {

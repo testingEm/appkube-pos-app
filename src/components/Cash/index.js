@@ -1,11 +1,14 @@
 
+
+
 import {View, Text, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {createOrder} from '../../redux/slice/customerSlice';
+import {addOrders} from '../../redux/slice/customerSlice';
+import { creatingOrder } from '../../api/createOrder';
 
 // const valuePass=()=>{
 
@@ -13,7 +16,7 @@ import {createOrder} from '../../redux/slice/customerSlice';
 
 const Cash = () => {
   const routdata = useRoute();
-  console.log("route value",routdata.params.value);
+  console.log("route value",routdata.params.total);
   console.log("route user",routdata.params.user);
   const navigation = useNavigation();
 
@@ -22,17 +25,33 @@ const Cash = () => {
   };
   const dispatch = useDispatch();
 
-  const handleOrder = (payment) => {
-    const total =  routdata.params.value
-    const user =  routdata.params.user
-    const items = routdata.params.items
+  const total =  routdata.params.total
+  const user =  routdata.params.user
+  const items = routdata.params.items
+
+  
+  const handleOrder = async (payment) => {
     const orderData = {paymentMethod: payment , totolPrice:total , user:user,items:items}
     console.log("sending data of order",orderData)
-    dispatch(createOrder(orderData));
+    const OrderCreated = await createOrder(orderData);
+    console.log('dispatching created order',OrderCreated)
+    dispatch(addOrders(OrderCreated))
     // dispatch(emptyCart())
     navigation.navigate('Share',{data:orderData});
   };
+ const createOrder = async (order)=>{
+  console.log('This is items ', order);
+  try {
+    console.log('creating order async', order);
 
+    const response = await creatingOrder(order);
+    console.log('created order response ', response);
+
+    return response;
+  } catch (error) {
+    console.log('error creating order', error);
+  }
+ }
   const [Isloading, setIsloadig] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -87,7 +106,7 @@ const Cash = () => {
           }}>
           <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
             {' '}
-            ₹ {routdata.params.value}.00
+            ₹ {total}.00
           </Text>
           <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
             Select Payment Option

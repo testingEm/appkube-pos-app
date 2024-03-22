@@ -1,3 +1,5 @@
+
+
 import {Amplify} from 'aws-amplify';
 import {generateClient} from 'aws-amplify/api';
 // import { useDispatch} from "react-redux"
@@ -19,28 +21,8 @@ export const fetchCategories = async () => {
       },
     });
 
-<<<<<<< HEAD
- 
- export  const fetchCategories = async () => {
-      try {
-        // Ensure proper configuration and initialization of Amplify
-        await Amplify.configure({
-          API: {
-            GraphQL: {
-              endpoint: 'https://rcvvni5tqzb4lorqzgibgi4wc4.appsync-api.us-east-1.amazonaws.com/graphql',
-              region: 'us-east-1',
-              defaultAuthMode: 'apiKey',
-              apiKey: 'da2-6f52wp2npzd3vgd2nmm5vwigra'
-            }
-          }
-        });
-
-        const result = await client.graphql({
-          query: `
-=======
     const result = await client.graphql({
       query: `
->>>>>>> f641019caae99090915a266d7e9f412f6f6dcb45
             query ListProducts {
               listProducts {
                 items {
@@ -57,7 +39,7 @@ export const fetchCategories = async () => {
     });
 
     console.log(result);
-    return result;
+    return result.data.listProducts.items;
     // setData(result.data.listProducts.items)
   } catch (error) {
     console.log(error);
