@@ -75,13 +75,23 @@ const Customers = () => {
     navigation.navigate('Adduser',{total: total, items: items});
   };
 
-  const handleItemPress = item => {
-    console.log('Selected customer:', item);
-    navigation.navigate('Cash', {
-      total: total,
-      user: item,
-      items: items,
-    });
+  // const handleItemPress = item => {
+  //   console.log('Selected customer:', item);
+  //   navigation.navigate('Cash', {
+  //     total: total,
+  //     user: item,
+  //     items: items,
+  //   });
+  // };
+  const handleItemPress = customer => {
+    console.log('Selected customer:', customer);
+    { (navigation.getState().routes[0].name == 'Settings') ?  (console.log('customer details',customer) ):
+     ( navigation.navigate('Cash', {
+        total: total,
+        user: customer,
+        items: items,
+      }) )
+    }
   };
 
   //   const fetchCustomers = async () => {
@@ -146,7 +156,7 @@ const Customers = () => {
       <FlatList
         data={filteredCustomers}
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item?.id.toString()}
       />
       <Pressable
         style={{

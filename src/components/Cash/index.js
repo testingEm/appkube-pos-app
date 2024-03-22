@@ -26,10 +26,13 @@ const Cash = () => {
   const total =  routdata.params.total
   const user =  routdata.params.user
   const items = routdata.params.items
-  const handleOrder = (payment) => {
+
+  
+  const handleOrder = async (payment) => {
     const orderData = {paymentMethod: payment , totolPrice:total , user:user,items:items}
     console.log("sending data of order",orderData)
-    const OrderCreated = createOrder(orderData);
+    const OrderCreated = await createOrder(orderData);
+    console.log('dispatching created order',OrderCreated)
     dispatch(addOrders(OrderCreated))
     // dispatch(emptyCart())
     navigation.navigate('Share',{data:orderData});
