@@ -83,6 +83,7 @@ const ProductsScreen = () => (
 );
 
 const screenOptions = ({ route }) => ({
+  tabBarHideOnKeyboard: true,
   tabBarIcon: ({ color, size }) => {
     let iconName;
     switch (route.name) {
@@ -107,12 +108,13 @@ const screenOptions = ({ route }) => ({
   },
 });
 
+
 const App = () => {
 
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Navigator screenOptions={screenOptions} >
           <Tab.Screen
             name="Home"
             component={HomeScreen}

@@ -685,6 +685,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
+  TextInput,
+  KeyboardAvoidingView
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 // import { fetchProducts } from "../fetchProducts";
@@ -694,6 +696,7 @@ import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/api";
 
 import { Amplify } from "aws-amplify";
+import styles from "./style";
 
 import { useSelector, useDispatch } from "react-redux";
 // import { AddProduct, removeItem } from "../redux/slice/Product";
@@ -711,6 +714,13 @@ const GetAllProducts = () => {
   console.log(Pdata);
 
   const [cartItems, setCartItems] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredProducts = Pdata.filter(product =>
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  console.log("it the filter ", filteredProducts);
 
   const navigation = useNavigation();
 
@@ -763,8 +773,14 @@ const GetAllProducts = () => {
     }
   }, [reduxData.cart]);
 
+  const data = (filteredProducts ) ? (filteredProducts):(Pdata)
+
   return (
-    <ScrollView>
+ 
+    <ScrollView  style={{ flex: 1 }}>
+      <TextInput style={styles.searchInput} placeholder="Search Product" onChangeText={setSearchTerm}>
+
+      </TextInput>
       <TouchableOpacity
         onPress={handleCart}
         style={{
@@ -806,7 +822,7 @@ const GetAllProducts = () => {
                 alignItems: 'flex-start',
 
                 width: '100%',
-                color:"black"
+                color: "black"
               }}
             >
               {
@@ -818,7 +834,7 @@ const GetAllProducts = () => {
               }
             </Text>
 
-            <Text style={{ width: "100%", fontWeight: 700,color:"black" }}>
+            <Text style={{ width: "100%", fontWeight: 700, color: "black" }}>
               orders: {reduxData.cart?.length}
             </Text>
           </View>
@@ -830,14 +846,14 @@ const GetAllProducts = () => {
               alignItems: 'center',
               width: 100,
               height: 50,
-              paddingHorizontal:16,
-              paddingTop:13,
-              borderRadius:10,
+              paddingHorizontal: 16,
+              paddingTop: 13,
+              borderRadius: 10,
               backgroundColor: 'lightgray',
               fontWeight: 700,
-              color:"black",
-              paddingHorizontal:18,
-              paddingTop:14
+              color: "black",
+              paddingHorizontal: 18,
+              paddingTop: 14
             }}
           >
             Checkout
@@ -845,7 +861,7 @@ const GetAllProducts = () => {
         </View>
       </TouchableOpacity>
 
-      {Pdata.map((veg) => {
+      {data.map((veg) => {
         return (
           <TouchableOpacity
             onPress={() => {
@@ -862,7 +878,7 @@ const GetAllProducts = () => {
                 borderWidth: 1,
                 borderColor: 'lightgray',
                 margin: 2,
-                color:"black"
+                color: "black"
               }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -877,7 +893,7 @@ const GetAllProducts = () => {
                     numberOfLines={2}
                     ellipsizeMode='tail'
                     style={{
-                      fontSize: 16, fontWeight: 'bold', width: 120,color:"black"
+                      fontSize: 16, fontWeight: 'bold', width: 120, color: "black"
                     }}
                   >
                     {veg.name}!
@@ -886,15 +902,15 @@ const GetAllProducts = () => {
                     {/* Quantity: {veg.quantity || 1}, Total: $ */}
                     {/* {calculateItemPrice(veg) } */}
                   </Text>
-                  <Text style={{ fontSize: 12,color:"black" }}>Price: ₹{veg.price}</Text>
+                  <Text style={{ fontSize: 12, color: "black" }}>Price: ₹{veg.price}</Text>
                 </View>
               </View>
-              <View style={{ alignItems: 'center', gap: 10 ,}}>
+              <View style={{ alignItems: 'center', gap: 10, }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <View>
-                    <Text style={{color:"black"}}>Qty: {veg.unit}</Text>
+                    <Text style={{ color: "black" }}>Qty: {veg.unit}</Text>
 
-                    <Text style={{color:"black"}}>
+                    <Text style={{ color: "black" }}>
                       Qty:{" "}
                       {/* {reduxData.Data[0] && reduxData.Data[0].quantity} */}
                       {reduxData.cart[
@@ -904,7 +920,7 @@ const GetAllProducts = () => {
                           reduxData.cart.findIndex((item) => item.id == veg.id)
                         ].quantity}
                     </Text>
-                    <Text style={{color:"black"}}>
+                    <Text style={{ color: "black" }}>
                       Price:
                       {reduxData.cart[
                         reduxData.cart.findIndex((item) => item.id == veg.id)
@@ -971,6 +987,7 @@ const GetAllProducts = () => {
         );
       })}
     </ScrollView>
+   
   );
 };
 
