@@ -716,6 +716,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Button,
+  ActivityIndicator
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 // import { fetchProducts } from "../fetchProducts";
@@ -737,10 +738,24 @@ const GetAllProducts = () => {
   const route = useRoute();
   console.log(route.params.category);
   console.log(route.params.catProducts);
+
   const Pdata = route.params.catProducts;
 
-  console.log(Pdata);
+  // console.log(Pdata);
+  // const Pdata = useSelector(state => state.getAllProducts);
+ 
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (Pdata.length > 0) {
+      setLoading(false);
+    }
+  }, [Pdata]);
+
+  const category = route.params.category
+
+  console.log(category)
   const [cartItems, setCartItems] = useState([]);
 
   const navigation = useNavigation();
@@ -794,6 +809,24 @@ const GetAllProducts = () => {
     }
   }, [reduxData.cart]);
 
+
+  if (loading) {
+    return (
+      <View style={{    
+        flex: 1,
+        backgroundColor: "#fff",
+        flexWrap: "wrap",
+        // gap:2,
+        padding: 10,
+        flexDirection: "row",
+        justifyContent: "center",
+        // alignItems: 'center',
+        color:"black",
+        overflow: "scroll",}} >
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
   return (
     <ScrollView>
       <TouchableOpacity
@@ -1001,6 +1034,7 @@ const GetAllProducts = () => {
           </TouchableOpacity>
         );
       })}
+      
     </ScrollView>
   );
 };
