@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
   Pressable,
+  ToastAndroid,
 } from 'react-native';
 // import { Entypo } from "@expo/vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -265,11 +266,19 @@ const ProductPage = () => {
                 quantity: parseInt(quantity),
               }),
             );
+            setQuantity('1')
             console.log(data.payload);
-            console.log('oooooooooooooooooooooooooooooooooooooooooooo', {
-              ...product,
-              price: 999,
-            });
+            if (Platform.OS === 'android') {
+              ToastAndroid.show('Added to Cart', ToastAndroid.SHORT);
+              // quantity = ''
+            } else {
+              Alert.alert('Success', 'Added to Cart');
+              // quantity = ''
+            }
+            // console.log('oooooooooooooooooooooooooooooooooooooooooooo', {
+            //   ...product,
+            //   price: 999,
+            // });
             // console.log(data.payload)
           }}>
           <FontAwesome name="plus" size={20} color="white" />
