@@ -1,3 +1,5 @@
+
+
 import {Amplify} from 'aws-amplify';
 import {generateClient} from 'aws-amplify/api';
 // import { useDispatch} from "react-redux"
@@ -37,7 +39,7 @@ export const fetchCategories = async () => {
     });
 
     console.log(result);
-    return result;
+    return result.data.listProducts.items;
     // setData(result.data.listProducts.items)
   } catch (error) {
     console.log(error);

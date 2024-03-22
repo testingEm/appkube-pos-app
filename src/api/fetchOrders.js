@@ -1,10 +1,12 @@
+
+
 import { Amplify } from "aws-amplify";
 import { generateClient } from 'aws-amplify/api';
 
 const client = generateClient();
 
  export  const fetchingOrders = async ()=>{
-  console.log('in fetching');
+  console.log('in fetching orders');
       try{
         await Amplify.configure({
           API: {
@@ -16,7 +18,7 @@ const client = generateClient();
             }
           }
         });
-        var result = await client.graphql({
+        const result = await client.graphql({
           query: `
             query ListOrders(
                 $filter: ModelOrderFilterInput
@@ -42,11 +44,11 @@ const client = generateClient();
           `,
         });
         console.log('orders result ',result);
+        return result.data.listOrders.items;
       }
       catch (error) {
         console.error('Error fetching orders:', error);
       } 
       
-      return result
     
     }

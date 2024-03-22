@@ -1,3 +1,5 @@
+
+
 import React, {useState, useEffect} from 'react';
 import {TouchableOpacity, Text, View, Pressable} from 'react-native';
 import styles from './styles';
@@ -29,8 +31,9 @@ const Home = () => {
   const getProduct = async () => {
     try {
       const AllProducts = await fetchCategories();
-      const Products = AllProducts.data.listProducts.items;
-      dispatch(AddAllProducts(Products));
+      console.log('products',AllProducts)
+      // const Products = AllProducts;
+      dispatch(AddAllProducts(AllProducts));
     } catch (error) {
       console.error(error);
     }
@@ -39,12 +42,12 @@ const Home = () => {
   const fetchOrders = async () => {
     try {
       console.log('calling fetching');
-      const response = await fetchingOrders();
+      const data = await fetchingOrders();
       console.log('after fetching');
-      const data = response.data.listOrders.items;
+      // const data = response;
       console.log('orders data', data);
       data.map(value => {
-        console.log('order vakue', value);
+        console.log('order value', value);
         dispatch(addOrders(value));
       });
     } catch (error) {

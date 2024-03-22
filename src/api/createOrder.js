@@ -27,8 +27,14 @@ export const creatingOrder = async (order) => {
           totalPrice: $totalPrice,
           customerOrdersId: $customerOrdersId
         }) {
-          id
           totalPrice
+          updatedAt
+          id
+          createdAt
+          _version
+          _deleted
+          _lastChangedAt
+          __typename
         }
       }
       
