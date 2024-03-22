@@ -92,6 +92,7 @@ const Customers = () => {
         items: items,
       }) )
     }
+
   };
 
   //   const fetchCustomers = async () => {

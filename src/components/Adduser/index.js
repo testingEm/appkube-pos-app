@@ -27,6 +27,7 @@ const Adduser = () => {
     const CustomerCreated = await createCustomer(inputUser);
     console.log('sending custometr to redux', CustomerCreated);
     dispatch(addCustomer(CustomerCreated));
+
     // Navigation.navigate('Customers');
     navigation.navigate('Customers',{total: total, items: items});
     // setReloadScreen(true);
