@@ -22,6 +22,7 @@ export const creatingCustomer = async (details) => {
                 createCustomer(input: {name: $name, phone: $phone}) {
                   name
                   phone
+                  id
                   
                 }
               }
@@ -33,7 +34,7 @@ export const creatingCustomer = async (details) => {
     });
 
     console.log('success', result);
-    return result.data.createOrder;
+    return result.data.createCustomer;
   } catch (error) {
     console.error('Error :', error);
   }
