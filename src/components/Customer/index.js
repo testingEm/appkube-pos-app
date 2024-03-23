@@ -28,6 +28,7 @@ const Customers = () => {
   // const [customers] = useState([
   //   {id: 1, name: 'John Doe', email: 'john@gmail.com'},
   // ]);
+  
   const navigation = useNavigation();
   const route = useRoute();
   // const currentRouteName = navigation.route.name;
@@ -71,6 +72,7 @@ const Customers = () => {
   // };
   const total = route.params?.total;
   const items = route.params?.items;
+  console.log('router values',total,items)
   const navigateToAddUser = () => {
     console.log('Navigate to AddUser');
     // navigation.navigate('Adduser');
