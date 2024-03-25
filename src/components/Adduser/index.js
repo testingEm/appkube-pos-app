@@ -17,7 +17,7 @@ const Adduser = () => {
   };
   const total = route.params.total
   const items = route.params.items
-  const handleSubmit = () => {
+  const handleSubmit =  () => {
     console.log('details',inputUser);
     dispatch(createCustomer(inputUser));
     console.log('sending user', inputUser);

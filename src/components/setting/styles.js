@@ -22,19 +22,20 @@ export default StyleSheet.create({
 
   textColor:{
     color:"black"
+    
   },
 
   box: {
-    width: '100%',
+    width:380,
     // height: "100px",
     // textAlign: "center",
     borderRadius: 10,
-    marginLeft: 4,
-    marginBottom: 4,
-    margintop: 0,
+    marginLeft: 0.5,
+    // marginRight: 3,
+    // margintop: 0,
 
-    padding: 10,
-    gap: 10,
+    // padding: 10,
+    // gap: 10,
 
     alignItems: 'center',
     justifyContent: 'start',
@@ -67,7 +68,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 10,
+    
+    margin:15,
+    
+  
   },
   gap: {
     flexDirection: 'row',
