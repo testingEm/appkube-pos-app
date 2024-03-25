@@ -133,8 +133,8 @@ const Customers = () => {
       style={styles.customerContainer}
       onPress={() => handleItemPress(item)}>
       <View style={styles.customerInfo}>
-        <Text style={styles.customerName}>{item.name}</Text>
-        <Text style={styles.customerEmail}>{item.email}</Text>
+        <Text style={styles.customerName}>{item?.name}</Text>
+        <Text style={styles.customerEmail}>{item?.email}</Text>
       </View>
       <Text>
         <Icon name="arrow-forward" />

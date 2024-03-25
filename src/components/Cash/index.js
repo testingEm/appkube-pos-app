@@ -16,28 +16,47 @@ import { creatingOrder } from '../../api/createOrder';
 
 const Cash = () => {
   const routdata = useRoute();
-  console.log("route value",routdata.params.total);
-  console.log("route user",routdata.params.user);
   const navigation = useNavigation();
-
+  
   const handleGoToCash = () => {
     navigation.goBack();
   };
   const dispatch = useDispatch();
-
-  const total =  routdata.params.total
-  const user =  routdata.params.user
-  const items = routdata.params.items
-
+  
+  const createTotal =  (routdata.params?.total) ;
+  const updateTotal =  (routdata.params?.totalPrice) ;
+  const total = createTotal ? createTotal : updateTotal;
+  const user =  routdata.params?.user
+  const items = routdata.params?.items
+  const orderId = routdata.params?.orderId
+  const customerId = routdata.params?.customerId
+  // console.log("route value",total);
+  console.log("route user",user);
+ console.log('order id from order',orderId)
   
   const handleOrder = async (payment) => {
-    const orderData = {paymentMethod: payment , totolPrice:total , user:user,items:items}
-    console.log("sending data of order",orderData)
+    const orderData = {paymentMethod: payment , totolPrice:createTotal , user:user,items:items}
+    console.log("sending data of order to create",orderData)
+    const updateOrderData = {paymentMethod: payment ,id:orderId,status:'FULFILLED',totolPrice:updateTotal,customer:customerData}
+    console.log("sending data of order to update",updateOrderData)
+  
+  
+    if(orderId !== '' && updateTotal){
+    const OrderUpdated = await updateOrder(updateOrderData);
+    console.log('dispatching created order',OrderUpdated)
+    // dispatch(addOrders(OrderUpdated))
+    // dispatch(emptyCart())
+    navigation.navigate('Share',{data:OrderUpdated});
+   }
+
+
+   else{
     const OrderCreated = await createOrder(orderData);
     console.log('dispatching created order',OrderCreated)
     dispatch(addOrders(OrderCreated))
     // dispatch(emptyCart())
     navigation.navigate('Share',{data:orderData});
+   }
   };
  const createOrder = async (order)=>{
   console.log('This is items ', order);
@@ -52,8 +71,37 @@ const Cash = () => {
     console.log('error creating order', error);
   }
  }
+ const updateOrder = async (order)=>{
+  console.log('This is items ', order);
+  try {
+
+    console.log('updating order async', order);
+
+    const response = await creatingOrder(order);
+    console.log('updated order response ', response);
+
+    return response;
+  } catch (error) {
+    console.log('error updating order', error);
+  }
+ }
+
+ const getCustomer = async (customerId)=>{
+  console.log('This is items ', customerId);
+  try {
+    console.log('getting user async', customerId);
+
+    const response = await gettingCustomer(customerId);
+    console.log('getting user response ', response);
+
+    return response;
+  } catch (error) {
+    console.log('error geting user', error);
+  }
+ }
   const [Isloading, setIsloadig] = useState(true);
   useEffect(() => {
+    getCustomer(customerId)
     const timer = setTimeout(() => {
       setIsloadig(false);
     }, 2000);

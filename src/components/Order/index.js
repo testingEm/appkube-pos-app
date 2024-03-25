@@ -24,6 +24,11 @@ const Order = () => {
      navigation.navigate('Customers');
     //  setReloadScreen(true);
    };
+   const HandleUpdate = ()=>{
+    console.log('handling update order',order)
+    navigation.navigate('Cash',{totalPrice:order.totalPrice,orderId:order.id,CustomerID:order.customerOrdersId})
+
+   }
 
   return (
     <View style={[styles.container]}>
@@ -39,10 +44,10 @@ const Order = () => {
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
       <View style={[styles.iconIndicators]}>
-        <View style={[styles.statusbar]}>
+        <Pressable style={[styles.statusbar]} onPress={HandleUpdate}>
           <FontAwesome name="circle" size={18} color="#31572c" />
           <Text style={{marginLeft: 5, color: 'black'}}>Paid</Text>
-        </View>
+        </Pressable>
         <Pressable style={[styles.statusbar]} onPress={goToCustomers}>
           {/* <FontAwesome name="circle" size={18} color="#31572c" /> */}
           <Icon name="share" size={18} color="#31572c" />

@@ -17,6 +17,7 @@ import RNFS from 'react-native-fs';
 // import { UseSelector } from 'react-redux';
 import {useSelector, useDispatch} from 'react-redux';
 import {emptyCart} from '../../redux/slice/customerSlice';
+// import { gettingCustomer } from '../../api/getCustomer';
 const Share = () => {
   const checkout = useSelector(state => state.CustomerSlice.cart);
   // console.log("share ",checkout)
@@ -27,6 +28,7 @@ const Share = () => {
   // const [reloadScreen, setReloadScreen] = useState(false); // State to trigger screen reload
   const route = useRoute();
   const data = route.params.data;
+  const id = route.params.id
   console.log('details: ' + data);
   // const user =  data.user;
   // const handleOkClick = () => {
@@ -34,8 +36,10 @@ const Share = () => {
   // };
 
   // const goToOrders = () => {
-  //   navigation.navigate("Orders");
+  //   navigation.navigate("Ordeid
   // };
+  
+
 
   const goToHome = () => {
     navigation.dispatch(
@@ -113,6 +117,7 @@ const Share = () => {
 
   const generatePdf = async () => {
     try {
+      const customer = await getCustomer()
       const options = {
         html: htmlContent,
         fileName: 'total-amount',
