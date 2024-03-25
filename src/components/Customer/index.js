@@ -1,5 +1,3 @@
-
-
 import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
@@ -28,14 +26,14 @@ const Customers = () => {
   // const [customers] = useState([
   //   {id: 1, name: 'John Doe', email: 'john@gmail.com'},
   // ]);
-  
+
   const navigation = useNavigation();
   const route = useRoute();
   // const currentRouteName = navigation.route.name;
   // console.log('routing name',currentRouteName)
   // const currentRoute = route.name;
-    // const parentRoute = currentRoute.routes[currentRoute.index];
-    // console.log('parent route',parentRoute,'cureen',currentRoute)
+  // const parentRoute = currentRoute.routes[currentRoute.index];
+  // console.log('parent route',parentRoute,'cureen',currentRoute)
   console.log('customers', data);
   // const dispatch = useDispatch()
   // const  = route.params.value
@@ -72,11 +70,11 @@ const Customers = () => {
   // };
   const total = route.params?.total;
   const items = route.params?.items;
-  console.log('router values',total,items)
+  console.log('router values', total, items);
   const navigateToAddUser = () => {
     console.log('Navigate to AddUser');
     // navigation.navigate('Adduser');
-    navigation.navigate('Adduser',{total: total, items: items});
+    navigation.navigate('Adduser', {total: total, items: items});
   };
 
   // const handleItemPress = item => {
@@ -89,14 +87,16 @@ const Customers = () => {
   // };
   const handleItemPress = customer => {
     console.log('Selected customer:', customer);
-    { (navigation.getState().routes[0].name == 'Settings') ?  (console.log('customer details',customer) ):
-     ( navigation.navigate('Cash', {
-        total: total,
-        user: customer,
-        items: items,
-      }) )
+    console.log('route ::', navigation.getState().routes[0].name);
+    {
+      navigation.getState().routes[0].name == 'ProductsPage'
+        ? navigation.navigate('Cash', {
+            total: total,
+            user: customer,
+            items: items,
+          })
+        : console.log('customer details', customer);
     }
-
   };
 
   //   const fetchCustomers = async () => {
@@ -134,7 +134,7 @@ const Customers = () => {
       onPress={() => handleItemPress(item)}>
       <View style={styles.customerInfo}>
         <Text style={styles.customerName}>{item.name}</Text>
-        <Text style={styles.customerEmail}>{item.email}</Text>
+        <Text style={styles.customerEmail}>+91 {item.phone}</Text>
       </View>
       <Text>
         <Icon name="arrow-forward" />
@@ -161,7 +161,7 @@ const Customers = () => {
       <FlatList
         data={filteredCustomers}
         renderItem={renderItem}
-        keyExtractor={item => item?.id.toString()}
+        keyExtractor={item => item?.id.toString()+'-'+Math.random()}
       />
       <Pressable
         style={{
