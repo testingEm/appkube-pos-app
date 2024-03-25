@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{ useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //redux
 import {store} from './src/redux/store/store';
@@ -28,23 +28,29 @@ import PrintToA4 from './src/components/Print/index.js';
 // import productPrinter from './src/components/productPrinter';
 import Order from './src/components/Order/index.js';
 import UpdateProducts from './src/components/updateProducts/index.js';
+import Signin from "./src/components/Signin/index.js";
+import Otp from "./src/components/Otp/index.js";
+import Signup from "./src/components/Signup/index.js";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const HomeScreen = () => (
-  <Stack.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}>
-    <Stack.Screen name="HomePage" component={Home} />
-    <Stack.Screen name="Adduser" component={Adduser} />
-    <Stack.Screen name="Cash" component={Cash} />
-    <Stack.Screen name="Share" component={Share} />
-    <Stack.Screen name="Checkout" component={Checkout} />
-    <Stack.Screen name="Customers" component={Customers} />
-  </Stack.Navigator>
-);
+// const HomeScreen = () => (
+//   <Stack.Navigator
+//     screenOptions={{
+//       headerShown: false,
+//     }}>
+//    { !isSignedIn && <Stack.Screen name="Signin" component={Signin} />}
+//    { !isSignedIn && <Stack.Screen name="Signup" component={Signup} />}
+//    { !isSignedIn && <Stack.Screen name="Otp" component={Otp} />}
+//     <Stack.Screen name="HomePage" component={Home} />
+//     <Stack.Screen name="Adduser" component={Adduser} />
+//     <Stack.Screen name="Cash" component={Cash} />
+//     <Stack.Screen name="Share" component={Share} />
+//     <Stack.Screen name="Checkout" component={Checkout} />
+//     <Stack.Screen name="Customers" component={Customers} />
+//   </Stack.Navigator>
+// );
 
 const SettingScreen = () => (
   <Stack.Navigator
@@ -110,34 +116,71 @@ const screenOptions = ({ route }) => ({
 
 
 const App = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const HomeScreen = () => (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+     { !isSignedIn && <Stack.Screen name="Signin" component={Signin} />}
+     { !isSignedIn && <Stack.Screen name="Signup" component={Signup} />}
+     { !isSignedIn && <Stack.Screen name="Otp" component={Otp} />}
+      <Stack.Screen name="HomePage" component={Home} />
+      <Stack.Screen name="Adduser" component={Adduser} />
+      <Stack.Screen name="Cash" component={Cash} />
+      <Stack.Screen name="Share" component={Share} />
+      <Stack.Screen name="Checkout" component={Checkout} />
+      <Stack.Screen name="Customers" component={Customers} />
+    </Stack.Navigator>
+  );
 
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Tab.Navigator screenOptions={screenOptions} >
-          <Tab.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{headerShown: false}}
+  <NavigationContainer>
+    {isSignedIn ? (
+      <Tab.Navigator screenOptions={screenOptions}>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Products"
+          component={ProductsScreen}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Orders"
+          component={OrdersScreen}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="Setting"
+          component={SettingScreen}
+          options={{ headerShown: false }}
+        />
+      </Tab.Navigator>
+    ) : (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <>
+          <Stack.Screen name="Signin">
+            {() => <Signin setIsSignedIn={setIsSignedIn} />}
+          </Stack.Screen>
+          <Stack.Screen 
+            name="Otp" 
+            component={Otp} 
+            initialParams={{ setIsSignedIn: setIsSignedIn }} 
           />
-          <Tab.Screen
-            name="Products"
-            component={ProductsScreen}
-            options={{headerShown: false}}
-          />
-          <Tab.Screen
-            name="Orders"
-            component={OrdersScreen}
-            options={{headerShown: false}}
-          />
-          <Tab.Screen
-            name="Setting"
-            component={SettingScreen}
-            options={{headerShown: false}}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </Provider>
+          <Stack.Screen name="Signup" component={Signup} />
+        </>
+      </Stack.Navigator>
+    )}
+  </NavigationContainer>
+</Provider>
+
   );
 };
 
