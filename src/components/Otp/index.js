@@ -1,19 +1,30 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { View, Text, TextInput, TouchableOpacity, Pressable,Alert } from "react-native";
+import { useNavigation , useRoute  } from "@react-navigation/native";
 
 
-const Otp = ({ route }) => {
-    const { setIsSignedIn } = route.params;
-  const navigation = useNavigation();
+const Otp = () => {
+    const route = useRoute();
+    const navigation = useNavigation();
+    const setIsSignedIn = route.params?.setIsSignedIn;
+     
+    // const { setIsSignedIn } = route.params;
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
 
+  
   const handleGoToHome = () => {
-    // navigation.navigate('HomePage');
-    setIsSignedIn(true);
+    const isOtpFilled = otp.every((value) => value.trim().length > 0); // Check if all OTP fields are filled
+    if (!isOtpFilled) {
+        Alert.alert("Incomplete OTP", "Please fill all OTP fields.");
+        return;
+    }
 
-  };
+    if (setIsSignedIn) {
+        setIsSignedIn(true); // Call the setIsSignedIn function to set the signed-in state
+    }
+    navigation.navigate('HomePage');
+};
  
 
   useEffect(() => {

@@ -211,7 +211,7 @@ const Share = () => {
           style={[
             styles.bgLight,
             styles.shadow,
-            {padding: 10, position: 'absolute', width: 350, height: 350},
+            {padding: 10, position: 'absolute', width: 300, height: 300},
           ]}>
           <Text style={[styles.semiBoldText, styles.dark, styles.shadow]}>
             Successfullu Shared
