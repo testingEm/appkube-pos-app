@@ -98,6 +98,7 @@ const Checkout = () => {
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
+      console.log('going to customers', {total: subtotal, items: orderArray})
       navigation.navigate('Customers', {total: subtotal, items: orderArray});
       // dispatch(createOrder({total: subtotal, items: orderArray}));
       // navigation.navigate('Customers');

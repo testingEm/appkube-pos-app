@@ -91,13 +91,13 @@ const Orders = () => {
                 <View style={[styles.status]}>
                   <View style={[styles.statusbar]}>
                     <FontAwesome name="circle" size={18} color="#31572c" />
-                    <Text style={{marginLeft: 5}}>Paid</Text>
+                    <Text style={{marginLeft: 5}}>{order.status}</Text>
                   </View>
 
-                  <View style={[styles.statusbar]}>
+                  {/* <View style={[styles.statusbar]}>
                     <FontAwesome name="circle" size={18} color="#31572c" />
                     <Text style={{marginLeft: 5}}>Fulfilled</Text>
-                  </View>
+                  </View> */}
                 </View>
               </Pressable>
             );
