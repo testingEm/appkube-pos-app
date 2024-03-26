@@ -1,6 +1,3 @@
-
-
-
 import {View, Text, Pressable} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,7 +5,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {addOrders} from '../../redux/slice/customerSlice';
-import { creatingOrder } from '../../api/createOrder';
+import {creatingOrder} from '../../api/createOrder';
+import { updatingOrder } from '../../api/updateOrder';
 
 // const valuePass=()=>{
 
@@ -17,91 +15,104 @@ import { creatingOrder } from '../../api/createOrder';
 const Cash = () => {
   const routdata = useRoute();
   const navigation = useNavigation();
-  
+
   const handleGoToCash = () => {
     navigation.goBack();
   };
   const dispatch = useDispatch();
-  
-  const createTotal =  (routdata.params?.total) ;
-  const updateTotal =  (routdata.params?.totalPrice) ;
+
+
+  // daTA of update order {totalPrice:order.totalPrice,orderId:order.id,customerId:order.customerOrdersId}
+  const createTotal = routdata.params?.total;
+  const updateTotal = routdata.params?.totalPrice;
   const total = createTotal ? createTotal : updateTotal;
-  const user =  routdata.params?.user
-  const items = routdata.params?.items
-  const orderId = routdata.params?.orderId
-  const customerId = routdata.params?.customerId
+  const user = routdata.params?.user;
+  const items = routdata.params?.items;
+  const orderId = routdata.params?.orderId;
+  const customerId = routdata.params?.customerId;
   // console.log("route value",total);
-  console.log("route user",user);
- console.log('order id from order',orderId)
-  
-  const handleOrder = async (payment) => {
-    const orderData = {paymentMethod: payment , totolPrice:createTotal , user:user,items:items}
-    console.log("sending data of order to create",orderData)
-    const updateOrderData = {paymentMethod: payment ,id:orderId,status:'FULFILLED',totolPrice:updateTotal,customer:customerData}
-    console.log("sending data of order to update",updateOrderData)
-  
-  
-    if(orderId !== '' && updateTotal){
-    const OrderUpdated = await updateOrder(updateOrderData);
-    console.log('dispatching created order',OrderUpdated)
-    // dispatch(addOrders(OrderUpdated))
-    // dispatch(emptyCart())
-    navigation.navigate('Share',{data:OrderUpdated});
-   }
-
-
-   else{
-    const OrderCreated = await createOrder(orderData);
-    console.log('dispatching created order',OrderCreated)
-    dispatch(addOrders(OrderCreated))
-    // dispatch(emptyCart())
-    navigation.navigate('Share',{data:orderData});
-   }
+  console.log('route data', total,user,items);
+  console.log('route data to update', customerId,orderId);
+  // console.log('order id from order', orderId);
+  // total: total,
+  // user: customer,
+  // items: items,
+  const handleOrder = async payment => {
+    if (orderId  && customerId ) {
+      const updateOrderData = {
+        paymentMethod: payment,
+        id: orderId,
+        status: 'FULFILLED',
+        totolPrice: updateTotal,
+        customerId: customerId,
+      };
+      console.log('sending data of order to update', updateOrderData);
+      const OrderUpdated = await updateOrder(updateOrderData);
+      console.log('dispatching created order', OrderUpdated);
+      // dispatch(addOrders(OrderUpdated))
+      // dispatch(emptyCart())
+      console.log('going to share with updateorder',{data: OrderUpdated})
+      navigation.navigate('Share', {data: OrderUpdated});
+    } else {
+      console.log('in else block to create order');
+      const orderData = {
+        paymentMethod: payment,
+        totolPrice: createTotal,
+        user: user,
+        items: items,
+      };
+      console.log('sending data of order to create', orderData);
+      const OrderCreated = await createOrder(orderData);
+      console.log('dispatching created order', OrderCreated);
+      dispatch(addOrders(OrderCreated));
+      // dispatch(emptyCart())
+      console.log('going to share with created order',{data: orderData})
+      navigation.navigate('Share', {data: orderData});
+    }
   };
- const createOrder = async (order)=>{
-  console.log('This is items ', order);
-  try {
-    console.log('creating order async', order);
+  const createOrder = async order => {
+    console.log('This is items ', order);
+    try {
+      console.log('creating order async', order);
 
-    const response = await creatingOrder(order);
-    console.log('created order response ', response);
+      const response = await creatingOrder(order);
+      console.log('created order response ', response);
 
-    return response;
-  } catch (error) {
-    console.log('error creating order', error);
-  }
- }
- const updateOrder = async (order)=>{
-  console.log('This is items ', order);
-  try {
+      return response;
+    } catch (error) {
+      console.log('error creating order', error);
+    }
+  };
+  const updateOrder = async order => {
+    console.log('This is items ', order);
+    try {
+      console.log('updating order async', order);
 
-    console.log('updating order async', order);
+      const response = await updatingOrder(order);
+      console.log('updated order response ', response);
 
-    const response = await creatingOrder(order);
-    console.log('updated order response ', response);
+      return response;
+    } catch (error) {
+      console.log('error updating order', error);
+    }
+  };
 
-    return response;
-  } catch (error) {
-    console.log('error updating order', error);
-  }
- }
+  const getCustomer = async customerId => {
+    console.log('This is items ', customerId);
+    try {
+      console.log('getting user async', customerId);
 
- const getCustomer = async (customerId)=>{
-  console.log('This is items ', customerId);
-  try {
-    console.log('getting user async', customerId);
+      const response = await gettingCustomer(customerId);
+      console.log('getting user response ', response);
 
-    const response = await gettingCustomer(customerId);
-    console.log('getting user response ', response);
-
-    return response;
-  } catch (error) {
-    console.log('error geting user', error);
-  }
- }
+      return response;
+    } catch (error) {
+      console.log('error geting user', error);
+    }
+  };
   const [Isloading, setIsloadig] = useState(true);
   useEffect(() => {
-    getCustomer(customerId)
+    getCustomer(customerId);
     const timer = setTimeout(() => {
       setIsloadig(false);
     }, 2000);
@@ -128,7 +139,9 @@ const Cash = () => {
             onPress={handleGoToCash}
           />
         </Text>
-        <Text style={{fontSize: 16, fontWeight: 600,color:"black"}}>Mark unpaid</Text>
+        <Text style={{fontSize: 16, fontWeight: 600, color: 'black'}}>
+          Mark unpaid
+        </Text>
       </View>
       <View
         style={{
@@ -143,7 +156,7 @@ const Cash = () => {
           style={{
             paddingHorizontal: 20,
             fontSize: 16,
-            color:"black"
+            color: 'black',
           }}>
           Loading ........
         </Text>
@@ -152,11 +165,11 @@ const Cash = () => {
           style={{
             paddingHorizontal: 20,
           }}>
-          <Text style={{fontWeight: 600, fontSize: 17,color:"black"}}>
+          <Text style={{fontWeight: 600, fontSize: 17, color: 'black'}}>
             {' '}
             ₹ {total}.00
           </Text>
-          <Text style={{fontSize: 14, fontWeight: 500,color:"black"}}>
+          <Text style={{fontSize: 14, fontWeight: 500, color: 'black'}}>
             Select Payment Option
           </Text>
         </View>
@@ -175,7 +188,7 @@ const Cash = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
-          onPress={() => handleOrder("CASH")}>
+          onPress={() => handleOrder('CASH')}>
           <View
             style={{
               flexDirection: 'row',
@@ -184,8 +197,12 @@ const Cash = () => {
             <MaterialCommunityIcons name="cash" size={24} color="black" />
 
             <Text
-              style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}
-              >
+              style={{
+                padding: 8,
+                fontSize: 14,
+                fontWeight: 500,
+                color: 'black',
+              }}>
               Cash
             </Text>
           </View>
@@ -205,14 +222,22 @@ const Cash = () => {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
-          onPress={() => handleOrder("UPI")}>
+          onPress={() => handleOrder('UPI')}>
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
             <MaterialCommunityIcons name="cash" size={24} color="black" />
-            <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>Upi</Text>
+            <Text
+              style={{
+                padding: 8,
+                fontSize: 14,
+                fontWeight: 500,
+                color: 'black',
+              }}>
+              Upi
+            </Text>
           </View>
           <AntDesign name="right" size={20} color="black" />
         </Pressable>
@@ -229,17 +254,23 @@ const Cash = () => {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            backgroundColor:'gray',
-          }} 
+            backgroundColor: 'gray',
+          }}
           // onPress={handleOrder}
-          >
+        >
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
             }}>
             <MaterialCommunityIcons name="cash" size={24} color="black" />
-            <Text style={{padding: 8, fontSize: 14, fontWeight: 500,color:"black"}}>
+            <Text
+              style={{
+                padding: 8,
+                fontSize: 14,
+                fontWeight: 500,
+                color: 'black',
+              }}>
               Split Payment
             </Text>
           </View>

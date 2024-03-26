@@ -17,7 +17,7 @@ import RNFS from 'react-native-fs';
 // import { UseSelector } from 'react-redux';
 import {useSelector, useDispatch} from 'react-redux';
 import {emptyCart} from '../../redux/slice/customerSlice';
-// import { gettingCustomer } from '../../api/getCustomer';
+import { gettingCustomer } from '../../api/getCustomer';
 const Share = () => {
   const checkout = useSelector(state => state.CustomerSlice.cart);
   // console.log("share ",checkout)
@@ -26,18 +26,24 @@ const Share = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   // const [reloadScreen, setReloadScreen] = useState(false); // State to trigger screen reload
+  //  update order data { paymentMethod: payment,id: orderId,status: 'FULFILLED',totolPrice: updateTotal,customerId: customerId,}
   const route = useRoute();
-  const data = route.params.data;
-  const id = route.params.id
-  console.log('details: ' + data);
+  const data = route.params?.data;
+  const createId = route.params?.data?.user?.id
+  const updateId = route.params?.data.id
+  console.log(`createId:${createId} or updateId:${updateId}`)
+  const id = createId ? createId : updateId;
+  console.log('id ',id)
+  // const id = route.params?.data.user.id
+  const [customer, setCustomer] = useState({})
+  console.log('details: ' + data.totolPrice);
+  console.log('user id',id)
   // const user =  data.user;
   // const handleOkClick = () => {
   //   setshowShare(true);
   // };
 
-  // const goToOrders = () => {
-  //   navigation.navigate("Ordeid
-  // };
+  
   
 
 
@@ -68,8 +74,8 @@ const Share = () => {
     <h1 style="color: blue; font-size: 30px; font-family: Arial; text-align: center; font-weight: 600;">Synectiks Farm</h1>
     <div style="display: flex; justify-content: space-between; padding:30px">
     <div>
-        <p>Customer Name:${data.user.name}</p>
-        <p>Phone-Number: ${data.user.phone}</p>
+        <p>Customer Name:${customer.name}</p>
+        <p>Phone-Number: ${customer.phone}</p>
     </div>
     <div>
         <p>${currentDate}</p>
@@ -103,7 +109,7 @@ const Share = () => {
       })}
           <tr>
    <td colspan="6" style="text-align: right;  font-size: 20px">Subtotal: ${
-     data.totolPrice
+     data?.totolPrice
    }</td>
    
  </tr>
@@ -117,8 +123,9 @@ const Share = () => {
 
   const generatePdf = async () => {
     try {
-      const customer = await getCustomer()
-      const options = {
+      const customer = await getCustomer(id)
+       setCustomer(customer)
+      const options =  {
         html: htmlContent,
         fileName: 'total-amount',
         directory: RNFS.DownloadDirectory, // Save in the downloads directory
@@ -186,6 +193,16 @@ const Share = () => {
     }
   };
 
+  const getCustomer = async (id) => {
+    try {
+      console.log('getting customer details');
+      const response = await gettingCustomer(id);
+      console.log('after getting customer',response);
+      return response
+    } catch (error) {
+      console.log(' error getting customer', error);
+    }
+  };
   return (
     // <View style={[styles.wrapper]}>
     <View style={[styles.container, {position: 'relative'}]}>

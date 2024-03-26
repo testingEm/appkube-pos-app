@@ -16,25 +16,21 @@ const client = generateClient();
             }
           }
         });
-        var result = await client.graphql({
+        const result = await client.graphql({
           query: `
-          query GetCustomer($id:ID!){
-            getCustomer(input:{id: $id}) {
-              name
-              phone
-              id
-            
+              query GetCustomer($id: ID!) {
+                  getCustomer(id: $id) {
+                      name
+                      phone
+                      id
+                  }
               }
-            }
-          }
           `,
-          variables:{
-            id:id,
-          },
-        });
-        console.log('customer result',result)
+          variables: { id: id }
+      });
+        console.log('getting customer result',result)
         // console.log('customers result ',result.data.listCustomers.items);
-        return result.data
+        return result.data.getCustomer
       }
       catch (error) {
         console.error('Error fetching customer:', error);

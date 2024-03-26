@@ -3,6 +3,7 @@ import {generateClient, graphqlOperation} from 'aws-amplify/api';
 
 const client = generateClient();
 export const updatingOrder = async (order) => {
+  // data {paymentMethod: payment,        id: orderId,        status: 'FULFILLED',        totolPrice: updateTotal,        customerId: customerId, }
   console.log('updating order ', order);
   try {
     await Amplify.configure({
@@ -32,6 +33,7 @@ export const updatingOrder = async (order) => {
           _deleted
           _lastChangedAt
           __typename
+          customerOrdersId
         }
       }
       
@@ -46,7 +48,7 @@ export const updatingOrder = async (order) => {
     });
 
     console.log('success', result);
-    // return result.data.createOrder;
+    return result.data.updateOrder;
   } catch (error) {
     console.error('Error:', error);
     throw error;
