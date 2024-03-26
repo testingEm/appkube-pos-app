@@ -21,9 +21,15 @@ const Order = () => {
   console.log('order data', order);
 
    const goToCustomers = () => {
-     navigation.navigate('Customers');
+    console.log('going to customers to share order',order)
+     navigation.navigate('Customers',{data:order});
     //  setReloadScreen(true);
    };
+   const HandleUpdate = ()=>{
+    console.log('goint to cash to update order',{totalPrice:order.totalPrice,orderId:order.id,CustomerID:order.customerOrdersId})
+    navigation.navigate('Cash',{totalPrice:order.totalPrice,orderId:order.id,customerId:order.customerOrdersId})
+
+   }
 
   return (
     <View style={[styles.container]}>
@@ -39,10 +45,10 @@ const Order = () => {
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
       <View style={[styles.iconIndicators]}>
-        <View style={[styles.statusbar]}>
+        <Pressable style={[styles.statusbar]} onPress={HandleUpdate}>
           <FontAwesome name="circle" size={18} color="#31572c" />
-          <Text style={{marginLeft: 5, color: 'black'}}>Paid</Text>
-        </View>
+          <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
+        </Pressable>
         <Pressable style={[styles.statusbar]} onPress={goToCustomers}>
           {/* <FontAwesome name="circle" size={18} color="#31572c" /> */}
           <Icon name="share" size={18} color="#31572c" />
