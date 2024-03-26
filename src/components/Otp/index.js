@@ -12,7 +12,7 @@ const Otp = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
 
-  
+
   const handleGoToHome = () => {
     const isOtpFilled = otp.every((value) => value.trim().length > 0); // Check if all OTP fields are filled
     if (!isOtpFilled) {
@@ -66,6 +66,7 @@ const Otp = () => {
             {otp.map((value, index) => (
               <TextInput
                 key={index}
+                keyboardType="numeric"
                 style={{ borderWidth: 1, borderColor: "#000", borderRadius: 5, padding: 10, width: 40, textAlign: "center", marginHorizontal: 5 ,color:"black"}}
                 maxLength={1}
                 value={otp[index]}

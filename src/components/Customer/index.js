@@ -89,7 +89,7 @@ const Customers = () => {
   // };
   const handleItemPress = customer => {
     console.log('Selected customer:', customer);
-    { (navigation.getState().routes[0].name == 'Settings') ?  (console.log('customer details',customer) ):
+    { (navigation.getState().routes[0].name == 'Settings' || navigation.getState().routes[1].name == 'Adduser') ?  (console.log('customer details',customer) ):
      ( navigation.navigate('Cash', {
         total: total,
         user: customer,
