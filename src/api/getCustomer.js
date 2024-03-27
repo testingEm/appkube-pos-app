@@ -36,5 +36,4 @@ const client = generateClient();
         console.error('Error fetching customer:', error);
       } 
       
-    
     }

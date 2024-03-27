@@ -66,6 +66,12 @@ const ProductPage = () => {
 
   const priceOne =
     Math.ceil(quantity * typePrice[selectedType].price * 1000) / 1000;
+
+    const [selectedRole, setSelectedRole] = useState('---select Role----'); // Initial selected role
+
+    const handleRoleChange = (role) => {
+      setSelectedRole(role);
+    };
   return (
     <View
       style={{
@@ -75,7 +81,19 @@ const ProductPage = () => {
         padding: '15px',
         position: 'relative',
         height: '100%',
-      }}>
+      }}> 
+        <View>
+      <Picker
+        selectedValue={selectedRole}
+        onValueChange={(itemValue) => handleRoleChange(itemValue)}
+      >
+        <Picker.Item label="---Select any Role ----" value="
+        " style={{color:"black"}} />
+        <Picker.Item label="Admin" value="admin" style={{color:"black"}} />
+        <Picker.Item label="POS User" value="posUser" style={{color:"black"}} />
+      </Picker>
+    </View>
+        
       <View
         style={{
           flexDirection: 'row',
@@ -117,8 +135,9 @@ const ProductPage = () => {
         
         {/* </View> */}
       </View>
-      <Text onPress={() => navigation.navigate('UpdateProducts',{product: product})}>Edit</Text>
-
+      {  selectedRole === 'admin' && (
+      <Text onPress={() => navigation.navigate('UpdateProducts',{product: product})} style={{backgroundColor:"black",color:"white",width:45,textAlign:"center",position:"absolute",right:30,top:30,padding:5}}>Edit</Text>
+      )}
       <View style={{marginTop: 15, marginLeft: 3}}>
         <Text
           style={{

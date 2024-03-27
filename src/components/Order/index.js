@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Pressable,
+  Alert 
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome5';
@@ -25,11 +26,47 @@ const Order = () => {
      navigation.navigate('Customers',{data:order});
     //  setReloadScreen(true);
    };
-   const HandleUpdate = ()=>{
-    console.log('goint to cash to update order',{totalPrice:order.totalPrice,orderId:order.id,CustomerID:order.customerOrdersId})
-    navigation.navigate('Cash',{totalPrice:order.totalPrice,orderId:order.id,customerId:order.customerOrdersId})
 
-   }
+   const HandleUpdate = () => {
+    console.log('Going to Cash to update order', {
+      totalPrice: order.totalPrice,
+      orderId: order.id,
+      customerId: order.customerOrdersId,
+    });
+    navigation.navigate('Cash', {
+      totalPrice: order.totalPrice,
+      orderId: order.id,
+      customerId: order.customerOrdersId,
+    });
+  };
+
+   const handleUpdateStatus = () => {
+    Alert.alert(
+      'Update Order Status',
+      'Please select the new status for the order:',
+      [
+        {
+          text: 'Cancel Order',
+          onPress: () => console.log('Cancel Order pressed'),
+        },
+        {
+          text: 'Paid Order',
+          onPress: () => HandleUpdate(),
+        },
+        {
+          text: 'Fulfilled Order',
+          onPress: () => console.log('Fulfilled Order pressed'),
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  
 
   return (
     <View style={[styles.container]}>
@@ -45,7 +82,7 @@ const Order = () => {
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
       <View style={[styles.iconIndicators]}>
-        <Pressable style={[styles.statusbar]} onPress={HandleUpdate}>
+        <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus}>
           <FontAwesome name="circle" size={18} color="#31572c" />
           <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
         </Pressable>
