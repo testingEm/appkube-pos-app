@@ -30,12 +30,14 @@ export const creatingOrder = async (order) => {
           totalPrice
           updatedAt
           id
+          status
           createdAt
           _version
           _deleted
           _lastChangedAt
           __typename
           customerOrdersId
+          paymentMethod
         }
       }
       
