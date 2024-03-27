@@ -9,48 +9,55 @@ import {useDispatch} from 'react-redux';
 import {creatingCustomer} from '../../api/createCustomer';
 
 const Adduser = () => {
+  const [mobileNumber, setMobileNumber] = useState(""); // State to store the mobile number
+  const [mobileNumberEntered, setMobileNumberEntered] = useState(false); 
   const [inputUser, setInputUser] = useState({
     name: '',
     phone: '',
   });
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
   const handleChange = (name, value) => {
-    setInputUser({...inputUser, [name]: value});
+    if (name === 'phone') {
+      const isValidPhone = /^\d{0,10}$/.test(value); // Allow up to 10 digits
+      if (isValidPhone) {
+        setMobileNumber(value);
+        setInputUser({...inputUser, [name]: value});
+        setMobileNumberEntered(value.length === 10);
+      }
+    } else {
+      setInputUser({...inputUser, [name]: value});
+    }
   };
+  
   // const routeName = navigation.getState().routes[0].name ;
   // console.log('route name',routeName)
   const total = route.params?.total;
   const items = route.params?.items;
   console.log('router values',total,items)
+
   const handleSubmit = async () => {
-    // if(inputUser.name !=='' && inputUser.phone !== '' )
-    if (inputUser.name.trim().length > 0 && inputUser.phone.trim().length > 0) {
-      console.log('details', inputUser);
-      const CustomerCreated = await createCustomer(inputUser);
-      console.log('sending custometr to redux', CustomerCreated);
-      dispatch(addCustomer(CustomerCreated));
-      // Navigation.navigate('Customers');
-      navigation.navigate('Customers', {total: total, items: items});
-      // setReloadScreen(true);
-      setInputUser({name: '', phone: ''});
+  if (mobileNumberEntered && inputUser.name.trim().length > 0) {
+    console.log('details', inputUser);
+    const CustomerCreated = await createCustomer(inputUser);
+    console.log('sending customer to redux', CustomerCreated);
+    dispatch(addCustomer(CustomerCreated));
+    navigation.navigate('Customers', { total: total, items: items });
+    setInputUser({ name: '', phone: '' });
+    setMobileNumber(''); // Resetting mobile number
+    setMobileNumberEntered(false); // Resetting mobile number entered flag
+  } else {
+    const errorMessage = 'Please ensure all fields are correctly filled. Name is required and Phone Number must be exactly 10 digits.';
+    if (Platform.OS === 'android') {
+      ToastAndroid.showWithGravityAndOffset(errorMessage, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
     } else {
-      if (Platform.OS === 'android') {
-        // ToastAndroid.showWithGravity('can\'t proceed with empty values', ToastAndroid.SHORT,ToastAndroid.CENTER);
-        ToastAndroid.showWithGravityAndOffset(
-          "can't proceed with empty values",
-          ToastAndroid.LONG,
-          ToastAndroid.TOP,
-          25,
-          50,
-        );
-      } else {
-        Alert.alert("can't proceed with empty values");
-      }
-      // Alert.alert("can't proceed with empty values")
+      Alert.alert(errorMessage);
     }
-  };
+  }
+};
+
 
   const handleGoToAdduser = () => {
     navigation.goBack();

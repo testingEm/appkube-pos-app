@@ -2,7 +2,7 @@ import React ,{ useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //redux
 import {store} from './src/redux/store/store';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 
 //Navigation
 import {NavigationContainer} from '@react-navigation/native';
@@ -116,7 +116,10 @@ const screenOptions = ({ route }) => ({
 
 
 const App = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  // const [isSignedIn, setIsSignedIn] = useState(false);
+  const isSignedIn = useSelector(state => state.CustomerSlice.isSignedIn);
+
+  
   function changeSignIn(value){
     setIsSignedIn(value);
   }
@@ -138,7 +141,7 @@ const App = () => {
   );
 
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
   <NavigationContainer>
     {isSignedIn ? (
       <Tab.Navigator screenOptions={screenOptions}>
@@ -170,19 +173,19 @@ const App = () => {
         }}>
         <>
           <Stack.Screen name="Signin">
-            {() => <Signin setIsSignedIn={setIsSignedIn} />}
+            {() => <Signin  />}
           </Stack.Screen>
           <Stack.Screen 
             name="Otp" 
             component={Otp} 
-            initialParams={{ setIsSignedIn: changeSignIn }} 
+            // initialParams={{ setIsSignedIn: changeSignIn }} 
           />
           <Stack.Screen name="Signup" component={Signup} />
         </>
       </Stack.Navigator>
     )}
   </NavigationContainer>
-</Provider>
+// </Provider>
 
   );
 };

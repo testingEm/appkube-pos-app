@@ -70,9 +70,11 @@ const Customers = () => {
   // };
   const total = route.params?.total;
   const items = route.params?.items;
+  const OrderData = route.params?.data
   console.log('router values', total, items);
+  console.log('router order value', OrderData);
   const navigateToAddUser = () => {
-    console.log('Navigate to AddUser');
+    console.log('Navigate to AddUser', {total: total, items: items});
     // navigation.navigate('Adduser');
     navigation.navigate('Adduser', {total: total, items: items});
   };
@@ -87,16 +89,28 @@ const Customers = () => {
   // };
   const handleItemPress = customer => {
     console.log('Selected customer:', customer);
-    console.log('route ::', navigation.getState().routes[0].name);
+    if(navigation.getState().routes[0].name == 'Settings')
     {
-      navigation.getState().routes[0].name == 'ProductsPage'
-        ? navigation.navigate('Cash', {
-            total: total,
-            user: customer,
-            items: items,
-          })
-        : console.log('customer details', customer);
-    }
+        console.log('customer details', customer)
+     }
+     else if( navigation.getState().routes[1].name  == 'HomePage' &&  navigation.getState().routes[1].name == 'Adduser') {
+      console.log('added a new user ',customer)
+     }
+     else if(navigation.getState().routes[0].name == 'orders'){
+
+     }
+     else{
+      console.log('goint to cash to create product',{
+        total: total,
+        user: customer,
+        items: items,
+       })
+       navigation.navigate('Cash', {
+         total: total,
+         user: customer,
+         items: items,
+        })  
+      }
   };
 
   //   const fetchCustomers = async () => {

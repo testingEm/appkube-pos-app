@@ -70,7 +70,11 @@ const Checkout = () => {
   // console.log("displaying data in console log while user click on checkout",checkout)
   const subtotal = checkout
     .filter(item => item && typeof item.price === 'number')
-    .reduce((acc, curr) => acc + (curr.perPrice? curr.perPrice : curr.price) * curr.quantity, 0);
+    .reduce(
+      (acc, curr) =>
+        acc + (curr.perPrice ? curr.perPrice : curr.price) * curr.quantity,
+      0,
+    );
   const ItemAdd = checkout.length;
 
   const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
@@ -90,7 +94,7 @@ const Checkout = () => {
     };
   });
 
-  console.log("for mutation",orderArray);
+  console.log('for mutation', orderArray);
 
   const handleOrder = () => {
     // dispatch(createOrder({ total: subtotal, items: orderArray }));
@@ -98,6 +102,7 @@ const Checkout = () => {
 
   const handleGoToCash = () => {
     if (checkout.length > 0) {
+      console.log('going to customers', {total: subtotal, items: orderArray});
       navigation.navigate('Customers', {total: subtotal, items: orderArray});
       // dispatch(createOrder({total: subtotal, items: orderArray}));
       // navigation.navigate('Customers');
@@ -117,55 +122,54 @@ const Checkout = () => {
   //   hour: '2-digit',
   //   minute: '2-digit',
   // });
-//   const htmlContent = `
-//  <html>
-//   <body>
-//     <h1 style="color: blue; font-size: 30px; font-family: Arial; text-align: center; font-weight: 600;">Synectiks Farm</h1>
-//     <div style="display: flex; justify-content: space-between; padding:30px">
-//     <div>
-//         <p>Customer Name: Mohammed Nadeem</p>
-//         <p>Phone-Number: +91-8142340247</p>
-//     </div>
-//     <div>
-//         <p>${currentDate}</p>
-//         <p>${currentTime}</p>
-//     </div>
-// </div>
+  //   const htmlContent = `
+  //  <html>
+  //   <body>
+  //     <h1 style="color: blue; font-size: 30px; font-family: Arial; text-align: center; font-weight: 600;">Synectiks Farm</h1>
+  //     <div style="display: flex; justify-content: space-between; padding:30px">
+  //     <div>
+  //         <p>Customer Name: Mohammed Nadeem</p>
+  //         <p>Phone-Number: +91-8142340247</p>
+  //     </div>
+  //     <div>
+  //         <p>${currentDate}</p>
+  //         <p>${currentTime}</p>
+  //     </div>
+  // </div>
 
+  //     <table style="width:100%">
+  //       <tr>
+  //         <th>Name</th>
+  //         <th>Image</th>
+  //         <th>Name</th>
+  //         <th>Price</th>
+  //         <th>Quantity</th>
+  //         <th>Total</th>
+  //       </tr>
+  //       ${checkout.map((data, index) => {
+  //         return `
+  //         <tr style="text-align: center">
+  //           <td>${index + 1}</td>
+  //           <td><img src="${
+  //             data.image
+  //           }" alt="Product Image" style="width: 50px; height: 50px;"></td>
+  //           <td>${data.name}</td>
+  //           <td>${data.price}</td>
+  //           <td>${data.quantity}</td>
+  //           <td>${data.price * data.quantity}</td>
+  //           </tr>
+  //           `;
+  //       })}
+  //           <tr>
+  //    <td colspan="6" style="text-align: right;  font-size: 20px">Subtotal: ${subtotal}</td>
 
-//     <table style="width:100%">
-//       <tr>
-//         <th>Name</th>
-//         <th>Image</th>
-//         <th>Name</th>
-//         <th>Price</th>
-//         <th>Quantity</th>
-//         <th>Total</th>
-//       </tr>
-//       ${checkout.map((data, index) => {
-//         return `
-//         <tr style="text-align: center">
-//           <td>${index + 1}</td>
-//           <td><img src="${
-//             data.image
-//           }" alt="Product Image" style="width: 50px; height: 50px;"></td>
-//           <td>${data.name}</td>
-//           <td>${data.price}</td>
-//           <td>${data.quantity}</td>
-//           <td>${data.price * data.quantity}</td>
-//           </tr>
-//           `;
-//       })}
-//           <tr>
-//    <td colspan="6" style="text-align: right;  font-size: 20px">Subtotal: ${subtotal}</td>
-   
-//  </tr>
-//     </table>
+  //  </tr>
+  //     </table>
 
-//   </body>
-// </html>
+  //   </body>
+  // </html>
 
-//       `;
+  //       `;
   // <p>Tax: ${data.price}</p>
 
   // const generatePdf = async () => {
@@ -351,21 +355,23 @@ const Checkout = () => {
                   <Text style={{fontSize: 16, color: 'black'}}>{e.name}</Text>
                   <Text style={{fontSize: 16, color: 'black'}}>Tax-exempt</Text>
                   {e.perPrice && (
-                    <Text style={{fontSize: 12, color: 'black'}}> ( {e.quantity} gms )</Text>
+                    <Text style={{fontSize: 12, color: 'black'}}>
+                      {' '}
+                      ( {e.quantity} gms )
+                    </Text>
                   )}
                 </View>
               </View>
               <View style={{fontSize: 16}}>
                 <Text style={{fontSize: 10, color: 'black'}}>
-                  {`${
-                    e.perPrice
-                      ? ``
-                      : `₹ ${e.price} x ${e.quantity}`
-                  }`}
+                  {`${e.perPrice ? `` : `₹ ${e.price} x ${e.quantity}`}`}
                 </Text>
                 <Text style={{color: 'black'}}>
                   ₹{' '}
-                  {e.perPrice ? e.perPrice * e.quantity : e.price * e.quantity}
+                  {(e.perPrice
+                    ? e.perPrice * e.quantity
+                    : e.price * e.quantity
+                  ).toFixed(2)}
                 </Text>
               </View>
             </View>

@@ -35,6 +35,8 @@ const client = generateClient();
                     _deleted
                     _lastChangedAt
                     __typename
+                    customerOrdersId
+                    status
                   }
                   nextToken
                   startedAt

@@ -1,18 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity, Pressable,Alert } from "react-native";
 import { useNavigation , useRoute  } from "@react-navigation/native";
+import { toggleSignIn } from "../../redux/slice/customerSlice";
+import { UseDispatch, useDispatch } from "react-redux";
 
 
 const Otp = () => {
     const route = useRoute();
+    const dispatch = useDispatch();
     const navigation = useNavigation();
     const setIsSignedIn = route.params?.setIsSignedIn;
+
      
     // const { setIsSignedIn } = route.params;
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
 
-  
+
   const handleGoToHome = () => {
     const isOtpFilled = otp.every((value) => value.trim().length > 0); // Check if all OTP fields are filled
     if (!isOtpFilled) {
@@ -20,8 +24,8 @@ const Otp = () => {
         return;
     }
 
+    dispatch(toggleSignIn()) // Call the setIsSignedIn function to set the signed-in state
     if (setIsSignedIn) {
-        setIsSignedIn(true); // Call the setIsSignedIn function to set the signed-in state
     }
     // navigation.navigate('HomePage');
 };
@@ -66,6 +70,7 @@ const Otp = () => {
             {otp.map((value, index) => (
               <TextInput
                 key={index}
+                keyboardType="numeric"
                 style={{ borderWidth: 1, borderColor: "#000", borderRadius: 5, padding: 10, width: 40, textAlign: "center", marginHorizontal: 5 ,color:"black"}}
                 maxLength={1}
                 value={otp[index]}

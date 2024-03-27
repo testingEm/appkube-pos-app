@@ -19,9 +19,13 @@ const CustomerSlice = createSlice({
     customers: [],
     // users: [],
     loading: false,
+    isSignedIn: false,
     error: null,
   },
   reducers: {
+    toggleSignIn: (state, action) => {
+      state.isSignedIn = !state.isSignedIn;
+    },
     addOrders: (state, action) => {
       state.orders.push(action.payload);
       console.log('inn redux dispathing orders', action.payload);
@@ -65,64 +69,89 @@ const CustomerSlice = createSlice({
     //   // AsyncStorage.setItem('cart', JSON.stringify(state.cart));
     // },
 
-    addToCart: (state, action) => {
-      // Find existing item with the same ID
-      const existingItem = state.cart.find(
-        item => item.id === action.payload.id,
-      );
+     addToCart: (state, action) => {
+        // Find existing item with the same ID
+        const existingItem = state.cart.find(
+          item => item.id === action.payload.id && item.unit == action.payload.unit,
+        );
 
-      const existingIndex = state.cart.indexOf(action.payload);
+        const existingIndex = state.cart.indexOf(action.payload);
 
-      // If item exists, update its quantity
-      console.log(existingItem);
-      console.log(action.payload.unit);
-      console.log(existingItem);
-      if (existingItem) {
-        if (action.payload.unit != existingItem.unit) {
-          if (
-            action.payload.unit == 'KG' &&
-            existingItem.quantity == 'KG' &&
-            action.payload.hasOwnProperty('quantity')
-          ) {
+        // If item exists, update its quantity
+        console.log(existingItem);
+        console.log(action.payload.unit);
+        console.log(existingItem,"000");
+        if (existingItem) {
+          if (action.payload.unit != existingItem.unit) {
+            if (
+              // action.payload.unit == 'KG' &&
+              // existingItem.quantity == 'KG' &&
+              action.payload.hasOwnProperty('quantity')
+            ) {
+              console.log(existingItem.quantity);
+              console.log('working');
+              existingItem.quantity += parseInt(action.payload.quantity);
+            }
+            //changes made
+            else {
+              state.cart.push(action.payload);
+            }
+          } else {
+            console.log('existing', existingItem);
+            console.log(action.payload);
             console.log(existingItem.quantity);
-            console.log('working');
-            existingItem.quantity += parseInt(action.payload.quantity);
+            (action.payload = action.payload.hasOwnProperty('quantity')
+              ? {...action.payload}
+              : {
+                  ...action.payload,
+                  quantity: 1,
+                  totalPrice: action.payload.price * 1,
+                }),
+              (existingItem.quantity += action.payload.quantity);
+            existingItem.totalPrice = existingItem.price * existingItem.quantity;
+            console.log('existing', existingItem);
           }
-          //changes made
-          else {
-            state.cart.push(action.payload);
-          }
-        } else {
-          console.log('existing', existingItem);
-          console.log(action.payload);
-          console.log(existingItem.quantity);
-          (action.payload = action.payload.hasOwnProperty('quantity')
-            ? {...action.payload}
-            : {
-                ...action.payload,
-                quantity: 1,
-                totalPrice: action.payload.price * 1,
-              }),
-            (existingItem.quantity += action.payload.quantity);
-          existingItem.totalPrice = existingItem.price * existingItem.quantity;
-          console.log('existing', existingItem);
-        }
 
-        // localStorage.setItem('cart', JSON.stringify(state.cart));
-        // Modify the draft directly (Immer handles immutability)
-      } else {
-        // state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price }); // Add item with quantity 1
-        state.cart.push(
-          action.payload.hasOwnProperty('quantity')
-            ? {...action.payload}
-            : {
-                ...action.payload,
-                quantity: 1,
-                totalPrice: action.payload.price * 1,
-              },
-        ); // Add item with quantity 1
-      }
-    },
+          // localStorage.setItem('cart', JSON.stringify(state.cart));
+          // Modify the draft directly (Immer handles immutability)
+        } else {
+          // state.cart.push({ ...action.payload, quantity: 1, totalPrice: action.payload.price }); // Add item with quantity 1
+          state.cart.push(
+            action.payload.hasOwnProperty('quantity')
+              ? {...action.payload}
+              : {
+                  ...action.payload,
+                  quantity: 1,
+                  totalPrice: action.payload.price * 1,
+                },
+          ); // Add item with quantity 1
+        }
+      },
+
+    //   const {cart} = state;
+    //   const {id, unit, quantity} = action.payload;
+
+    //   // Check if an item with the same ID and unit exists in the cart
+    //   const existingItemIndex = cart.findIndex(
+    //     item => item.id === id && item.unit === unit,
+    //   );
+
+    //   if (existingItemIndex !== -1) {
+    //     // If item exists, update its quantity
+    //     state.cart[existingItemIndex].quantity += parseInt(quantity);
+    //     state.cart[existingItemIndex].totalPrice =
+    //       state.cart[existingItemIndex].price *
+    //       state.cart[existingItemIndex].quantity;
+    //   } else {
+    //     // If item doesn't exist, add it to the cart
+    //     const newItem = {
+    //       ...action.payload,
+    //       quantity: quantity ? quantity : 1,
+    //       totalPrice: action.payload.price * quantity,
+    //     };
+    //     state.cart.push(newItem);
+    //   }
+    // },
 
     // removeFromCart: (state, action) => {
     //   // Retrieve the ID of the item to remove from the action payload
@@ -173,7 +202,6 @@ const CustomerSlice = createSlice({
     //   state.cartCustomer = action.payload;
     // },
   },
- 
 });
 export default CustomerSlice.reducer;
 export const {
@@ -182,5 +210,6 @@ export const {
   addOrders,
   addCustomer,
   emptyCart,
+  toggleSignIn,
   // customerToSend,
 } = CustomerSlice.actions;
