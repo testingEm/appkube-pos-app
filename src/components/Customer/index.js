@@ -97,6 +97,7 @@ const Customers = () => {
       console.log('added a new user ',customer)
      }
      else if(navigation.getState().routes[0].name == 'orders'){
+      
 
      }
      else{
