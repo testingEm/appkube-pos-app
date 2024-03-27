@@ -34,6 +34,8 @@ export const updatingOrder = async (order) => {
           _lastChangedAt
           __typename
           customerOrdersId
+          status
+          paymentMethod
         }
       }
       

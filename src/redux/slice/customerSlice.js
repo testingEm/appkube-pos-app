@@ -1,5 +1,3 @@
-
-
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 // import {creatingOrder} from '../../Api/createOrder';
 // import { creatingOrder } from '../../api/createOrder';
@@ -23,8 +21,21 @@ const CustomerSlice = createSlice({
   },
   reducers: {
     addOrders: (state, action) => {
-      state.orders.push(action.payload);
-      console.log('inn redux dispathing orders', action.payload);
+      const existingOrder = state.orders.findIndex(
+        item => item.id === action.payload.id,
+      );
+
+      console.log('finding index of order', existingOrder);
+      console.log('action to add order', ...action.payload);
+
+      if (existingOrder === -1) {
+        state.orders.push(action.payload);
+        console.log('in redux dispathing orders ', action.payload);
+      } else {
+        console.log('previouse order', existingOrder);
+        state.orders.splice(existingOrder, 1, action.payload);
+        console.log(`updated order ${action.payload}`);
+      }
     },
     addCustomer: (state, action) => {
       state.customers.push(action.payload);
@@ -173,7 +184,6 @@ const CustomerSlice = createSlice({
     //   state.cartCustomer = action.payload;
     // },
   },
- 
 });
 export default CustomerSlice.reducer;
 export const {

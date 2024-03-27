@@ -36,6 +36,8 @@ const client = generateClient();
                     _lastChangedAt
                     __typename
                     customerOrdersId
+                    status
+                    paymentMethod
                   }
                   nextToken
                   startedAt
