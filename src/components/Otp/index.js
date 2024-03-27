@@ -23,7 +23,7 @@ const Otp = () => {
     if (setIsSignedIn) {
         setIsSignedIn(true); // Call the setIsSignedIn function to set the signed-in state
     }
-    navigation.navigate('HomePage');
+    // navigation.navigate('HomePage');
 };
  
 

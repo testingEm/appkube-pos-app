@@ -117,6 +117,9 @@ const screenOptions = ({ route }) => ({
 
 const App = () => {
   const [isSignedIn, setIsSignedIn] = useState(false);
+  function changeSignIn(value){
+    setIsSignedIn(value);
+  }
   const HomeScreen = () => (
     <Stack.Navigator
       screenOptions={{
@@ -172,7 +175,7 @@ const App = () => {
           <Stack.Screen 
             name="Otp" 
             component={Otp} 
-            initialParams={{ setIsSignedIn: setIsSignedIn }} 
+            initialParams={{ setIsSignedIn: changeSignIn }} 
           />
           <Stack.Screen name="Signup" component={Signup} />
         </>
