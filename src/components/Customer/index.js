@@ -71,6 +71,7 @@ const Customers = () => {
   const total = route.params?.total;
   const items = route.params?.items;
   const OrderData = route.params?.data
+  const order = route.params?.order
   console.log('router values', total, items);
   console.log('router order value', OrderData);
   const navigateToAddUser = () => {
@@ -89,16 +90,21 @@ const Customers = () => {
   // };
   const handleItemPress = customer => {
     console.log('Selected customer:', customer);
+    console.log('route nm',navigation.getState().routes[0].name)
     if(navigation.getState().routes[0].name == 'Settings')
     {
         console.log('customer details', customer)
      }
-     else if( navigation.getState().routes[1].name  == 'HomePage' &&  navigation.getState().routes[1].name == 'Adduser') {
+     else if( navigation.getState().routes[0].name  == 'HomePage' &&  navigation.getState().routes[1].name == 'Adduser') {
       console.log('added a new user ',customer)
      }
-     else if(navigation.getState().routes[0].name == 'orders'){
-      
-
+     else if( navigation.getState().routes[0].name  == 'Settings' &&  navigation.getState().routes[2].name == 'Adduser') {
+      console.log('added a new user from settings ',customer)
+     }
+     else if(navigation.getState().routes[0].name == 'OrdersPage' && navigation.getState().routes[1].name == 'Order'){
+      console.log('updating order status')
+      navigation.navigate('Share',{order:order})
+      // navigation.navigate('Share',orderId)
      }
      else{
       console.log('goint to cash to create product',{

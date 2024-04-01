@@ -38,6 +38,10 @@ export const creatingOrder = async (order) => {
           __typename
           customerOrdersId
           paymentMethod
+       
+                    
+                    
+               
         }
       }
       

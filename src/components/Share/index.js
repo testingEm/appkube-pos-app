@@ -31,6 +31,8 @@ const Share = () => {
   const data = route.params?.data;
   const createId = route.params?.data?.user?.id
   const updateId = route.params?.data.id
+  const order = route.params?.order
+  
   console.log(`createId:${createId} or updateId:${updateId}`)
   const id = createId ? createId : updateId;
   console.log('id ',id)

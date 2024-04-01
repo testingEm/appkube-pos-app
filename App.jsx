@@ -128,9 +128,9 @@ const App = () => {
       screenOptions={{
         headerShown: false,
       }}>
-     { !isSignedIn && <Stack.Screen name="Signin" component={Signin} />}
+     {/* { !isSignedIn && <Stack.Screen name="Signin" component={Signin} />}
      { !isSignedIn && <Stack.Screen name="Signup" component={Signup} />}
-     { !isSignedIn && <Stack.Screen name="Otp" component={Otp} />}
+     { !isSignedIn && <Stack.Screen name="Otp" component={Otp} />} */}
       <Stack.Screen name="HomePage" component={Home} />
       <Stack.Screen name="Adduser" component={Adduser} />
       <Stack.Screen name="Cash" component={Cash} />
@@ -143,7 +143,7 @@ const App = () => {
   return (
     // <Provider store={store}>
   <NavigationContainer>
-    {isSignedIn ? (
+    {!isSignedIn ? (
       <Tab.Navigator screenOptions={screenOptions}>
         <Tab.Screen
           name="Home"

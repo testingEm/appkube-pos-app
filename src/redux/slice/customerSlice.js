@@ -30,7 +30,7 @@ const CustomerSlice = createSlice({
       );
 
       console.log('finding index of order', existingOrder);
-      console.log('action to add order', ...action.payload);
+      console.log('action to add order', action.payload);
 
       if (existingOrder === -1) {
         state.orders.push(action.payload);
