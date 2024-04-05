@@ -31,16 +31,15 @@ export const fetchingOrders = async () => {
                     createdAt
                     updatedAt
                     _version
-                    _deleted
-                    _lastChangedAt
                     __typename
-                    customerOrdersId
+                    customerId
                     status
                     paymentMethod
+                    items{
+                      productId
+                      quantity
+                    }
                   }
-                  nextToken
-                  startedAt
-                  __typename
                 }
               }
           `,

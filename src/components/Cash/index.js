@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux';
 import {addOrders} from '../../redux/slice/customerSlice';
 import {creatingOrder} from '../../api/createOrder';
 import { updatingOrder } from '../../api/updateOrder';
-
+import axios from "../../api/axios"
 // const valuePass=()=>{
 
 // }
@@ -72,14 +72,49 @@ const Cash = () => {
   };
   const createOrder = async order => {
     console.log('This is items ', order);
+    // try {
+    //   console.log('creating order async', order);
+
+    //   const response = await creatingOrder(order);
+    //   console.log('created order response ', response);
+
+    //   return response;
+    // }
+  //  format {
+  //     "items": [
+  //         {
+  //             "productId": "102487562907",
+  //             "quantity": 2
+             
+  //         },
+  //         {
+  //             "productId": "102487562907",
+  //             "quantity": 1
+             
+  //         }
+  //     ],
+  //     "customerId": "5cbec4fe-60a2-464c-a9c2-bc900aab2098",
+  //     "totalPrice": 1002,
+  //     "paymentMethod": "CASH",
+  //     "status": "Pending"
+  // }
+    const data = {
+    items: order.items,
+    customerId: order.user.id,
+    totalPrice: order.totolPrice,
+    paymentMethod: order.paymentMethod,
+    status: "Pending"
+}
     try {
       console.log('creating order async', order);
+      console.log('creating order with data', data);
 
-      const response = await creatingOrder(order);
-      console.log('created order response ', response);
+   const response = await axios.post('/createOrder',data)  
+   console.log('created order response ', response.data);
 
-      return response;
-    } catch (error) {
+      return response.data;
+    }
+     catch (error) {
       console.log('error creating order', error);
     }
   };
