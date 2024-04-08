@@ -23,7 +23,9 @@ const Order = () => {
 
    const goToCustomers = () => {
     console.log('going to customers to share order',order)
-     navigation.navigate('Customers',{data:order});
+
+
+     navigation.navigate('Customers',{order:order});
     //  setReloadScreen(true);
    };
 
