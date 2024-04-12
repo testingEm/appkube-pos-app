@@ -238,7 +238,7 @@ const Share = () => {
             {padding: 10, position: 'absolute', width: 300, height: 300},
           ]}>
           <Text style={[styles.semiBoldText, styles.dark, styles.shadow]}>
-            Successfullu Shared
+          Shared Successfully
           </Text>
 
           <Pressable
