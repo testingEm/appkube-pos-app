@@ -176,6 +176,8 @@ const Customers = () => {
       <TextInput
         style={styles.input}
         placeholder="Search for customers..."
+        placeholderTextColor="black"
+
         value={searchQuery}
         onChangeText={handleSearchQueryChange}
       />
@@ -213,6 +215,7 @@ const styles = {
     marginBottom: 16,
     padding: 10,
     borderWidth: 1,
+    color:'black'
   },
   customerContainer: {
     flexDirection: 'row',
