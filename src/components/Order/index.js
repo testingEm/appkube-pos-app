@@ -46,9 +46,10 @@ const Order = () => {
   console.log('items ::', items);
 
   const goToCustomers = () => {
-    console.log('going to customers to share order', order);
-    navigation.navigate('Customers', {order: order});
+    console.log('going to share to share order', order);
+    navigation.navigate('Share', {order: order,items:items});
   };
+
 
   const HandleUpdate = () => {
     console.log('Going to Cash to update order', {

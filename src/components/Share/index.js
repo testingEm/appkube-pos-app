@@ -30,7 +30,8 @@ const Share = () => {
   const route = useRoute();
   const data = route.params?.data;
   const createId = route.params?.data?.user?.id
-  const updateId = route.params?.data.id
+  const updateId = route.params?.data?.id
+  const shareId = route.params?.order?.customerId
   const order = route.params?.order
   
   console.log(`createId:${createId} or updateId:${updateId}`)
@@ -39,7 +40,7 @@ const Share = () => {
   // const id = route.params?.data.user.id
   const [customer, setCustomer] = useState({})
   console.log("data undefined" , customer)
-  console.log('details: ' + data.totolPrice);
+  console.log('details: ' + data?.totolPrice);
   // console.log('details: ' + data.name);
   const customerName = data?.user?.name;
   const customerPhone = data?.user?.phone;
