@@ -25,14 +25,8 @@ export const updatingOrder = async (order) => {
             id:$id , status: $status, paymentMethod: $paymentMethod,
         }) {
           totalPrice
-          updatedAt
           id
-          createdAt
-          _version
-          _deleted
-          _lastChangedAt
-          __typename
-          customerOrdersId
+        
           status
           paymentMethod
         }

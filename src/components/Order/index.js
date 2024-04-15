@@ -48,12 +48,12 @@ const Order = () => {
     console.log('Going to Cash to update order', {
       totalPrice: order.totalPrice,
       orderId: order.id,
-      customerId: order.customerOrdersId,
+      customerId: order.customerId,
     });
     navigation.navigate('Cash', {
       totalPrice: order.totalPrice,
       orderId: order.id,
-      customerId: order.customerOrdersId,
+      customerId: order.customerId,
     });
   };
 
@@ -101,8 +101,8 @@ const Order = () => {
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
       <View style={[styles.iconIndicators]}>
-        {/* <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus} > */}
-        <Pressable style={[styles.statusbar]} onPress={()=>getProduct1(order.items[1].productId)} >
+        <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus} >
+        {/* <Pressable style={[styles.statusbar]} onPress={()=>getProduct1(order.items[1].productId)} > */}
           <FontAwesome name="circle" size={18} color="#31572c" />
           <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
         </Pressable>
