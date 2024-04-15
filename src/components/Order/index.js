@@ -12,8 +12,23 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { getProduct } from '../../api/getProduct';
 
 const Order = () => {
+
+  const getProduct1 = async id => {
+    console.log('This is id ', id);
+    try {
+      console.log('product gettting async', id);
+
+      const response = await getProduct(id);
+      console.log('getting order response ', response);
+
+      return response;
+    } catch (error) {
+      console.log('error getting product', error);
+    }
+  };
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -86,7 +101,8 @@ const Order = () => {
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
       <View style={[styles.iconIndicators]}>
-        <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus}>
+        {/* <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus} > */}
+        <Pressable style={[styles.statusbar]} onPress={()=>getProduct1(order.items[1].productId)} >
           <FontAwesome name="circle" size={18} color="#31572c" />
           <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
         </Pressable>
