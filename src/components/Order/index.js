@@ -104,10 +104,18 @@ const Order = () => {
         }}
         style={{width: 40, height: 41, borderRadius: 50}}
       />
-      <Text style={{color: 'black'}}>{item?.name}</Text>
-      <Text style={{color: 'black'}}>{item?.quantity}</Text>
-      <Text style={{color: 'black'}}>₹ {item?.price}</Text>
-      <Text style={{color: 'black'}}>{item?.unit}</Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 100}}>
+        {item?.name}
+      </Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 10}}>
+        {item?.quantity}
+      </Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 30}}>
+        ₹ {item?.price}
+      </Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 50}}>
+        {item?.unit}
+      </Text>
     </View>
   );
 
@@ -142,14 +150,30 @@ const Order = () => {
       </View>
       {/* <ScrollView>
         <View> */}
-      <FlatList
-        style={{width: '100%'}}
-        data={items}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      {/* </View>
-      </ScrollView> */}
+      {items && (
+        <>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              marginVertical: 5,
+              backgroundColor: '#DDDDDD',
+              padding: 5,
+            }}>
+            <Text style={{color: 'black', textAlign: 'center'}}>Image</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Name</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Quantity</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Price</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Unit</Text>
+          </View>
+          <FlatList
+            style={{width: '100%'}}
+            data={items}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </>
+      )}
     </View>
   );
 };
