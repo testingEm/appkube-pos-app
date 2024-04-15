@@ -89,12 +89,14 @@ const Order = () => {
     <View style={[styles.container]}>
       <Text style={{marginBottom: 10, color: 'black'}}>Order Details : </Text>
       <Text style={[styles.textColor]}>
-        Order id :<Text style={[styles.valueText]}> {order.id}</Text>
+        Order id :<Text style={[styles.valueText]}> #{order.id}</Text>
       </Text>
       <Text style={[styles.textColor]}>
         Order Created at :
-        <Text style={[styles.valueText]}> {order.createdAt}</Text>
+
+        <Text style={[styles.valueText]}> {order.createdAt ? order.createdAt.slice(0, 10) : ''}</Text>
       </Text>
+
       <Text style={[styles.textColor]}>
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>

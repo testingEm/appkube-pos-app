@@ -216,7 +216,7 @@ const Share = () => {
     // <View style={[styles.wrapper]}>
     <View style={[styles.container, {position: 'relative'}]}>
       <Text style={[styles.boldText, styles.dark, styles.shadow]}>
-        Paid sucessfully
+        Paid successfully
       </Text>
       <View style={[styles.btns]}>
         <Pressable style={[styles.bgLight, styles.btn]} onPress={goToHome}>
