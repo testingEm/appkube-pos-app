@@ -48,6 +48,7 @@ const Adduser = () => {
     setInputUser({ name: '', phone: '' });
     setMobileNumber(''); // Resetting mobile number
     setMobileNumberEntered(false); // Resetting mobile number entered flag
+    Alert.alert('successfully created customer')
   } else {
     const errorMessage = 'Please ensure all fields are correctly filled. Name is required and Phone Number must be exactly 10 digits.';
     if (Platform.OS === 'android') {

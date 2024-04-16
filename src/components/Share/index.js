@@ -8,7 +8,9 @@ import {
   ScrollView,
   ToastAndroid,
   Platform,
+  Alert
 } from 'react-native';
+import axios from '../../api/axios'
 import {useNavigation, useRoute, CommonActions} from '@react-navigation/native';
 // import {Entypo} from '@expo/vector-icons';
 import styles from './styles';
@@ -41,6 +43,7 @@ const Share = () => {
   console.log('cartData',cartData)
   console.log(`createId:${createId} or updateId:${updateId}`)
   const id = mutationId ? mutationId : shareId;
+  console.log(`ids mutation${mutationId} , create${createId} , update${updateId} , shareotrder ${shareId}`)
   console.log('id ',id)
   // const id = route.params?.data.user.id
   const [customer, setCustomer] = useState({})
@@ -161,12 +164,21 @@ const Share = () => {
       const base64String = await RNFS.readFile(file.filePath, 'base64');
       console.log('Base64 encoded string:', base64String);
       sendBills(base64String);
+      // Alert.alert('Success', 'PDF sent successfully!',goToHome);
 
       // Show success message
       if (Platform.OS === 'android') {
-        ToastAndroid.show('PDF downloaded successfully!', ToastAndroid.SHORT);
+        // ToastAndroid.show('PDF downloaded successfully!', ToastAndroid.SHORT);
+        Alert.alert('Success', 'PDF sent successfully!', [
+          { text: 'OK', onPress: goToHome }
+        ]);
       } else {
-        Alert.alert('Success', 'PDF downloaded successfully!');
+        // Alert.alert('Success', 'PDF downloaded successfully!');
+        
+        Alert.alert('Success', 'PDF sent successfully!', [
+          { text: 'OK', onPress: goToHome }
+        ]);
+        
       }
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -177,7 +189,7 @@ const Share = () => {
         Alert.alert('Error', 'Failed to download PDF');
       }
     }
-    setshow(true);
+    // setshow(true);
     // dispatch(emptyCart());
     // sendBills(Bill)
   };
@@ -199,22 +211,31 @@ const Share = () => {
       body: raw,
       redirect: 'follow',
     };
-    try {
-      const response = await fetch(
-        'https://2evfwh96lk.execute-api.us-east-1.amazonaws.com/sendBills',
-        requestOptions,
-      ); // Corrected options to requestOptions
-      if (response.ok) {
-        console.log('Pdf send');
-      }
-      if (!response.ok) {
-        // throw new Error(HTTP error! Status: ${response.status});
-      }
-      return await response.text();
-    } catch (error) {
-      console.error(error);
-      return null; // Return null or handle the error as needed
+    // try {
+    //   const response = await fetch(
+    //     'https://2evfwh96lk.execute-api.us-east-1.amazonaws.com/sendBills',
+    //     requestOptions,
+    //   ); // Corrected options to requestOptions
+    //   if (response.ok) {
+    //     console.log('Pdf send',response);
+    //   }
+    //   // if (!response.ok) {
+    //   //   // throw new Error(HTTP error! Status: ${response.status});
+    //   // }
+    //   return await response.text();
+    // } catch (error) {
+    //   console.log(error,'error in pdf generation');
+    //   return null; // Return null or handle the error as needed
+    // }
+
+    try{
+      const response = axios.post("/sendBills",content);
+      console.log('success response of pdf',response)
     }
+    catch(error){
+      console.log(error,'error in pdf generation');
+    }
+    
   };
 
 
