@@ -4,6 +4,7 @@ import {useState} from 'react';
 import styles from './style';
 import {useRoute} from '@react-navigation/native';
 import {Picker} from '@react-native-picker/picker';
+import { updatingProduct } from '../../api/updateProduct';
 
 const UpdateProducts = () => {
   const route = useRoute();
@@ -12,6 +13,7 @@ const UpdateProducts = () => {
   console.log('This is the data in the Edit page', Prodata);
 
   const [updateData, setUpdateData] = useState({
+    id:Prodata.id,
     name: Prodata.name,
     price: Prodata.price.toString(),
     category: Prodata.category,
@@ -26,6 +28,13 @@ const UpdateProducts = () => {
   };
 
   const [selectedValue, setSelectedValue] = useState(Prodata.unit);
+
+  const updatingProduct1 = async () => {
+
+    const response = await updatingProduct(updateData);
+    console.log("response of the updated product",response);
+
+  }
 
   return (
     <View style={[styles.maincon]}>
@@ -74,7 +83,7 @@ const UpdateProducts = () => {
 
       <Pressable
         style={[{marginTop: 40, paddingHorizontal: 40}, styles.textInputStyle]}
-        onPress={() => console.log("updated data",updateData)}>
+        onPress={() => {console.log("updated data",updateData), updatingProduct1()}}>
         <Text>Save</Text>
       </Pressable>
     </View>

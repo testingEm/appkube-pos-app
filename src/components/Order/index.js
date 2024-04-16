@@ -12,8 +12,10 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { updatingOrder } from '../../api/updateOrder';
 
 const Order = () => {
+  console.log("updateOrder",updatingOrder);
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -42,29 +44,36 @@ const Order = () => {
     });
   };
 
-   const handleUpdateStatus = () => {
+  const handleUpdateOrder = async (newStatus) => {
+    try {
+      // Assuming `updateTotal` and `payment` are obtained or defined elsewhere in your component
+      const updateOrderData = {
+        id: order.id,
+        status: newStatus,
+        paymentMethod: order.paymentMethod, // or any other method you are choosing
+        // totalPrice: updateTotal, // Ensure this variable is correctly assigned
+        // customerId: order.customerId,
+      };
+      const updatedOrder = await updatingOrder(updateOrderData);
+      console.log('Order updated:', updatedOrder);
+      // Optionally, navigate back or refresh the order details
+      // navigation.goBack();
+    } catch (error) {
+      console.error('Error updating order:', error);
+    }
+  };
+
+  const handleUpdateStatus = () => {
+    const options = [
+      { text: 'CANCEL', onPress: () => handleUpdateOrder('CANCELLED') },
+      { text: 'PAID', onPress: () => HandleUpdate('PAID') },
+      { text: 'FULFILLED', onPress: () => handleUpdateOrder('FULFILLED') },
+    ];
+
     Alert.alert(
       'Update Order Status',
       'Please select the new status for the order:',
-      [
-        {
-          text: 'Cancel Order',
-          onPress: () => console.log('Cancel Order pressed'),
-        },
-        {
-          text: 'Paid Order',
-          onPress: () => HandleUpdate(),
-        },
-        {
-          text: 'Fulfilled Order',
-          onPress: () => console.log('Fulfilled Order pressed'),
-        },
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-      ],
-      { cancelable: true }
+      options
     );
   };
 
