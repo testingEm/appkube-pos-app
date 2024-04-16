@@ -821,6 +821,7 @@ const GetAllProducts = () => {
       <TextInput
         style={styles.searchInput}
         placeholder="Search Product"
+        placeholderTextColor="black"
         onChangeText={setSearchTerm}></TextInput>
       <TouchableOpacity
         onPress={handleCart}
@@ -884,9 +885,9 @@ const GetAllProducts = () => {
               paddingHorizontal: 16,
               paddingTop: 13,
               borderRadius: 10,
-              backgroundColor: 'lightgray',
+              backgroundColor: 'blue',
               fontWeight: 700,
-              color: 'black',
+              color: 'white',
               paddingHorizontal: 18,
               paddingTop: 14,
             }}>
@@ -971,8 +972,9 @@ const GetAllProducts = () => {
                       <TouchableOpacity
                         style={{
                           padding: 10,
-                          backgroundColor: 'lightgray',
+                          backgroundColor: 'blue',
                           borderRadius: 5,
+                         
                         }}
                         onPress={() => {
                           HandleIncrement(veg);
@@ -982,6 +984,7 @@ const GetAllProducts = () => {
                             textAlign: 'center',
                             fontSize: 16,
                             fontWeight: '700',
+                            color:'white'
                           }}>
                           +
                         </Text>
@@ -990,7 +993,11 @@ const GetAllProducts = () => {
                       <TouchableOpacity
                         style={{
                           padding: 10,
-                          backgroundColor: 'lightgray',
+                          // backgroundColor: 'lightgray',
+                          backgroundColor: 'blue',
+                          color:'black',
+
+
                           borderRadius: 5,
                           marginLeft: 5,
                         }}
@@ -1002,6 +1009,8 @@ const GetAllProducts = () => {
                             textAlign: 'center',
                             fontSize: 16,
                             fontWeight: '700',
+                            color:'white'
+
                           }}>
                           -
                         </Text>

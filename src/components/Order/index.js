@@ -12,10 +12,23 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { updatingOrder } from '../../api/updateOrder';
+import { getProduct } from '../../api/getProduct';
 
 const Order = () => {
-  console.log("updateOrder",updatingOrder);
+
+  const getProduct1 = async id => {
+    console.log('This is id ', id);
+    try {
+      console.log('product gettting async', id);
+
+      const response = await getProduct(id);
+      console.log('getting order response ', response);
+
+      return response;
+    } catch (error) {
+      console.log('error getting product', error);
+    }
+  };
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -35,12 +48,12 @@ const Order = () => {
     console.log('Going to Cash to update order', {
       totalPrice: order.totalPrice,
       orderId: order.id,
-      customerId: order.customerOrdersId,
+      customerId: order.customerId,
     });
     navigation.navigate('Cash', {
       totalPrice: order.totalPrice,
       orderId: order.id,
-      customerId: order.customerOrdersId,
+      customerId: order.customerId,
     });
   };
 
@@ -83,17 +96,20 @@ const Order = () => {
     <View style={[styles.container]}>
       <Text style={{marginBottom: 10, color: 'black'}}>Order Details : </Text>
       <Text style={[styles.textColor]}>
-        Order id :<Text style={[styles.valueText]}> {order.id}</Text>
+        Order id :<Text style={[styles.valueText]}> #{order.id}</Text>
       </Text>
       <Text style={[styles.textColor]}>
         Order Created at :
-        <Text style={[styles.valueText]}> {order.createdAt}</Text>
+
+        <Text style={[styles.valueText]}> {order.createdAt ? order.createdAt.slice(0, 10) : ''}</Text>
       </Text>
+
       <Text style={[styles.textColor]}>
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
       <View style={[styles.iconIndicators]}>
-        <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus}>
+        <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus} >
+        {/* <Pressable style={[styles.statusbar]} onPress={()=>getProduct1(order.items[1].productId)} > */}
           <FontAwesome name="circle" size={18} color="#31572c" />
           <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
         </Pressable>

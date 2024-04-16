@@ -38,7 +38,14 @@ const Share = () => {
   console.log('id ',id)
   // const id = route.params?.data.user.id
   const [customer, setCustomer] = useState({})
+  console.log("data undefined" , customer)
   console.log('details: ' + data.totolPrice);
+  // console.log('details: ' + data.name);
+  const customerName = data?.user?.name;
+  const customerPhone = data?.user?.phone;
+  console.log("customer name " , customerName)
+  console.log("customer name " , customerPhone)
+
   console.log('user id',id)
   // const user =  data.user;
   // const handleOkClick = () => {
@@ -76,8 +83,8 @@ const Share = () => {
     <h1 style="color: blue; font-size: 30px; font-family: Arial; text-align: center; font-weight: 600;">Synectiks Farm</h1>
     <div style="display: flex; justify-content: space-between; padding:30px">
     <div>
-        <p>Customer Name:${customer.name}</p>
-        <p>Phone-Number: ${customer.phone}</p>
+        <p>Customer Name:${customerName}</p>
+        <p>Phone-Number: ${customerPhone}</p>
     </div>
     <div>
         <p>${currentDate}</p>
@@ -209,7 +216,7 @@ const Share = () => {
     // <View style={[styles.wrapper]}>
     <View style={[styles.container, {position: 'relative'}]}>
       <Text style={[styles.boldText, styles.dark, styles.shadow]}>
-        Paid sucessfully
+        Paid successfully
       </Text>
       <View style={[styles.btns]}>
         <Pressable style={[styles.bgLight, styles.btn]} onPress={goToHome}>

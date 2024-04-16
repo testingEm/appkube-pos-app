@@ -33,7 +33,7 @@ const OrderList = ({orders, onSelectOrder}) => {
         </Body>
         <Right>
           <Text note>${order.total.toFixed(2)}</Text>
-          <Icon name="arrow-forward" />
+          {/* <Icon name="arrow-forward" /> */}
         </Right>
       </ListItem>
     ));
