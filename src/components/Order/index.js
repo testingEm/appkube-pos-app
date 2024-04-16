@@ -122,36 +122,34 @@ const Order = () => {
 
   return (
     <View>
-      <View style={[styles.container]}>
-        <Text style={{marginBottom: 10, color: 'black'}}>Order Details : </Text>
-        <Text style={[styles.textColor]}>
-          Order id :<Text style={[styles.valueText]}> {order.id}</Text>
-        </Text>
-        <Text style={[styles.textColor]}>
-          Order Created at :
-          <Text style={[styles.valueText]}> {order.createdAt}</Text>
-        </Text>
-        <Text style={[styles.textColor]}>
-          Order Price :{' '}
-          <Text style={[styles.valueText]}>{order.totalPrice}</Text>
-        </Text>
-        <View style={[styles.iconIndicators]}>
-          <Pressable
-            style={[styles.statusbar]}
-            // onPress={() => getProduct1(order.items[1]?.productId)}
-            onPress={handleUpdateStatus}>
-            <FontAwesome name="circle" size={18} color="#31572c" />
-            <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
-          </Pressable>
-          <Pressable style={[styles.statusbar]} onPress={goToCustomers}>
-            <Icon name="share" size={18} color="#31572c" />
-            <Text style={{marginLeft: 5, color: 'black'}}>Share</Text>
-          </Pressable>
-        </View>
+    <View style={[styles.container]}>
+      <Text style={{marginBottom: 10, color: 'black'}}>Order Details : </Text>
+      <Text style={[styles.textColor]}>
+        Order id :<Text style={[styles.valueText]}> #{order.id}</Text>
+      </Text>
+      <Text style={[styles.textColor]}>
+        Order Created at :
+
+        <Text style={[styles.valueText]}> {order.createdAt ? order.createdAt.slice(0, 10) : ''}</Text>
+      </Text>
+
+      <Text style={[styles.textColor]}>
+        Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
+      </Text>
+      <View style={[styles.iconIndicators]}>
+        <Pressable style={[styles.statusbar]} onPress={handleUpdateStatus} >
+        {/* <Pressable style={[styles.statusbar]} onPress={()=>getProduct1(order.items[1].productId)} > */}
+          <FontAwesome name="circle" size={18} color="#31572c" />
+          <Text style={{marginLeft: 5, color: 'black'}}>update Status?</Text>
+        </Pressable>
+        <Pressable style={[styles.statusbar]} onPress={goToCustomers}>
+          {/* <FontAwesome name="circle" size={18} color="#31572c" /> */}
+          <Icon name="share" size={18} color="#31572c" />
+          <Text style={{marginLeft: 5, color: 'black'}}>Share</Text>
+        </Pressable>
       </View>
-      {/* <ScrollView>
-        <View> */}
-      {items && (
+    </View>
+    {items && (
         <>
           <View
             style={{

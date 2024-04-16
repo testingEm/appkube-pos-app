@@ -21,7 +21,7 @@ const client = generateClient();
               query GetCustomer($id: ID!) {
                   getCustomer(id: $id) {
                       name
-                      
+                      phone
                       id
                   }
               }

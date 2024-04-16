@@ -29,23 +29,28 @@ const Share = () => {
   //  update order data { paymentMethod: payment,id: orderId,status: 'FULFILLED',totolPrice: updateTotal,customerId: customerId,}
   const route = useRoute();
   const data = route.params?.data;
-  const createId = route.params?.data?.user?.id
+  const createId = route.params?.data?.customerId
   const updateId = route.params?.data?.id
   const shareId = route.params?.order?.customerId
   const order = route.params?.order
-  
+  const mutationId = createId ? createId : updateId ;
+  const items = route.params?.items
+  const cartData = items ? items : checkout;
+  console.log('items from order ',items)
+  console.log('items from reduxx ',checkout)
+  console.log('cartData',cartData)
   console.log(`createId:${createId} or updateId:${updateId}`)
-  const id = createId ? createId : updateId;
+  const id = mutationId ? mutationId : shareId;
   console.log('id ',id)
   // const id = route.params?.data.user.id
   const [customer, setCustomer] = useState({})
-  console.log("data undefined" , customer)
-  console.log('details: ' + data?.totolPrice);
+  console.log("data of customer" , customer)
+  console.log('details: ' + data);
   // console.log('details: ' + data.name);
-  const customerName = data?.user?.name;
-  const customerPhone = data?.user?.phone;
-  console.log("customer name " , customerName)
-  console.log("customer name " , customerPhone)
+  // const customerName = data?.user?.name;
+  // const customerPhone = data?.user?.phone;
+  // console.log("customer name " , customerName)
+  // console.log("customer name " , customerPhone)
 
   console.log('user id',id)
   // const user =  data.user;
@@ -55,7 +60,16 @@ const Share = () => {
 
   
   
-
+  const getCustomer = async (id) => {
+    try {
+      console.log('getting customer details by',id);
+      const response = await gettingCustomer(id);
+      console.log('after getting customer',response);
+      return response
+    } catch (error) {
+      console.log(' error getting customer', error);
+    }
+  };
 
   const goToHome = () => {
     navigation.dispatch(
@@ -84,8 +98,8 @@ const Share = () => {
     <h1 style="color: blue; font-size: 30px; font-family: Arial; text-align: center; font-weight: 600;">Synectiks Farm</h1>
     <div style="display: flex; justify-content: space-between; padding:30px">
     <div>
-        <p>Customer Name:${customerName}</p>
-        <p>Phone-Number: ${customerPhone}</p>
+        <p>Customer Name:${customer.name}</p>
+        <p>Phone-Number: ${customer.phone}</p>
     </div>
     <div>
         <p>${currentDate}</p>
@@ -103,7 +117,7 @@ const Share = () => {
         <th>Quantity</th>
         <th>Total</th>
       </tr>
-      ${checkout.map((data, index) => {
+      ${cartData &&  cartData.map((data, index) => {
         return `
         <tr style="text-align: center">
           <td>${index + 1}</td>
@@ -175,8 +189,8 @@ const Share = () => {
 
     const raw = JSON.stringify({
       content: content,
-      name: `${data.user.name}`,
-      phoneNumber: `${data.user.phone}`,
+      name: `${customer.name}`,
+      phoneNumber: `${customer.phone}`,
     });
 
     const requestOptions = {
@@ -203,21 +217,12 @@ const Share = () => {
     }
   };
 
-  const getCustomer = async (id) => {
-    try {
-      console.log('getting customer details');
-      const response = await gettingCustomer(id);
-      console.log('after getting customer',response);
-      return response
-    } catch (error) {
-      console.log(' error getting customer', error);
-    }
-  };
+
   return (
     // <View style={[styles.wrapper]}>
     <View style={[styles.container, {position: 'relative'}]}>
       <Text style={[styles.boldText, styles.dark, styles.shadow]}>
-        Paid sucessfully
+        Paid successfully
       </Text>
       <View style={[styles.btns]}>
         <Pressable style={[styles.bgLight, styles.btn]} onPress={goToHome}>

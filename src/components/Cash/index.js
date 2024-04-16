@@ -58,7 +58,7 @@ const Cash = () => {
       const orderData = {
         paymentMethod: payment,
         totolPrice: createTotal,
-        user: user,
+        customerId: user?.id,
         items: items,
       };
       console.log('sending data of order to create', orderData);
@@ -100,7 +100,7 @@ const Cash = () => {
   // }
     const data = {
     items: order.items,
-    customerId: order.user.id,
+    customerId: order.customerId,
     totalPrice: order.totolPrice,
     paymentMethod: order.paymentMethod,
     status: "Pending"

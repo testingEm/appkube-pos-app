@@ -85,7 +85,7 @@ const Orders = () => {
                   </View>
                   <View style={[styles.arrowbox, {margin: 5}]}>
                   {/* <Text>No Customer </Text> */}
-
+                     <Text></Text>
                     <FontAwesome5 name="angle-right" size={26} color="black" />
                   </View>
                 </View>
@@ -99,14 +99,19 @@ const Orders = () => {
                     <FontAwesome name="circle" size={18} color="#31572c" />
                     <Text style={{marginLeft: 5}}>Fulfilled</Text>
                   </View> */}
+                  
                 </View>
+                
               </Pressable>
+              
             );
           })
         ) : (
           <ActivityIndicator size="large" color='#31572c' />
+          
         )}
         {console.log('scrool ended')}
+        
       </ScrollView>
     </View>
   );
