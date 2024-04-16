@@ -1,4 +1,5 @@
-import {useRoute,useNavigation} from '@react-navigation/native';
+//
+import {useRoute, useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import React, {useEffect, useState} from 'react';
 import {
@@ -7,44 +8,50 @@ import {
   ScrollView,
   ActivityIndicator,
   Pressable,
-  Alert 
+  Alert,
+  Image,
+  FlatList,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getProduct } from '../../api/getProduct';
+import {getProduct} from '../../api/getProduct';
 
 const Order = () => {
+  const [items, setItems] = useState([]);
 
-  const getProduct1 = async id => {
-    console.log('This is id ', id);
+  const getProduct1 = async (id, quantity) => {
     try {
-      console.log('product gettting async', id);
-
       const response = await getProduct(id);
-      console.log('getting order response ', response);
-
-      return response;
+      response.quantity = quantity;
+      setItems(prevItems => [...prevItems, response]);
+      return response; // Return the response for possible further processing
     } catch (error) {
       console.log('error getting product', error);
     }
   };
+
   const route = useRoute();
   const navigation = useNavigation();
 
   const order = route.params.value;
-  console.log('order params ', route.params);
-  console.log('order data', order);
 
-   const goToCustomers = () => {
-    console.log('going to customers to share order',order)
+  useEffect(() => {
+    if (order) {
+      order.items.forEach(item => {
+        getProduct1(item.productId, item.quantity);
+      });
+    }
+  }, [order]);
+
+  console.log('items ::', items);
+
+  const goToCustomers = () => {
+    console.log('going to share to share order', order);
+    navigation.navigate('Share', {order: order,items:items});
+  };
 
 
-     navigation.navigate('Customers',{order:order});
-    //  setReloadScreen(true);
-   };
-
-   const HandleUpdate = () => {
+  const HandleUpdate = () => {
     console.log('Going to Cash to update order', {
       totalPrice: order.totalPrice,
       orderId: order.id,
@@ -57,7 +64,7 @@ const Order = () => {
     });
   };
 
-   const handleUpdateStatus = () => {
+  const handleUpdateStatus = () => {
     Alert.alert(
       'Update Order Status',
       'Please select the new status for the order:',
@@ -79,22 +86,53 @@ const Order = () => {
           style: 'cancel',
         },
       ],
-      { cancelable: true }
+      {cancelable: true},
     );
   };
 
-  
+  const renderItem = ({item}) => (
+    <View
+      style={{
+        flexDirection: 'row',
+        paddingVertical: 3,
+        gap: 10,
+        width: '100%',
+        justifyContent: 'space-around',
+      }}>
+      <Image
+        source={{
+          uri: item?.image,
+        }}
+        style={{width: 40, height: 41, borderRadius: 50}}
+      />
+      <Text style={{color: 'black', textAlign: 'center', width: 100}}>
+        {item?.name}
+      </Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 10}}>
+        {item?.quantity}
+      </Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 30}}>
+        ₹ {item?.price}
+      </Text>
+      <Text style={{color: 'black', textAlign: 'center', width: 50}}>
+        {item?.unit}
+      </Text>
+    </View>
+  );
 
   return (
+    <View>
     <View style={[styles.container]}>
       <Text style={{marginBottom: 10, color: 'black'}}>Order Details : </Text>
       <Text style={[styles.textColor]}>
-        Order id :<Text style={[styles.valueText]}> {order.id}</Text>
+        Order id :<Text style={[styles.valueText]}> #{order.id}</Text>
       </Text>
       <Text style={[styles.textColor]}>
         Order Created at :
-        <Text style={[styles.valueText]}> {order.createdAt}</Text>
+
+        <Text style={[styles.valueText]}> {order.createdAt ? order.createdAt.slice(0, 10) : ''}</Text>
       </Text>
+
       <Text style={[styles.textColor]}>
         Order Price : <Text style={[styles.valueText]}>{order.totalPrice}</Text>
       </Text>
@@ -110,6 +148,31 @@ const Order = () => {
           <Text style={{marginLeft: 5, color: 'black'}}>Share</Text>
         </Pressable>
       </View>
+    </View>
+    {items && (
+        <>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              marginVertical: 5,
+              backgroundColor: '#DDDDDD',
+              padding: 5,
+            }}>
+            <Text style={{color: 'black', textAlign: 'center'}}>Image</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Name</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Quantity</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Price</Text>
+            <Text style={{color: 'black', textAlign: 'center'}}>Unit</Text>
+          </View>
+          <FlatList
+            style={{width: '100%'}}
+            data={items}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </>
+      )}
     </View>
   );
 };

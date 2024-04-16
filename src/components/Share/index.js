@@ -8,7 +8,9 @@ import {
   ScrollView,
   ToastAndroid,
   Platform,
+  Alert
 } from 'react-native';
+import axios from '../../api/axios'
 import {useNavigation, useRoute, CommonActions} from '@react-navigation/native';
 // import {Entypo} from '@expo/vector-icons';
 import styles from './styles';
@@ -29,16 +31,30 @@ const Share = () => {
   //  update order data { paymentMethod: payment,id: orderId,status: 'FULFILLED',totolPrice: updateTotal,customerId: customerId,}
   const route = useRoute();
   const data = route.params?.data;
-  const createId = route.params?.data?.user?.id
-  const updateId = route.params?.data.id
+  const createId = route.params?.data?.customerId
+  const updateId = route.params?.data?.id
+  const shareId = route.params?.order?.customerId
   const order = route.params?.order
-  
+  const mutationId = createId ? createId : updateId ;
+  const items = route.params?.items
+  const cartData = items ? items : checkout;
+  console.log('items from order ',items)
+  console.log('items from reduxx ',checkout)
+  console.log('cartData',cartData)
   console.log(`createId:${createId} or updateId:${updateId}`)
-  const id = createId ? createId : updateId;
+  const id = mutationId ? mutationId : shareId;
+  console.log(`ids mutation${mutationId} , create${createId} , update${updateId} , shareotrder ${shareId}`)
   console.log('id ',id)
   // const id = route.params?.data.user.id
   const [customer, setCustomer] = useState({})
-  console.log('details: ' + data.totolPrice);
+  console.log("data of customer" , customer)
+  console.log('details: ' + data);
+  // console.log('details: ' + data.name);
+  // const customerName = data?.user?.name;
+  // const customerPhone = data?.user?.phone;
+  // console.log("customer name " , customerName)
+  // console.log("customer name " , customerPhone)
+
   console.log('user id',id)
   // const user =  data.user;
   // const handleOkClick = () => {
@@ -47,7 +63,16 @@ const Share = () => {
 
   
   
-
+  const getCustomer = async (id) => {
+    try {
+      console.log('getting customer details by',id);
+      const response = await gettingCustomer(id);
+      console.log('after getting customer',response);
+      return response
+    } catch (error) {
+      console.log(' error getting customer', error);
+    }
+  };
 
   const goToHome = () => {
     navigation.dispatch(
@@ -95,7 +120,7 @@ const Share = () => {
         <th>Quantity</th>
         <th>Total</th>
       </tr>
-      ${checkout.map((data, index) => {
+      ${cartData &&  cartData.map((data, index) => {
         return `
         <tr style="text-align: center">
           <td>${index + 1}</td>
@@ -139,12 +164,21 @@ const Share = () => {
       const base64String = await RNFS.readFile(file.filePath, 'base64');
       console.log('Base64 encoded string:', base64String);
       sendBills(base64String);
+      // Alert.alert('Success', 'PDF sent successfully!',goToHome);
 
       // Show success message
       if (Platform.OS === 'android') {
-        ToastAndroid.show('PDF downloaded successfully!', ToastAndroid.SHORT);
+        // ToastAndroid.show('PDF downloaded successfully!', ToastAndroid.SHORT);
+        Alert.alert('Success', 'PDF sent successfully!', [
+          { text: 'OK', onPress: goToHome }
+        ]);
       } else {
-        Alert.alert('Success', 'PDF downloaded successfully!');
+        // Alert.alert('Success', 'PDF downloaded successfully!');
+        
+        Alert.alert('Success', 'PDF sent successfully!', [
+          { text: 'OK', onPress: goToHome }
+        ]);
+        
       }
     } catch (error) {
       console.error('Error generating PDF:', error);
@@ -155,7 +189,7 @@ const Share = () => {
         Alert.alert('Error', 'Failed to download PDF');
       }
     }
-    setshow(true);
+    // setshow(true);
     // dispatch(emptyCart());
     // sendBills(Bill)
   };
@@ -167,8 +201,8 @@ const Share = () => {
 
     const raw = JSON.stringify({
       content: content,
-      name: `${data.user.name}`,
-      phoneNumber: `${data.user.phone}`,
+      name: `${customer.name}`,
+      phoneNumber: `${customer.phone}`,
     });
 
     const requestOptions = {
@@ -177,39 +211,39 @@ const Share = () => {
       body: raw,
       redirect: 'follow',
     };
-    try {
-      const response = await fetch(
-        'https://2evfwh96lk.execute-api.us-east-1.amazonaws.com/sendBills',
-        requestOptions,
-      ); // Corrected options to requestOptions
-      if (response.ok) {
-        console.log('Pdf send');
-      }
-      if (!response.ok) {
-        // throw new Error(HTTP error! Status: ${response.status});
-      }
-      return await response.text();
-    } catch (error) {
-      console.error(error);
-      return null; // Return null or handle the error as needed
+    // try {
+    //   const response = await fetch(
+    //     'https://2evfwh96lk.execute-api.us-east-1.amazonaws.com/sendBills',
+    //     requestOptions,
+    //   ); // Corrected options to requestOptions
+    //   if (response.ok) {
+    //     console.log('Pdf send',response);
+    //   }
+    //   // if (!response.ok) {
+    //   //   // throw new Error(HTTP error! Status: ${response.status});
+    //   // }
+    //   return await response.text();
+    // } catch (error) {
+    //   console.log(error,'error in pdf generation');
+    //   return null; // Return null or handle the error as needed
+    // }
+
+    try{
+      const response = axios.post("/sendBills",content);
+      console.log('success response of pdf',response)
     }
+    catch(error){
+      console.log(error,'error in pdf generation');
+    }
+    
   };
 
-  const getCustomer = async (id) => {
-    try {
-      console.log('getting customer details');
-      const response = await gettingCustomer(id);
-      console.log('after getting customer',response);
-      return response
-    } catch (error) {
-      console.log(' error getting customer', error);
-    }
-  };
+
   return (
     // <View style={[styles.wrapper]}>
     <View style={[styles.container, {position: 'relative'}]}>
       <Text style={[styles.boldText, styles.dark, styles.shadow]}>
-        Paid sucessfully
+        Paid successfully
       </Text>
       <View style={[styles.btns]}>
         <Pressable style={[styles.bgLight, styles.btn]} onPress={goToHome}>

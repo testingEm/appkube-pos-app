@@ -58,13 +58,13 @@ const Cash = () => {
       const orderData = {
         paymentMethod: payment,
         totolPrice: createTotal,
-        user: user,
+        customerId: user?.id,
         items: items,
       };
       console.log('sending data of order to create', orderData);
       const OrderCreated = await createOrder(orderData);
       console.log('dispatching created order', OrderCreated);
-      dispatch(addOrders(OrderCreated));
+      // dispatch(addOrders(OrderCreated));
       // dispatch(emptyCart())
       console.log('going to share with created order',{data: orderData})
       navigation.navigate('Share', {data: orderData});
@@ -100,7 +100,7 @@ const Cash = () => {
   // }
     const data = {
     items: order.items,
-    customerId: order.user.id,
+    customerId: order.customerId,
     totalPrice: order.totolPrice,
     paymentMethod: order.paymentMethod,
     status: "Pending"
@@ -132,22 +132,22 @@ const Cash = () => {
     }
   };
 
-  const getCustomer = async customerId => {
-    console.log('This is items ', customerId);
-    try {
-      console.log('getting user async', customerId);
+  // const getCustomer = async customerId => {
+  //   console.log('This is items ', customerId);
+  //   try {
+  //     console.log('getting user async', customerId);
 
-      const response = await gettingCustomer(customerId);
-      console.log('getting user response ', response);
+  //     const response = await (customerId);
+  //     console.log('getting user response ', response);
 
-      return response;
-    } catch (error) {
-      console.log('error geting user', error);
-    }
-  };
+  //     return response;
+  //   } catch (error) {
+  //     console.log('error geting user', error);
+  //   }
+  // };
   const [Isloading, setIsloadig] = useState(true);
   useEffect(() => {
-    getCustomer(customerId);
+    // getCustomer(customerId);
     const timer = setTimeout(() => {
       setIsloadig(false);
     }, 2000);

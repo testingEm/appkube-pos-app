@@ -107,11 +107,13 @@ const screenOptions = ({ route }) => ({
         break;
       default:
         iconName = 'alert-circle-outline';
+        
     }
-
     // Use the iconName determined by the switch statement
     return <Ionicons name={iconName} size={size} color={color} />;
   },
+ tabBarActiveTintColor: 'blue'
+
 });
 
 
